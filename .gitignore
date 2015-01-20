@@ -26,3 +26,12 @@ node_modules
 
 # Users Environment Variables
 .lock-wscript
+
+# OS X Junk
+.DS_Store
+
+# Build destination
+dist
+
+# Bower
+bower_components
