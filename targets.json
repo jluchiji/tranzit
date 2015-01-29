@@ -1,0 +1,36 @@
+{
+  "default": {
+    "paths": { "dest": "dist" },
+    "bower": {
+      "scripts": [
+        "jquery/dist/jquery.js",
+        "underscore/underscore.js",
+        "angular/angular.js"
+      ]
+    }
+  },
+
+  "development": {
+    "sourcemaps": true,
+    "stylesheets": [
+      "index.css"
+    ],
+    "scripts": [
+      "ng/app.js",
+      "index.js"
+    ]
+  },
+
+  "production": {
+    "minify": true,
+    "concat": true,
+
+    "stylesheets": [
+      "index.css"
+    ],
+    "scripts": [
+      "index.js"
+    ]
+  }
+
+}

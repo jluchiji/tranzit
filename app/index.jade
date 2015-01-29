@@ -1,0 +1,15 @@
+doctype html
+html
+  head
+    title Tranzit
+    meta(charset = 'utf-8')
+    meta(name='viewport', content='width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no')
+    
+    each url in stylesheets
+      link(rel = 'stylesheet', href = url)  
+          
+  body(ng-app = 'tranzit.app')
+    h1 Hello World!
+    each url in scripts
+      script(src = url)
+          
