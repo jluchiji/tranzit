@@ -1,0 +1,36 @@
+# Tranzit - Example interaction between application modules
+msc {
+  hscale="1.4";
+
+  "User Interface",
+  "Client Logic",
+  "Server Routing",
+  "Data Access",
+  "Database";
+
+  |||;
+  "User Interface" => "Client Logic" [label = "getPackagesByUser(id)"];
+  "User Interface" rbox "User Interface" [label = "Loading animation"];
+  "Client Logic" -> "Server Routing" [label = "GET /api/packages?user=id\n{Authorization: token XXXX}"];
+
+
+  "Server Routing" => "Data Access" [label = "getUser(id)"];
+  "Data Access" -> "Database" [label = "SELECT * FROM users\nWHERE id = ?"];
+  "Database" >> "Data Access" [label = "user data"];
+
+  "Server Routing" rbox "Server Routing" [label = "Verifies auth token"];
+  "Server Routing" => "Data Access" [label = "getPackagesByUser(id)"];
+  "Data Access" -> "Database" [label = "SELECT * FROM packages\nWHERE user = ?"];
+  "Database" >> "Data Access" [label = "package[ ]"];
+  "Data Access" >> "Server Routing" [label = "package[ ]"];
+
+  "Server Routing" rbox "Server Routing" [label = "Processes data"];
+
+  "Server Routing" >> "Client Logic" [label = "package[ ]"];
+  "Client Logic" rbox "Client Logic" [label = "Process data"];
+  "Client Logic" >> "User Interface" [label = "Render data to DOM"];
+
+  "User Interface" rbox "User Interface" [label = "Disable loading animation"];
+
+  |||;
+}

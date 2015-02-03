@@ -1,0 +1,18 @@
+# Tranzit Authentication Sequence
+msc {
+  hscale="1.4";
+
+  Client,
+  Server,
+  Database;
+
+  |||;
+  --- [label="client authentication sequence"];
+  Client -> Server [label="GET /api/auth (credentials)"];
+  Server -> Database [label="getUser(userId)"];
+  Database rbox Database [label="Search for user entry"];
+  Database >> Server [label="user data"];
+  Server rbox Server [label="Verifies credentials"];
+  Server >> Client [label="auth token"];
+  |||;
+}
