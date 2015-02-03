@@ -1,0 +1,11 @@
+{
+  "operations": {
+    "maxStoreLength": 72
+  },
+  "security": {
+    "saltSize": 16,
+    "authSize": 16,
+    "tokenTtl": 1440,
+    "secureTokenTtl": 120
+  }
+}
