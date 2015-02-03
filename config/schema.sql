@@ -31,7 +31,5 @@ CREATE TABLE IF NOT EXISTS packages (
   `released`    DATETIME    DEFAULT NULL,
   `user`        VARCHAR(20) NOT NULL,
   PRIMARY KEY (id),
-  INDEX packages_tracking (tracking),
-  FOREIGN KEY (recipient) REFERENCES recipients(id) ON DELETE CASCADE,
-  FOREIGN KEY (user) REFERENCES users(id) ON DELETE SET NULL
+  INDEX packages_tracking (tracking)
 );
