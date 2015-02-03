@@ -35,3 +35,6 @@ dist
 
 # Bower
 bower_components
+
+# Private files
+*private.*
