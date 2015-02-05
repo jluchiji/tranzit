@@ -71,9 +71,8 @@ module.exports = (db) ->
         # Throw unhandled errors
         .done()
 
-
   # User authorization check
-  self.user = (level = 'user', type = 'default') ->
+  self.user = (type = 'default') ->
     return (req, res, next) ->
       # Use a Conveyor to handle the stuff
       conveyor = new Conveyor req, res, token: req.authToken
