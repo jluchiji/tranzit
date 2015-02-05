@@ -94,4 +94,61 @@ module.exports = (db) ->
         .done()
 
 
+  # Route handler for (GET /auth)
+  self.renew = ->
+    return (req, res) ->
+
+      #Start the Conveyor
+      (conveyor = new Conveyor req, res, user: req.authUser)
+
+        # Create a new token for the user
+        .then
+          input: 'user',
+          output: 'user.token',
+          auth.createToken
+
+        # Remove sensitive information from response
+        .then
+          input: 'user',
+          users.sanitize
+
+        # Send response, observe errors
+        .then conveyor.success
+        .catch errorMessage, conveyor.error
+        .done()
+
+  # Route handler for (DELETE /auth)
+  self.revoke = ->
+    return (req, res) ->
+
+      #Start the Conveyor
+      (conveyor = new Conveyor req, res, user: req.authUser)
+
+        # Generate a new secret key
+        .then
+          output: 'params.auth',
+          crypto.generateAuth
+
+        # Update user to have the new secret key
+        .then
+          input: ['user', 'params'],
+          users.update
+
+        # Create a new auth token for the user
+        .then
+          input: 'user',
+          output: 'user.token',
+          auth.createToken
+
+        # Remove sensitive information from response
+        .then
+          input: 'user',
+          users.sanitize
+
+        # Send success or observe errors
+        .then conveyor.success
+        .catch errorMessage, conveyor.error
+        .done()
+
+
   return self

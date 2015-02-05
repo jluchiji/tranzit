@@ -13,7 +13,7 @@ express = require('express')
 module.exports = (db) ->
 
   # Load our middleware here
-
+  authorize = require('./authorize.js')(db)
 
   # Load out api callbacks here
   auth  = require('./api/auth.js')(db)
@@ -25,12 +25,25 @@ module.exports = (db) ->
   # API router, which handles all API calls
   root.use '/api', api = express.Router()
 
+  # Token parser
+  api.use '*', (req, res, next) ->
+    res.setHeader('Content-Type', 'application/json')
+    next()
+  api.use '*', authorize.tokenParser()
+
   # /auth
   api.route '/auth'
 
     # POST /api/auth
     .post auth.create()
 
+    # GET /api/auth
+    .get authorize.user()
+    .get auth.renew()
+
+    # DELETE /api/auth
+    .delete authorize.user()
+    .delete auth.revoke()
 
   # /users
   api.route '/users'

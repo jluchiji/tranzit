@@ -64,8 +64,10 @@ module.exports = (db) ->
       .table('users')
       .where('id = ?', user.id)
     # Update display name if needed
-    if params.name
-      query = query.set('name', params.name)
+    if params.firstName
+      query = query.set('firstName', params.firstName)
+    if params.lastName
+      query = query.set('lastName', params.lastName)
     if params.hash
       query = query.set('hash', params.hash)
     if params.auth

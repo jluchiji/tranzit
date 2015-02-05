@@ -30,7 +30,6 @@ self.hash = Promise.promisify bcrypt.hash
 # Compares hashed data with a pre-existing hash                             #
 # ------------------------------------------------------------------------- #
 self.compare = (plain, hash) ->
-  console.log plain, hash
   return new Promise (resolve, reject) ->
     bcrypt.compare plain, hash, (error, result) ->
       if error then reject(error)
@@ -78,10 +77,9 @@ self.createToken = (user, secure = no) ->
   # Pack meta into payload
   payload = msgpack.pack(meta)
   # Calculate HMAC SHA-256 singature of the token
-  self.hmacDigest(payload, user.auth).
-  then((hash) ->
-    # Pack singature into the token meta as well
-    meta.push(hash)
-    # Output the resulting token
-    urlsafe.encode(msgpack.pack meta)
-  )
+  self.hmacDigest(payload, user.auth)
+    .then (hash) ->
+      # Pack singature into the token meta as well
+      meta.push(hash)
+      # Output the resulting token
+      urlsafe.encode(msgpack.pack meta)
