@@ -6,8 +6,8 @@
 # =========================================================================== #
 CREATE TABLE users (
   id          VARCHAR(20) NOT NULL,
-  first_name  VARCHAR(50) NOT NULL,
-  last_name   VARCHAR(50) NOT NULL,
+  firstName  VARCHAR(50) NOT NULL,
+  lastName   VARCHAR(50) NOT NULL,
   email       VARCHAR(50) NOT NULL  UNIQUE,
   hash        TEXT        NOT NULL,
   auth        TEXT        NOT NULL,
@@ -17,10 +17,10 @@ CREATE TABLE users (
 
 CREATE TABLE recipients (
   id          VARCHAR(20) NOT NULL,
-  first_name  VARCHAR(50) NOT NULL,
-  last_name   VARCHAR(50) NOT NULL,
+  firstName  VARCHAR(50) NOT NULL,
+  lastName   VARCHAR(50) NOT NULL,
   PRIMARY KEY (id),
-  INDEX recipients_name (first_name, last_name)
+  INDEX recipients_name (firstName, lastName)
 );
 
 CREATE TABLE packages (

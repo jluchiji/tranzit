@@ -51,6 +51,14 @@ module.exports = (db) ->
     # POST /api/users
     .post users.create()
 
+    # PUT /api/users
+    .put authorize.user('any')
+    .put users.update()
+
+  api.route '/users/:email'
+
+    # GET /api/users/:email
+    .get users.find()
 
   # Static content router, which serves the Tranzit web app
   root.use st = express.Router()

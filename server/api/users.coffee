@@ -91,5 +91,101 @@ module.exports = (db) ->
         # Throw all unobserved exceptions
         .done()
 
+  # Update a user's info
+  self.update = ->
+    return (req, res) ->
+      # Schema for required parameters
+      schema =
+        firstName: [String, null]
+        lastName: [String, null]
+        password: [String, null]
+        currentPassword: [String, null]
+
+      # Start the Conveyor
+      (conveyor = new Conveyor req, res, user: req.authUser, params: req.body)
+
+        # Validata request parameters
+        .then
+          input: 'params',
+          schema: schema,
+          util.schema
+
+      # Here, we branch the conveyor into two paths:
+      #  - If credential update requested, then require old password
+      #  - If no credentials update requested, proceed
+      # If a secure auth token is provided, then no need to check current password
+
+      # If password is being updated...
+      if req.body.password
+
+        # Re-authenticate if user supplied a general token
+        if not req.authToken.isSecure
+          conveyor
+            .then
+              input: 'params.currentPassword',
+              status: 401,
+              message: 'Authorization denied.',
+              util.exists
+            .then
+              input: ['user', 'params.currentPassword'],
+              auth.authenticate
+
+        # Generate new secret key and hash the password
+        conveyor
+          .then
+            output: 'params.auth',
+            crypto.generateAuth
+          .then
+            input: 'params.password',
+            output: 'params.hash',
+            crypto.bcryptHash
+
+      # Continue the pipeline
+      conveyor
+
+        # Update db records
+        .then
+          input: ['user', 'params'],
+          users.update
+
+        # Send success or observe errors
+        .then users.sanitize
+        .then conveyor.success
+        .catch conveyor.error
+        .done()
+
+  # Find user (by email)
+  self.find = ->
+    return (req, res) ->
+      # Schema for required parameters
+      schema =
+        email: /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
+
+      # Start the Conveyor
+      (conveyor = new Conveyor req, res, params: req.params)
+
+        # Validate request parameters
+        .then
+          input: 'params',
+          schema: schema,
+          util.schema
+
+        # Find user by email
+        .then
+          input: 'params.email',
+          output: 'user',
+          users.findByEmail
+
+        # Make sure the user exists
+        .then
+          status: 404,
+          message: 'User not found.',
+          util.exists
+
+        # Send success or observe errors
+        .then users.sanitize
+        .then conveyor.success
+        .catch conveyor.error
+        .done()
 
   return self

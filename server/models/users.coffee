@@ -48,8 +48,8 @@ module.exports = (db) ->
     query = squel.insert()
       .into('users')
       .set('id', id)
-      .set('first_name', params.firstName)
-      .set('last_name', params.lastName)
+      .set('firstName', params.firstName)
+      .set('lastName', params.lastName)
       .set('email', params.email)
       .set('hash', hash)
       .set('auth', auth)
@@ -75,7 +75,10 @@ module.exports = (db) ->
     # Execute the query
     db.query(query)
       .then ->
-        if params.name then user.name = params.name
+        if params.firstName
+          user.firstName = params.firstName
+        if params.lastName
+          user.lastName = params.lastName
         if params.hash
           user.hash = params.hash
           user.auth = params.auth
