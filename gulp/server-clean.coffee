@@ -6,10 +6,10 @@
 # --------------------------------------------------------------------------- #
 module.exports = (gulp, config) ->
 
-  gulp.task 'client:clean', ->
+  gulp.task 'server:clean', ->
 
     del     = require 'del'
     vinyl   = require 'vinyl-paths'
 
-    gulp.src './dist/app', read: no
+    gulp.src ['./dist/*', '!./dist/app'], read: no
       .pipe vinyl del
