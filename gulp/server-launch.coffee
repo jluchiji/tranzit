@@ -11,5 +11,4 @@ module.exports = (gulp, config) ->
     path       = require 'path'
     express    = require 'gulp-express'
 
-    express.run file: path.join config.paths.dest, '/server.js'
-    
+    express.run file: path.join(config.paths.dest, '/server.js'), env: 'gulp'

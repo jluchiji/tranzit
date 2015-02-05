@@ -1,0 +1,13 @@
+# --------------------------------------------------------------------------- #
+#                                                                             #
+# Tranzit Server                                                              #
+# Copyright © 2015 Tranzit Development Team                                   #
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+#                                                                             #
+# This file contains database connection and authentication configuration.    #
+#                                                                             #
+# --------------------------------------------------------------------------- #
+host:     "wyvernzora.ninja"
+user:     "tranzit"
+password: "C$307Team20"
+database: "tranzit"

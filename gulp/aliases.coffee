@@ -14,4 +14,4 @@ module.exports = (gulp, config) ->
 
   gulp.task 'bower', ['bower:scripts']
 
-  gulp.task 'server:build', ['server:scripts']
+  gulp.task 'server:build', ['server:scripts', 'server:config']

@@ -1,0 +1,39 @@
+# --------------------------------------------------------------------------- #
+#                                                                             #
+# Tranzit Server                                                              #
+# Copyright © 2015 Tranzit Development Team                                   #
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+#                                                                             #
+# This file contains server configuration that allows fine-tuning overall     #
+# server behavior.                                                            #
+#                                                                             #
+# --------------------------------------------------------------------------- #
+
+
+# This section configures operations aspects of Tranzit
+# like storage time.
+operations:
+
+  # Maximum number of days a package is kept in storage
+  maxStoreLength: 72
+
+# This section configures security of the Tranzit.
+security:
+
+  # Size of the salt when hashing the password (bytes)
+  # Only applies to newly hashed passwords.
+  # Default: 16 bytes
+  saltSize: 16,
+
+  # Size of the user secret key (bytes).
+  # Only applies to newly generated keys.
+  # Default: 16 bytes
+  authSize: 16,
+
+  # TTL (time-to-live) of general tokens (minutes).
+  # Default: 24 hours / 1440 minutes
+  tokenTtl: 1440,
+
+  # TTL (time-ti-live) of secure tokens (minutes).
+  # Default: 2 hours / 120 minutes
+  secureTokenTtl: 120
