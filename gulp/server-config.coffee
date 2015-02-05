@@ -6,22 +6,12 @@
 # --------------------------------------------------------------------------- #
 module.exports = (gulp, config) ->
 
-    gulp.task 'server:config', ['server:config:yaml', 'server:config:sql'], ->
+    gulp.task 'server:config', ['server:config:sql'], ->
 
       path = require 'path'
 
-      gulp.src ['config/**/*.{json}'], base: './config'
+      gulp.src ['config/**/*.{json,yml}'], base: './config'
 
-        .pipe gulp.dest path.join config.paths.dest, 'config'
-
-    # Compiles YAML into JSON
-    gulp.task 'server:config:yaml', ->
-
-      path = require 'path'
-      yaml = require 'gulp-yaml'
-
-      gulp.src ['config/**/*.{yaml,yml}'], base: './config'
-        .pipe yaml(safe: yes, space: 2)
         .pipe gulp.dest path.join config.paths.dest, 'config'
 
     # Strips comments from .sql script files

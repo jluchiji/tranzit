@@ -19,8 +19,8 @@ winston = require 'winston'           # Winston: Server logging
 debug   = require('debug')('tranzit:data')
 
 # Create database adapter
-dbconf  = require './config/db.json'
-db      = require('mysql-promise')();
+dbconf  = require('./config.js')('db.yml')
+db      = require('mysql-promise')()
 
 # Configure database using config file
 db.configure dbconf
@@ -35,6 +35,13 @@ db.query  = (query) ->
     return @$query query.text, query.values
   else
     return @$query.apply @, arguments
+
+# Monkey-patch in a few handy shortcu functions for DB
+
+# Gets the first row matching the query
+db.get = ->
+  @query.apply(@, arguments).then (rows) -> return rows[0]
+
 
 # Initializes the database if it is empty.
 # Returns a promise that resolves with the db object.

@@ -8,11 +8,11 @@ CREATE TABLE users (
   id          VARCHAR(20) NOT NULL,
   first_name  VARCHAR(50) NOT NULL,
   last_name   VARCHAR(50) NOT NULL,
-  uname       VARCHAR(50) NOT NULL  UNIQUE,
+  email       VARCHAR(50) NOT NULL  UNIQUE,
   hash        TEXT        NOT NULL,
   auth        TEXT        NOT NULL,
   PRIMARY KEY (id),
-  INDEX users_uname (uname)
+  INDEX users_email (email)
 );
 
 CREATE TABLE recipients (

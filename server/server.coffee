@@ -6,6 +6,9 @@
 #                                                                             #
 # --------------------------------------------------------------------------- #
 
+# Support sourcemaps
+require('source-map-support').install()
+
 # This is the main server file.
 # Let's try to keep this file to bare minimum and put code into
 # small, atomic modules for easier testing (if needed).
@@ -35,8 +38,11 @@ db.init fs.readFileSync schema, 'utf8'
 # Database initialization success
 .then ->
 
-  # Serve application files from the server root
-  app.use '/', express.static __dirname + '/app'
+  # Parse JSON request bodies
+  app.use require('body-parser').json()
+
+  # Mount the root router from routes.coffee
+  app.use require('./routes.js')(db)
 
   # Listen for incoming connections
   app.listen 3000, ->

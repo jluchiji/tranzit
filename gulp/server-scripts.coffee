@@ -14,7 +14,7 @@ module.exports = (gulp, config) ->
       plumber    = require 'gulp-plumber'
       sourcemaps = require 'gulp-sourcemaps'
 
-      gulp.src ['server/**.coffee'], base: './server'
+      gulp.src ['server/**/*.coffee'], base: './server'
 
         # Prevent crashes
         .pipe plumber()
