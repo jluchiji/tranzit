@@ -40,7 +40,7 @@ db.query  = (query) ->
 
 # Gets the first row matching the query
 db.get = ->
-  @query.apply(@, arguments).then (rows) -> return rows[0]
+  @query.apply(@, arguments).then (result) -> return result[0][0]
 
 
 # Initializes the database if it is empty.

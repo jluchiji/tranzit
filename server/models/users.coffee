@@ -33,9 +33,8 @@ module.exports = (db) ->
     query = squel.select()
       .from('users')
       .where('email = ?', email)
-      .limit(1)
     # Run it and return the promise
-    return db.query(query)
+    return db.get(query)
 
   # Find user by ID
   self.findById = (id) ->
@@ -55,9 +54,7 @@ module.exports = (db) ->
       .set('hash', hash)
       .set('auth', auth)
     db.query(query)
-      .then ->
-        console.log 'DB assess resolved!'
-        _.extend(params, id: id, hash: hash, auth: auth)
+      .then -> _.extend(params, id: id, hash: hash, auth: auth)
 
   # Update user
   self.update = (user, params) ->

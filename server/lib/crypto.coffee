@@ -29,7 +29,12 @@ self.hash = Promise.promisify bcrypt.hash
 # ------------------------------------------------------------------------- #
 # Compares hashed data with a pre-existing hash                             #
 # ------------------------------------------------------------------------- #
-self.compare = Promise.promisify bcrypt.compare
+self.compare = (plain, hash) ->
+  console.log plain, hash
+  return new Promise (resolve, reject) ->
+    bcrypt.compare plain, hash, (error, result) ->
+      if error then reject(error)
+      else resolve(result)
 
 # ------------------------------------------------------------------------- #
 # Generates a bcrypt hash of the password                                   #

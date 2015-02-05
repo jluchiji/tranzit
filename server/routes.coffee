@@ -13,9 +13,10 @@ express = require('express')
 module.exports = (db) ->
 
   # Load our middleware here
-  
+
 
   # Load out api callbacks here
+  auth  = require('./api/auth.js')(db)
   users = require('./api/users.js')(db)
 
   # Root router, whose mount path will be the Tranzit's root URL
@@ -23,6 +24,12 @@ module.exports = (db) ->
 
   # API router, which handles all API calls
   root.use '/api', api = express.Router()
+
+  # /auth
+  api.route '/auth'
+
+    # POST /api/auth
+    .post auth.create()
 
 
   # /users

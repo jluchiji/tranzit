@@ -32,6 +32,8 @@ class ChasConveyor extends Conveyor
       .send status: @config?.status ? 200, result: data
 
   error: (error) ->
+    if process.env.PCON_NO_CATCH is 'true'
+      return @
     # Unify error format and log to winston
     error = ChasConveyor.ServerError.convert(@conveyor.request, error)
     winston.warn(error.toString())

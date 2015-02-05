@@ -22,12 +22,11 @@ Conveyor = require('../lib/conveyor.js')      # Promise-chaining
 module.exports = (db) ->
 
   # Here we load APIs from data access module that are needed in this file
-  #auth   = require('../models/auth.js')(db)  # <-- Pass in the db object
+  auth   = require('../models/auth.js')(db)  # <-- Pass in the db object
   users  = require('../models/users.js')(db)
 
   # Object where we will attach our functions
   self = { }
-
 
   # Create a new user
   self.create = ->
@@ -72,9 +71,9 @@ module.exports = (db) ->
           users.create
 
         # Create an auth token
-        #.then
-        #  output: 'user.token',
-        #  auth.createToken
+        .then
+          output: 'user.token',
+          auth.createToken
 
         # Remove sensitive data
         .then
