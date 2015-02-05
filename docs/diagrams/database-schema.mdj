@@ -294,7 +294,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "+uname: VARCHAR",
+											"text": "+email: VARCHAR",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5
 										},
@@ -4376,7 +4376,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFLUzS4SOazWHc="
 							},
-							"name": "uname",
+							"name": "email",
 							"visibility": "public",
 							"isStatic": false,
 							"isLeaf": false,
