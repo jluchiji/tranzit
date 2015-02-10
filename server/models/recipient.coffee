@@ -48,7 +48,7 @@ module.exports = (db) ->
       .then -> _.extend(params, id: id)
 
   #Updates a recipient's info
-  self.update = (recipient, params)
+  self.update = (recipient, params) ->
     @config.output ?= 'recipient'
 
     query = squel.update()
