@@ -26,14 +26,14 @@ module.exports = (db) ->
     query = squel.select()
       .from('recipient')
       .where('email = ?', email)
-    return db.get query
+    return db.get(query)
 
   #Find recipient by their ID
   self.findByID = (id) ->
     query = squel.select()
       .from('recipient')
       .where('id = ?', id)
-    return db.get query
+    return db.get(query)
 
   #Create recipient
   self.create = (id, params) ->

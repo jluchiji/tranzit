@@ -41,7 +41,7 @@ module.exports = (db) ->
     query = squel.select()
       .from('users')
       .where('id = ?', id)
-    db.get query
+    db.get(query)
 
   # Create user
   self.create = (id, params, hash, auth) ->

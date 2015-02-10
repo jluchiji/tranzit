@@ -26,21 +26,21 @@ module.exports = (db) ->
     query = squel.select()
       .from('package')
       .where('tracking = ?', trackingNumber)
-    return db.get query
+    return db.get(query)
 
   #Finds packages belonging to a user
   self.findByUserID = (userID) ->
     query = squel.select()
       .from('package')
       .where('user = ?', userID)
-    return db.get query
+    return db.get(query)
 
   #Finds packages by received date
   self.findByReceivedDate = (receivedDate) ->
     query = squel.select()
       .from('package')
       .where('received = ?', receivedDate)
-    return db.get query
+    return db.get(query)
 
   #Creates a new package object
   self.create = (id, params, user) ->
