@@ -1,7 +1,9 @@
 # Main build script
+_         = require 'underscore'
+fs        = require 'fs'
 gulp      = require 'gulp'
 load      = require 'require-dir'
-_         = require 'underscore'
+yaml      = require 'yamljs'
 
 # Enable coffee-script compiler
 coffee    = require 'coffee-script/register'
@@ -13,7 +15,7 @@ argv      = require('yargs')
   .argv
 
 # Config Object
-config    = require('./targets.json')
+config    = yaml.parse fs.readFileSync './targets.yml', 'utf8'
 config    = _.extend config.default, config[argv.target]
 
 # Load tasks

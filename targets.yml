@@ -1,0 +1,65 @@
+# --------------------------------------------------------------------------- #
+# Tranzit build targets configuration.                                        #
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+# Copyright © 2015 Tranzit Development Team                                   #
+# See LICENSE.md for terms of distribution.                                   #
+# --------------------------------------------------------------------------- #
+
+
+
+# --------------------------------------------------------------------------- #
+# Default Target. This is base config for all other targets.                  #
+# --------------------------------------------------------------------------- #
+default:
+
+  # File paths involved in the build process
+  paths:
+    dest:  dist
+    bower: bower_components
+
+  # Bower files to inject into the client HTML page, in order
+  bower:
+    scripts:
+      - jquery/dist/jquery.js
+      - underscore/underscore.js
+      - angular/angular.js
+    stylesheets:
+
+    fonts:
+
+    assets:
+
+
+# --------------------------------------------------------------------------- #
+# Development build, optimized for easier debugging.                          #
+# --------------------------------------------------------------------------- #
+development:
+
+  # Enable source maps for easier debugging
+  sourcemaps: yes
+
+  # Development-specific scripts to inject
+  scripts:
+    - ng/app.js
+    - index.js
+
+  # Development-specific stylesheets
+  stylesheets:
+    - index.css
+
+# --------------------------------------------------------------------------- #
+# Production build, optimized for fewer and smaller files.                    #
+# --------------------------------------------------------------------------- #
+production:
+
+  # Enable file concatenation and minification
+  concat: yes
+  minify: yes
+
+  # Production-specific scripts to inject
+  scripts:
+    - index.js
+
+  # Production-specific stylesheets to inject
+  stylesheets:
+    - index.css
