@@ -1,0 +1,172 @@
+// ------------------------------------------------------------------------- //
+//                                                                           //
+// LESS variables and mixins                                                 //
+// XXX DO NOT put anything other than variables and mixins here              //
+//                                                                           //
+// ------------------------------------------------------------------------- //
+
+
+// ------------------------------------------------------------------------- //
+// Color Palette                                                             //
+// ------------------------------------------------------------------------- //
+@white-darker:          #F0F0F0;
+@white-dark:            #FBFBFB;
+@white:                 #FFFFFF;
+
+@gray-light-a:          #AAA;
+@gray-light-d:          #DDD;
+
+@blue:                  #2196F3;
+@blue-light:            #51CBEE;
+@green:                 #4AFF6E;
+
+@brand-primary:         #ED2939;
+
+// ------------------------------------------------------------------------- //
+// Bootstrap overwrite                                                       //
+// ------------------------------------------------------------------------- //
+//@navbar-height: 64px;
+
+// ------------------------------------------------------------------------- //
+// Typography                                                                //
+// ------------------------------------------------------------------------- //
+@root-font:             10px 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Segoe UI', arial, sans-serif;
+
+@font-size-h1:          4.2rem;
+@font-size-h2:          3.2rem;
+@font-size-h3:          2.4rem;
+@font-size-h4:          2.0rem;
+@font-size-p:           1.6rem;
+@font-size-small:       1.2rem;
+
+// ------------------------------------------------------------------------- //
+// Shorthands                                                                //
+// ------------------------------------------------------------------------- //
+@style-sep-dark:        1px solid @gray-light-a;
+@style-sep-light:       1px solid @gray-light-d;
+
+
+// ------------------------------------------------------------------------- //
+// Box Shadows (See Polymer paper shadows)                                   //
+// ------------------------------------------------------------------------- //
+@paper-border-color:    black;
+
+.paper-shadow {
+  //transition: all 0.25s ease-out;
+}
+
+.paper-shadow(@z) { }
+.paper-shadow(0) {
+  &:extend(.paper-shadow);
+  box-shadow: none;
+}
+.paper-shadow(1) {
+  &:extend(.paper-shadow);
+  box-shadow: 0 2px 5px 0 fadeout(@paper-border-color, 74%),
+              0 2px 10px 0 fadeout(@paper-border-color, 84%);
+}
+.paper-shadow(2) {
+  &:extend(.paper-shadow);
+  box-shadow: 0 8px 17px 0 fadeout(@paper-border-color, 80%),
+              0 6px 20px 0 fadeout(@paper-border-color, 81%);
+}
+.paper-shadow(3) {
+  &:extend(.paper-shadow);
+  box-shadow: 0 12px 15px 0 fadeout(@paper-border-color, 76%),
+              0 17px 50px 0 fadeout(@paper-border-color, 81%);
+}
+.paper-shadow(4) {
+  &:extend(.paper-shadow);
+  box-shadow: 0 16px 28px 0 fadeout(@paper-border-color, 78%),
+              0 25px 55px 0 fadeout(@paper-border-color, 79%);
+}
+.paper-shadow(5) {
+  &:extend(.paper-shadow);
+  box-shadow: 0 27px 24px 0 fadeout(@paper-border-color, 80%),
+              0 40px 77px 0 fadeout(@paper-border-color, 78%);
+}
+.navbar-shadow {
+  box-shadow: 4px 0 20px 0 fadeout(@paper-border-color, 50%);
+}
+
+@style-box-shadow:      1px 2px 15px @gray;
+@style-box-shadow-h:    inset 0 8px 8px -8px @gray,
+                        inset 0 -8px 8px -8px @gray;
+
+// ------------------------------------------------------------------------- //
+// Force-centering (by absolute position)                                    //
+// ------------------------------------------------------------------------- //
+.absolute-center-x {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.absolute-center-y {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.absolute-center {
+  &:extend(.absolute-center-x);
+  &:extend(.absolute-center-y);
+  transform: translateX(-50%) translateY(-50%);
+}
+
+// ------------------------------------------------------------------------- //
+// Mixins                                                                    //
+// ------------------------------------------------------------------------- //
+
+// Completely fills and fixes the ancestor element
+.abs-pos-fill() {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+// Centers the block
+.center-block() {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// Take up all horizontal space
+.full-width() { width: 100%; }
+
+// Margin/padding shorthands
+.margin-h(@m) {
+  margin-left: @m;
+  margin-right: @m;
+}
+.margin-v(@m) {
+  margin-top: @m;
+  margin-bottom: @m;
+}
+.padding-h(@m) {
+  padding-left: @m;
+  padding-right: @m;
+}
+.padding-v(@m) {
+  padding-top: @m;
+  padding-bottom: @m;
+}
+
+.hoverable(@bg) {
+  background: @bg;
+  &:hover, &:focus {
+    background: darken(@bg, 5%);
+  }
+  &:active {
+    background: darken(@bg, 10%);
+  }
+  &:focus {
+    outline: 0;
+    outline: none;
+    box-shadow: none;
+  }
+  &[disabled], &.disabled {
+    background: desaturate(@bg, 70%);
+  }
+}

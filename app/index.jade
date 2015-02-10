@@ -9,7 +9,10 @@ html
       link(rel = 'stylesheet', href = url)  
           
   body(ng-app = 'tranzit.app')
-    h1 Hello World!
+    ng-include(src = '"shared/part-navbar/part-navbar.html"')
+    
+    div(ui-view)
+    
     each url in scripts
       script(src = url)
           

@@ -2,3 +2,27 @@
 
 // Load twitter bootstrap, strip down unneeded components later
 @import "../bower_components/bootstrap/less/bootstrap.less";
+
+// Load shared styles
+@import "shared/part-navbar/part-navbar.import.less";
+@import "shared/styles/variables.import.less";
+@import "shared/styles/webfonts.import.less";
+@import "shared/styles/util.import.less";
+
+// Load view-specific styles
+
+
+
+
+// Root page layout
+ui-view, [ui-view] {
+  //padding-top: @navbar-height;
+  position: absolute;
+  top: @navbar-height;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
