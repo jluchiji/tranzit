@@ -5,9 +5,6 @@
 #      \/_/   \/_/ /_/   \/_/\/_/   \/_/ \/_/   \/_____/   \/_/     \/_/
 #
 # Copyright © 2015 Tranzit Development Team
+angular.module 'Tranzit.config', []
 
-angular.module 'Tranzit.app.ctrl.root', []
-.controller 'RootController', ($scope, AppData) ->
-
-  $scope.click = ->
-    AppData.login()
+.constant 'ApiConfig', host: 'http://localhost:3000'

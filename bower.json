@@ -21,6 +21,7 @@
     "underscore": "~1.7.0",
     "bootstrap": "~3.3.2",
     "ui-router": "~0.2.13",
-    "angular-ui-router": "~0.2.13"
+    "angular-ui-router": "~0.2.13",
+    "ngstorage": "~0.3.0"
   }
 }

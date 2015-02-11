@@ -5,9 +5,12 @@
 #      \/_/   \/_/ /_/   \/_/\/_/   \/_/ \/_/   \/_____/   \/_/     \/_/
 #
 # Copyright © 2015 Tranzit Development Team
+angular.module 'Tranzit.app.session', []
 
-angular.module 'Tranzit.app.ctrl.root', []
-.controller 'RootController', ($scope, AppData) ->
+.service 'AppSession', ->
 
-  $scope.click = ->
-    AppData.login()
+  # Just in case we need to use @ from within nested functions
+  self = @
+
+  # User session
+  @user = null

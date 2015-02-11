@@ -23,6 +23,7 @@ default:
       - jquery/dist/jquery.js
       - underscore/underscore.js
       - angular/angular.js
+      - ngstorage/ngStorage.js
       - angular-ui-router/release/angular-ui-router.js
     stylesheets:
 
@@ -41,8 +42,13 @@ development:
 
   # Development-specific scripts to inject
   scripts:
+    - api/auth-session.js
+    - api/auth.js
     - ng/app.js
+    - ng/app.config.js
+    - ng/app.data.js
     - ng/app.routing.js
+    - ng/app.session.js
     - index.js
 
   # Development-specific stylesheets
