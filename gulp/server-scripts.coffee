@@ -30,3 +30,21 @@ module.exports = (gulp, config) ->
         # Write out
         .pipe gulpif config.sourcemaps, sourcemaps.write('./')
         .pipe gulp.dest config.paths.dest
+
+    gulp.task 'server:config', ['server:config:sql'], ->
+
+      path = require 'path'
+
+      gulp.src ['config/**/*.{json,yml}'], base: './config'
+
+        .pipe gulp.dest path.join config.paths.dest, 'config'
+
+    # Strips comments from .sql script files
+    gulp.task 'server:config:sql', ->
+
+      path    = require 'path'
+      replace = require 'gulp-replace'
+
+      gulp.src ['config/**/*.sql'], base: './config'
+        .pipe replace /(?:#.+\n)|(?:\/\/.+\n)|(?:\-\-.+\n)|(?:\/\*[\s\S]*\*\/)/g, ''
+        .pipe gulp.dest path.join config.paths.dest, 'config'
