@@ -9,22 +9,23 @@
 module.exports = (gulp, config) ->
   gulp.task 'client-assets', ->
     path = require 'path'
-    imagemin = require('gulp-imagemin');
-    pngquant = require('imagemin-pngquant');
+    imagemin = require 'gulp-imagemin'
+    pngquant = require 'imagemin-pngquant'
+    gulpFilter = require 'gulp-filter'
+    svgFilter = gulpFilter 'assets/*.svg'
+    pngFilter = gulpFilter 'assets/*.png'
+    jpgFilter = gulpFilter 'assets/*.jpg'
     gulp.src['assets/**'], base: './assets'
-      `.pipe(imagemin({
-         progressive: true,
-         interlaced: true,
-         multipass: true,
-         svgoPlugins: [{removeViewBox: false}],
-         use: [pngquant()]
-       }))`
+      .pipe svgFilter
+      .pipe pngFilter
+      .pipe jpgFilter
+      .pipe imagemin
+        progressive: true
+        interlaced: true
+        multipass: true
+        svgoPlugins: [removeViewBox: false]
+        use: [pngquant()]
+      .pipe svgFilter.restore()
+      .pipe pngFilter.restore()
+      .pipe jpgFilter.restore()
       .pipe gulp.dest path.join config.paths.dest, 'app/assets'
-
- # Attempt to translate javascript into coffeescript
-#      .pipe imagemin
-#        progressive: true
-#        interlaced: true
-#        multipass: true
-#        svgoPlugins: [removeViewBox: false]
-#        use: [pngquant ]
