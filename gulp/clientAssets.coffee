@@ -7,7 +7,7 @@
 # Copyright © 2015 Tranzit Development Team
 
 module.exports = (gulp, config) ->
-  gulp.task 'client-assets', ->
+  gulp.task 'client:assets', ->
     path = require 'path'
     imagemin = require 'gulp-imagemin'
     pngquant = require 'imagemin-pngquant'
