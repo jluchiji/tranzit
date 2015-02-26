@@ -49,3 +49,7 @@ module.exports = (gulp, config) ->
 
     # bring everything together with index.js (concat)
     .pipe gulpif config.concat, concat 'index.js'
+
+    # write out product
+    .pipe gulpif config.sourcemaps, sourcemaps.write()
+    .pipe gulp.dest path.join config.paths.dest, 'app'
