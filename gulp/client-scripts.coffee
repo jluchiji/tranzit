@@ -44,4 +44,8 @@ module.exports = (gulp, config) ->
     .pipe sourcemaps.init()
     .pipe coffee()
 
-    # TODO: add JS files to bundle
+    # add javascript files to bundle
+    .pipe addsrc('app/**/*.js')
+
+    # bring everything together with index.js (concat)
+    .pipe gulpif config.concat, concat 'index.js'
