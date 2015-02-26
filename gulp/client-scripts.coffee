@@ -29,3 +29,6 @@ module.exports = (gulp, config) ->
     plumber = require 'gulp-plumber'
     sourcemaps = require 'gulp-sourcemaps'
     ngAnnotate = require 'gulp-ng-annotate'
+
+    # gather all coffeescript source files in /app/...
+    gulp.src ['app/**/*.coffee'], base: './app'
