@@ -32,3 +32,16 @@ module.exports = (gulp, config) ->
 
     # gather all coffeescript source files in /app/...
     gulp.src ['app/**/*.coffee'], base: './app'
+
+    # handle and prevent crashes
+    .pipe plumber()
+
+    # check for script mistakes
+    .pipe lint()
+    .pipe lint.reporter()
+
+    # compile coffescript source
+    .pipe sourcemaps.init()
+    .pipe coffee()
+
+    # TODO: add JS files to bundle
