@@ -13,3 +13,19 @@
 #
 # rosenbea
 #
+
+module.exports = (gulp, config) ->
+
+  gulp.task 'client:scripts', ->
+
+    # add the necessary dependencies
+    path = require 'path'
+    lint = require 'gulp-coffeelint'
+    addsrc = require 'gulp-add-src'
+    gulpif = require 'gulp-if'
+    concat = require 'gulp-concat'
+    coffee = require 'gulp-coffee'
+    uglify = require 'gulp-uglify'
+    plumber = require 'gulp-plumber'
+    sourcemaps = require 'gulp-sourcemaps'
+    ngAnnotate = require 'gulp-ng-annotate'
