@@ -33,29 +33,29 @@ module.exports = (gulp, config) ->
     # gather all coffeescript source files in /app/...
     gulp.src ['app/**/*.coffee'], base: './app'
 
-    # handle and prevent crashes
-    .pipe plumber()
+      # handle and prevent crashes
+      .pipe plumber()
 
-    # check for script mistakes
-    .pipe lint()
-    .pipe lint.reporter()
+      # check for script mistakes
+      .pipe lint()
+      .pipe lint.reporter()
 
-    # compile coffescript source
-    .pipe sourcemaps.init()
-    .pipe coffee()
+      # compile coffescript source
+      .pipe sourcemaps.init()
+      .pipe coffee()
 
-    # add javascript files to bundle
-    .pipe addsrc('app/**/*.js')
+      # add javascript files to bundle
+      .pipe addsrc('app/**/*.js')
 
-    # bring everything together with index.js (concat)
-    .pipe gulpif config.concat, concat 'index.js'
+      # bring everything together with index.js (concat)
+      .pipe gulpif config.concat, concat 'index.js'
 
-    # Angular.js annotations pre-processing...
-    .pipe ngAnnotate add: yes, remove: yes, single_quotes: yes
+      # Angular.js annotations pre-processing...
+      .pipe ngAnnotate add: yes, remove: yes, single_quotes: yes
 
-    # Parse js files and make them "nicer" (Uglify)
-    .pipe gulpif config.minify, uglify()
+      # Parse js files and make them "nicer" (Uglify)
+      .pipe gulpif config.minify, uglify()
 
-    # write out product
-    .pipe gulpif config.sourcemaps, sourcemaps.write()
-    .pipe gulp.dest path.join config.paths.dest, 'app'
+      # write out product
+      .pipe gulpif config.sourcemaps, sourcemaps.write()
+      .pipe gulp.dest path.join config.paths.dest, 'app'
