@@ -53,6 +53,9 @@ module.exports = (gulp, config) ->
     # Angular.js annotations pre-processing...
     .pipe Annotate add: yes, remove: yes, single_quotes: yes
 
+    # Parse js files and make them "nicer" (Uglify)
+    .pipe gulpif config.minify, uglify()
+
     # write out product
     .pipe gulpif config.sourcemaps, sourcemaps.write()
     .pipe gulp.dest path.join config.paths.dest, 'app'
