@@ -50,6 +50,9 @@ module.exports = (gulp, config) ->
     # bring everything together with index.js (concat)
     .pipe gulpif config.concat, concat 'index.js'
 
+    # Angular.js annotations pre-processing...
+    .pipe Annotate add: yes, remove: yes, single_quotes: yes
+
     # write out product
     .pipe gulpif config.sourcemaps, sourcemaps.write()
     .pipe gulp.dest path.join config.paths.dest, 'app'
