@@ -51,7 +51,7 @@ module.exports = (gulp, config) ->
     .pipe gulpif config.concat, concat 'index.js'
 
     # Angular.js annotations pre-processing...
-    .pipe Annotate add: yes, remove: yes, single_quotes: yes
+    .pipe ngAnnotate add: yes, remove: yes, single_quotes: yes
 
     # Parse js files and make them "nicer" (Uglify)
     .pipe gulpif config.minify, uglify()
