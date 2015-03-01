@@ -18,11 +18,12 @@ angular.module 'Tranzit.app', [
   'Tranzit.config',
   'Tranzit.api.auth',
   'Tranzit.api.session',
+  'Tranzit.app.events',
+  'Tranzit.app.const',
   'Tranzit.app.data',
   'Tranzit.app.routing',
   'Tranzit.app.session',
   'Tranzit.app.ctrl.root'
-
 ]
 
 # Configure Underscore.js to recognize /:param style URL templates
@@ -31,3 +32,52 @@ angular.module 'Tranzit.app', [
     evaluate: /:!([A-Za-z0-9]+)/g
     interpolate: /:([A-Za-z0-9]+)/g
     escape: /::([A-Za-z0-9]+)/g
+
+.config ($provide) ->
+  $provide.decorator '$q', ($delegate) ->
+    defer = $delegate.defer
+    _when = $delegate.when
+    reject = $delegate.reject
+    all = $delegate.all
+    # Extend promises with non-returning handlers
+
+    decoratePromise = (promise) ->
+      promise._then = promise.then
+
+      promise.then = (thenFn, errFn, notifyFn) ->
+        p = promise._then(thenFn, errFn, notifyFn)
+        decoratePromise p
+
+      promise.success = (fn) ->
+        promise.then (value) ->
+          fn value
+          return
+        promise
+
+      promise.error = (fn) ->
+        promise.then null, (value) ->
+          fn value
+          return
+        promise
+
+      promise
+
+    $delegate.defer = ->
+      deferred = defer()
+      decoratePromise deferred.promise
+      deferred
+
+    $delegate.when = ->
+      p = _when.apply(this, arguments)
+      decoratePromise p
+
+    $delegate.reject = ->
+      p = reject.apply(this, arguments)
+      decoratePromise p
+
+    $delegate.all = ->
+      p = all.apply(this, arguments)
+      decoratePromise p
+
+    $delegate
+  return
