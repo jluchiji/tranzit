@@ -38,7 +38,7 @@ default:
 development:
 
   # Enable source maps for easier debugging
-  sourcemaps: yes
+  sourcemaps: true
 
   # Development-specific scripts to inject
   scripts:
@@ -63,8 +63,8 @@ development:
 production:
 
   # Enable file concatenation and minification
-  concat: yes
-  minify: yes
+  concat: true
+  minify: true
 
   # Production-specific scripts to inject
   scripts:
