@@ -15,7 +15,7 @@ module.exports = (gulp, config) ->
     svgFilter = gulpFilter 'assets/*.svg'
     pngFilter = gulpFilter 'assets/*.png'
     jpgFilter = gulpFilter 'assets/*.jpg'
-    gulp.src['assets/**'], base: './assets'
+    gulp.src ['assets/**'], base: './assets'
       .pipe svgFilter
       .pipe pngFilter
       .pipe jpgFilter

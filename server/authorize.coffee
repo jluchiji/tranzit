@@ -17,7 +17,7 @@ moment = require 'moment'
 
 crypto = require './lib/crypto.js'
 util = require './lib/util.js'
-Conveyor = './lib/conveyor.js' 
+Conveyor = require './lib/conveyor.js'
 config = require('./config.js')('server.yml')
 
 module.exports = (db) ->
@@ -34,27 +34,27 @@ module.exports = (db) ->
             if not urlsafe.validate(token)
               @conveyor.panic('Malformed auth token:' + token, 400)
             return token
-          .then (token) ->
-            meta = msgpack.unpack urlsafe.decode token
-            if not _.isArray(meta)
-              @conveyor.panic('Malformed auth token:' + token, 400)
-            else
-              return {
-                isSecure: meta[0]
-                userId: meta[1]
-                createdAt: meta[2]
-                _signature: meta[3]
-                _payload: msgpack.pack(meta.slice(0,-1))
-              }
-            .then (token) ->
-              req.authToken = token
-              next()
-            .catch (error) ->
-              if not error.details?.ignore
-                winston.warn error.toString()
-              req.authToken = null
-              next()
-            .done()
+        .then (token) ->
+          meta = msgpack.unpack urlsafe.decode token
+          if not _.isArray(meta)
+            @conveyor.panic('Malformed auth token:' + token, 400)
+          else
+            return {
+              isSecure: meta[0]
+              userId: meta[1]
+              createdAt: meta[2]
+              _signature: meta[3]
+              _payload: msgpack.pack(meta.slice(0,-1))
+            }
+        .then (token) ->
+          req.authToken = token
+          next()
+        .catch (error) ->
+          if not error.details?.ignore
+            winston.warn error.toString()
+          req.authToken = null
+          next()
+        .done()
 
   self.user = (type = 'default') ->
     return (req, res, next) ->
@@ -73,40 +73,40 @@ module.exports = (db) ->
               if type is 'secure' and not token.isSecure
                 @conveyor.panic('Bad auth token type: secure token required', 401)
             return token
-          .then
-            output: 'user',
-            (token) ->
-              db.get squel.select().from('users').where('id = ?', token.userId)
-          .then
-            status: 404,
-            message: 'User not found',
-            util.exists
-          .then
-            input: ['token._payload', 'user.auth'],
-            output: 'hmac'
-            crypto.hmacDigest
-          .then
-            input: ['token', 'hmac'],
-            (token, hmac) ->
-              if token._signature isnt hmac
-                @conveyor.panic('Bad token signature', 401)
-              ttl = if token.isSecure
-                config.security.tokenTtl
-              else
-                config.security.secureTokenTtl
-              time = moment().unix() - token.createdAt
-              if time > ttl then @conveyor.panic('Auth token expired', 401)
-              if req.params.userId and (token.userId isnt req.params.userId)
-                @conveyor.panic('Token user ID does not match requested resource owner ID', 401)
-          .then
-            input: 'user',
-            (user) ->
-              req.authUser = user
-              next()
-          .catch
-            status: 401,
-            message: 'Authorization denied',
-            conveyor.error
-          .done()
+        .then
+          output: 'user',
+          (token) ->
+            db.get squel.select().from('users').where('id = ?', token.userId)
+        .then
+          status: 404,
+          message: 'User not found',
+          util.exists
+        .then
+          input: ['token._payload', 'user.auth'],
+          output: 'hmac'
+          crypto.hmacDigest
+        .then
+          input: ['token', 'hmac'],
+          (token, hmac) ->
+            if token._signature isnt hmac
+              @conveyor.panic('Bad token signature', 401)
+            ttl = if token.isSecure
+              config.security.tokenTtl
+            else
+              config.security.secureTokenTtl
+            time = moment().unix() - token.createdAt
+            if time > ttl then @conveyor.panic('Auth token expired', 401)
+            if req.params.userId and (token.userId isnt req.params.userId)
+              @conveyor.panic('Token user ID does not match requested resource owner ID', 401)
+        .then
+          input: 'user',
+          (user) ->
+            req.authUser = user
+            next()
+        .catch
+          status: 401,
+          message: 'Authorization denied',
+          conveyor.error
+        .done()
 
   return self
