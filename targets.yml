@@ -38,7 +38,7 @@ default:
 development:
 
   # Enable source maps for easier debugging
-  sourcemaps: yes
+  sourcemaps: true
 
   # Development-specific scripts to inject
   scripts:
@@ -49,6 +49,8 @@ development:
     - ng/app.data.js
     - ng/app.routing.js
     - ng/app.session.js
+    - ng/app.events.js
+    - ng/app.const.js
     - index.js
 
   # Development-specific stylesheets
@@ -61,8 +63,8 @@ development:
 production:
 
   # Enable file concatenation and minification
-  concat: yes
-  minify: yes
+  concat: true
+  minify: true
 
   # Production-specific scripts to inject
   scripts:
