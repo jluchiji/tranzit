@@ -1,4 +1,4 @@
-# --------------------------------------------------------------------------- #
+﻿# --------------------------------------------------------------------------- #
 # Tranzit build targets configuration.                                        #
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
 # Copyright © 2015 Tranzit Development Team                                   #
@@ -44,6 +44,7 @@ development:
   scripts:
     - api/auth-session.js
     - api/auth.js
+    - api/user.js
     - ng/app.js
     - ng/app.config.js
     - ng/app.data.js
