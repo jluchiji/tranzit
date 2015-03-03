@@ -51,6 +51,8 @@ development:
     - ng/app.session.js
     - ng/app.events.js
     - ng/app.const.js
+    - views/login/login.js
+    - views/home/home.js
     - index.js
 
   # Development-specific stylesheets

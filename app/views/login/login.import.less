@@ -1,9 +1,52 @@
 .view#login {
 
+  form#login-form {
+    .size(500px; 450px);
+    position: relative;
+    margin: 100px auto;
+    background: #F1F1F1;
+    border-radius: 2px;
 
+    .paper-shadow(1);
 
-}
-.login-form {
-  .size(400px; 500px);
-  margin: 50px auto;
+    .logo {
+      margin: 30px;
+      max-width: 440px;
+      max-height: 116px;
+      margin-bottom: 90px;
+    }
+
+    .input-group {
+      width: 100%;
+      .form-control {
+        position: relative;
+        z-index: 0;
+        height: 54px;
+        border-left: none;
+        border-right: none;
+        padding: 14px 20px;
+        &:focus { z-index: 1; }
+      }
+    }
+    .input-group + .input-group {
+      margin-top: -1px;
+    }
+
+    .card-button {
+      position: absolute;
+      width: 100%;
+      bottom: 0;
+      left: 0;
+
+      padding: 14px 24px;
+      border: none;
+      .hoverable(darken(#F1F1F1, 5%));
+
+      font-size: 16px;
+      letter-spacing: 2px;
+      font-weight: bold;
+      color: #555555;
+    }
+  }
+
 }

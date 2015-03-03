@@ -1,1 +1,15 @@
 .view#login
+  
+  
+  form#login-form.card
+    
+    img.logo(src = 'assets/logo.svg')
+      
+    .input-group.input-group-lg
+      input.form-control(type = 'text', placeholder = 'email address', ng-model = 'credentials.email')
+    .input-group.input-group-lg
+      input.form-control(type = 'password', placeholder = 'password', ng-model = 'credentials.password')
+        
+        
+    button.card-button(ng-click = 'login()')
+      | LOGIN
