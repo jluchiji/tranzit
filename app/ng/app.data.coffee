@@ -26,8 +26,6 @@ angular.module 'Tranzit.app.data', []
     else
       # TODO Detect token
 
-  return @
-
   # ------------------------------------------------------------------------- #
   # Logout                                                                    #
   # ------------------------------------------------------------------------- #
@@ -36,12 +34,11 @@ angular.module 'Tranzit.app.data', []
       .success (user) -> AppEvents.event EventNames.LogoutSuccess, user
       .error (error) -> AppEvents.event EventNames.LogoutFailure, error
 
-  return @
-
   # --------------------------------------------------------------------------#
   # Update User                                                               #
   # ------------------------------------------------------------------------- #
-  @updateUser = (oldCred, newCred) ->
-    # TODO
+  @updateUser = (password, params) ->
+    TranzitUser.updateUser(password, params)
+      .error (error) -> AppEvents.event EventNames.RemoteCallError, error
 
   return @
