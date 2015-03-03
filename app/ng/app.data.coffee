@@ -1,4 +1,4 @@
-#   ______   ______     ______     __   __     ______     __     ______
+﻿#   ______   ______     ______     __   __     ______     __     ______
 #  /\__  _\ /\  == \   /\  __ \   /\ "-.\ \   /\___  \   /\ \   /\__  _\
 #  \/_/\ \/ \ \  __<   \ \  __ \  \ \ \-.  \  \/_/  /__  \ \ \  \/_/\ \/
 #     \ \_\  \ \_\ \_\  \ \_\ \_\  \ \_\\"\_\   /\_____\  \ \_\    \ \_\
@@ -25,5 +25,23 @@ angular.module 'Tranzit.app.data', []
         .error (error) -> AppEvents.event EventNames.LoginFailure, error
     else
       # TODO Detect token
+
+  return @
+
+  # ------------------------------------------------------------------------- #
+  # Logout                                                                    #
+  # ------------------------------------------------------------------------- #
+  @logout = ->
+    TranzitAuth.destroy
+      .success (user) -> AppEvents.event EventNames.LogoutSuccess, user
+      .error (error) -> AppEvents.event EventNames.LogoutFailure, error
+
+  return @
+
+  # --------------------------------------------------------------------------#
+  # Update User                                                               #
+  # ------------------------------------------------------------------------- #
+  @updateUser = (oldCred, newCred) ->
+    # TODO
 
   return @

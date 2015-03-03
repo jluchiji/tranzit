@@ -8,3 +8,5 @@ angular.module 'Tranzit.app.const', []
 
   LoginSuccess : 'tranzit-login-success'
   LoginFailure : 'tranzit-login-failure'
+  LogoutSuccess : 'tranzit-logout-success'
+  LogoutFailure : 'tranzit-logout-failure'
