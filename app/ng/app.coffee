@@ -23,6 +23,7 @@ angular.module 'Tranzit.app', [
   'Tranzit.app.data',
   'Tranzit.app.routing',
   'Tranzit.app.session',
+  'Tranzit.app.directives',
   'Tranzit.app.ctrl.root',
 
   # Views
@@ -87,6 +88,8 @@ angular.module 'Tranzit.app', [
   return
 
 .run ($state, AppSession, AppEvents) ->
+
+  $state.go 'login'
 
   AppEvents.on '$stateChangeStart', (e, to) ->
 
