@@ -1,6 +1,12 @@
-nav.navbar.navbar-default.navbar-fixed-top
+nav.navbar.navbar-default.navbar-fixed-top(ng-controller = 'NavbarController')
   .container-fluid
     .navbar-header
       a.navbar-brand
         img(src = 'assets/logo-square.svg')
-        
+    ul.nav.navbar-nav.navbar-right(ng-show = 'session().user()')
+      li(ng-click = 'settings()')
+        a
+          span.glyphicon.glyphicon-cog
+      li
+        a(ng-click = 'logout()')
+          span.glyphicon.glyphicon-log-out

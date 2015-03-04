@@ -10,5 +10,17 @@ nav.navbar {
       margin: 0 5px;
     }
   }
-
+  ul.navbar-nav > li a {
+    cursor: pointer;
+    .hoverable(@brand-primary);
+    &:hover{
+      color: #FBFBFB;
+      background: #555555;
+    }
+    &:active {
+      background: #444444;
+      color: #DDDDDD;
+    }
+    color: #FBFBFB;
+  }
 }

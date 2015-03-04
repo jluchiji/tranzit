@@ -22,13 +22,14 @@ default:
     scripts:
       - jquery/dist/jquery.js
       - underscore/underscore.js
+      - prefixfree/prefixfree.min.js
       - angular/angular.js
       - ngstorage/ngStorage.js
       - angular-ui-router/release/angular-ui-router.js
     stylesheets:
 
     fonts:
-
+      - bootstrap/fonts/*
     assets:
 
 
@@ -53,6 +54,7 @@ development:
     - ng/app.events.js
     - ng/app.const.js
     - ng/app.directives.js
+    - shared/part-navbar/part-navbar.js
     - views/login/login.js
     - views/home/home.js
     - index.js

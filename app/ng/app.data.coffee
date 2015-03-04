@@ -6,7 +6,7 @@
 #
 # Copyright © 2015 Tranzit Development Team
 angular.module 'Tranzit.app.data', []
-.service 'AppData', ($state, AppSession, AppEvents, EventNames, TranzitAuth) ->
+.service 'AppData', ($state, AppSession, AppEvents, EventNames, TranzitAuth, TranzitAuthSession) ->
 
   # Keep these references just in case
   self = @
@@ -32,9 +32,8 @@ angular.module 'Tranzit.app.data', []
   # Logout                                                                    #
   # ------------------------------------------------------------------------- #
   @logout = ->
-    TranzitAuth.destroy
-      .success (user) -> AppEvents.event EventNames.LogoutSuccess, user
-      .error (error) -> AppEvents.event EventNames.LogoutFailure, error
+    TranzitAuthSession.destroy()
+    AppEvents.event EventNames.LogoutSuccess
 
   # --------------------------------------------------------------------------#
   # Update User                                                               #

@@ -27,6 +27,9 @@ angular.module 'Tranzit.app', [
   'Tranzit.app.directives',
   'Tranzit.app.ctrl.root',
 
+  # Shared
+  'Tranzit.app.shared.navbar',
+
   # Views
   'Tranzit.app.views.login',
   'Tranzit.app.views.home'

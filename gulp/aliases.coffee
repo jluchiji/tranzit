@@ -23,7 +23,7 @@ module.exports = (gulp, config) ->
 
   gulp.task 'client:markup', ['client:html', 'client:jade']
 
-  gulp.task 'bower', ['bower:scripts']
+  gulp.task 'bower', ['bower:scripts', 'bower:fonts']
 
   gulp.task 'server', ['server:build']
 
