@@ -1,4 +1,4 @@
-#   ______   ______     ______     __   __     ______     __     ______
+﻿#   ______   ______     ______     __   __     ______     __     ______
 #  /\__  _\ /\  == \   /\  __ \   /\ "-.\ \   /\___  \   /\ \   /\__  _\
 #  \/_/\ \/ \ \  __<   \ \  __ \  \ \ \-.  \  \/_/  /__  \ \ \  \/_/\ \/
 #     \ \_\  \ \_\ \_\  \ \_\ \_\  \ \_\\"\_\   /\_____\  \ \_\    \ \_\
@@ -17,6 +17,7 @@ angular.module 'Tranzit.app', [
   # First-party dependencies
   'Tranzit.config',
   'Tranzit.api.auth',
+  'Tranzit.api.user',
   'Tranzit.api.session',
   'Tranzit.app.events',
   'Tranzit.app.const',
