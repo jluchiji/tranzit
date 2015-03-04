@@ -85,3 +85,13 @@ angular.module 'Tranzit.app', [
 
     $delegate
   return
+
+.run ($state, AppSession, AppEvents) ->
+
+  AppEvents.on '$stateChangeStart', (e, to) ->
+
+    if to.name is 'login' then return
+
+    if not AppSession.user
+      e.preventDefault()
+      $state.go 'login'
