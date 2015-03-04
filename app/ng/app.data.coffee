@@ -1,4 +1,4 @@
-#   ______   ______     ______     __   __     ______     __     ______
+﻿#   ______   ______     ______     __   __     ______     __     ______
 #  /\__  _\ /\  == \   /\  __ \   /\ "-.\ \   /\___  \   /\ \   /\__  _\
 #  \/_/\ \/ \ \  __<   \ \  __ \  \ \ \-.  \  \/_/  /__  \ \ \  \/_/\ \/
 #     \ \_\  \ \_\ \_\  \ \_\ \_\  \ \_\\"\_\   /\_____\  \ \_\    \ \_\
@@ -6,7 +6,7 @@
 #
 # Copyright © 2015 Tranzit Development Team
 angular.module 'Tranzit.app.data', []
-.service 'AppData', ($state, AppSession, TranzitAuth) ->
+.service 'AppData', ($state, AppSession, AppEvents, EventNames, TranzitAuth) ->
 
   # Keep these references just in case
   self = @
@@ -19,9 +19,26 @@ angular.module 'Tranzit.app.data', []
   # Authentication                                                            #
   # ------------------------------------------------------------------------- #
   @login = (credentials, remember) ->
-    # TODO Detect stored token and call renew instead of auth
-    TranzitAuth.authenticate(email: 'test@tranzit.io', password: '11111111', no)
-      .then ((user) -> console.log user), ((error) -> console.log error)
+    if (credentials)
+      TranzitAuth.authenticate(credentials, remember)
+        .success (user) -> AppEvents.event EventNames.LoginSuccess, user
+        .error (error) -> AppEvents.event EventNames.LoginFailure, error
+    else
+      # TODO Detect token
 
+  # ------------------------------------------------------------------------- #
+  # Logout                                                                    #
+  # ------------------------------------------------------------------------- #
+  @logout = ->
+    TranzitAuth.destroy
+      .success (user) -> AppEvents.event EventNames.LogoutSuccess, user
+      .error (error) -> AppEvents.event EventNames.LogoutFailure, error
+
+  # --------------------------------------------------------------------------#
+  # Update User                                                               #
+  # ------------------------------------------------------------------------- #
+  @updateUser = (password, params) ->
+    TranzitUser.updateUser(password, params)
+      .error (error) -> AppEvents.event EventNames.RemoteCallError, error
 
   return @

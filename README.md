@@ -27,3 +27,5 @@ $ npm i
 ```
 
 At this point, project does not have a build script. I will post build script documentation as soon as I set it up.
+
+rosenbea - Linux
