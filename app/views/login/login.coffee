@@ -1,5 +1,5 @@
 angular.module 'Tranzit.app.views.login', []
-.controller 'LoginController', ($scope, $state, AppData, AppEvents) ->
+.controller 'LoginController', ($scope, $state, $localStorage, AppData, AppEvents) ->
 
   # Login Form Multistate
   $scope.loginForm =
@@ -14,10 +14,14 @@ angular.module 'Tranzit.app.views.login', []
   $scope.credentials =
     email: ''
     password: ''
-    remember: no
+    remember: yes
+
+  # Detect token in local storage and attempt to login
+  if $localStorage.token
+    AppData.login($localStorage.token)
 
 
   $scope.login = ->
     AppData.login($scope.credentials, $scope.credentials.remember)
-      .success (user) -> $state.go 'home'
+      .success (user) -> undefined
       .error (err) -> $scope.loginForm.state 'shake'

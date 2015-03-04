@@ -96,6 +96,6 @@ angular.module 'Tranzit.app', [
 
     if to.name is 'login' then return
 
-    if not AppSession.user
+    if not AppSession.user()
       e.preventDefault()
       $state.go 'login'

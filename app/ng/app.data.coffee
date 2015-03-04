@@ -19,12 +19,14 @@ angular.module 'Tranzit.app.data', []
   # Authentication                                                            #
   # ------------------------------------------------------------------------- #
   @login = (credentials, remember) ->
-    if (credentials)
-      TranzitAuth.authenticate(credentials, remember)
-        .success (user) -> AppEvents.event EventNames.LoginSuccess, user
-        .error (error) -> AppEvents.event EventNames.LoginFailure, error
-    else
-      # TODO Detect token
+    promise =
+      if _.isString(credentials)
+        TranzitAuth.renew(credentials)
+      else
+        TranzitAuth.authenticate(credentials, remember)
+    promise
+      .success (user) -> AppEvents.event EventNames.LoginSuccess, user
+      .error (error) -> AppEvents.event EventNames.LoginFailure, error
 
   # ------------------------------------------------------------------------- #
   # Logout                                                                    #
@@ -40,5 +42,15 @@ angular.module 'Tranzit.app.data', []
   @updateUser = (password, params) ->
     TranzitUser.updateUser(password, params)
       .error (error) -> AppEvents.event EventNames.RemoteCallError, error
+
+
+  # ------------------------------------------------------------------------- #
+  # Event handling                                                            #
+  # ------------------------------------------------------------------------- #
+  AppEvents.on EventNames.LogoutSuccess, (e, data) ->
+    $state.go 'login'
+
+  AppEvents.on EventNames.LoginSuccess, (e, data) ->
+    $state.go 'home'
 
   return @

@@ -8,7 +8,7 @@
 
 angular.module 'Tranzit.app.ctrl.root', []
 .controller 'RootController', ($scope, AppData, AppEvents, EventNames) ->
-
+  undefined
 #  AppEvents.on EventNames.LoginSuccess, (event, data) ->
 #    alert("Login success: #{data.firstName} #{data.lastName}")
 #  AppEvents.on EventNames.LoginFailure, (event, data) ->

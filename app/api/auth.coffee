@@ -28,4 +28,20 @@ angular.module 'Tranzit.api.auth', ['Tranzit.config']
       TranzitAuthSession.create data.data.result, remember
       return data.data.result
 
+  @renew = (token) ->
+    url = ':host/api/auth'
+
+    # HTTP call details here
+    config =
+      method:   'GET'
+      url:      _.template(url)(host: ApiConfig.host)
+      headers:
+        'Content-Type': 'application/json'
+        'X-Tranzit-Auth': token
+
+    # Send request and generate a promise
+    return $http(config).then (data) ->
+      TranzitAuthSession.create data.data.result, yes
+      return data.data.result
+
   return @

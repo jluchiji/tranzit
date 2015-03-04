@@ -7,10 +7,12 @@
 # Copyright © 2015 Tranzit Development Team
 angular.module 'Tranzit.app.session', []
 
-.service 'AppSession', ->
+.service 'AppSession', (TranzitAuthSession) ->
 
   # Just in case we need to use @ from within nested functions
   self = @
 
   # User session
-  @user = null
+  @user = -> TranzitAuthSession.user
+
+  return @
