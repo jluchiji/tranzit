@@ -34,11 +34,15 @@ angular.module 'Tranzit.app.data', []
       .success (user) -> AppEvents.event EventNames.LogoutSuccess, user
       .error (error) -> AppEvents.event EventNames.LogoutFailure, error
 
-  # --------------------------------------------------------------------------#
+  # ------------------------------------------------------------------------- #
   # Update User                                                               #
   # ------------------------------------------------------------------------- #
   @updateUser = (password, params) ->
     TranzitUser.updateUser(password, params)
       .error (error) -> AppEvents.event EventNames.RemoteCallError, error
+
+  #--------------------------------------------------------------------------#
+  #                                                                           #
+  # ------------------------------------------------------------------------- #
 
   return @ # only need one per module!
