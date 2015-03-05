@@ -57,6 +57,7 @@ development:
     - shared/part-navbar/part-navbar.js
     - views/login/login.js
     - views/home/home.js
+    - views/settings/settings.js
     - index.js
 
   # Development-specific stylesheets

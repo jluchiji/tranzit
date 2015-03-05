@@ -32,7 +32,8 @@ angular.module 'Tranzit.app', [
 
   # Views
   'Tranzit.app.views.login',
-  'Tranzit.app.views.home'
+  'Tranzit.app.views.home',
+  'Tranzit.app.views.settings'
 ]
 
 # Configure Underscore.js to recognize /:param style URL templates

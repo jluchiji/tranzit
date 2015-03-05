@@ -20,6 +20,9 @@ angular.module 'Tranzit.app.views.login', []
   if $localStorage.token
     AppData.login($localStorage.token)
 
+  # Detect last user
+  if $localStorage.lastUser
+    $scope.credentials.email = $localStorage.lastUser
 
   $scope.login = ->
     AppData.login($scope.credentials, $scope.credentials.remember)
