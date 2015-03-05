@@ -41,4 +41,4 @@ angular.module 'Tranzit.app.data', []
     TranzitUser.updateUser(password, params)
       .error (error) -> AppEvents.event EventNames.RemoteCallError, error
 
-  return @
+  return @ # only need one per module!
