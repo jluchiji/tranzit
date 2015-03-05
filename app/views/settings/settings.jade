@@ -18,16 +18,26 @@
         .row
           label.col-xs-2.text-right First Name
           .col-xs-5.input-group.input-group-lg
-            input.form-control(type = 'text', ng-model = 'userInfo.firstName', required)
-          .col-xs-5.error-message
+            input.form-control(
+              type = 'text', 
+              name = 'firstName', 
+              ng-model = 'userInfo.firstName', 
+              required
+            )
+          .col-xs-5.error-message(ng-class = '{open: accountSettings.firstName.$error.required}')
             span.glyphicon.glyphicon-remove-circle.inline-lg
             | First name cannot be empty.
               
         .row
           label.col-xs-2.text-right Last Name
           .input-group.input-group-lg.col-xs-5
-            input.form-control(type = 'text', ng-model = 'userInfo.lastName', required)
-          .col-xs-5.error-message
+            input.form-control(
+              type = 'text', 
+              name = 'lastName'
+              ng-model = 'userInfo.lastName', 
+              required
+            )
+          .col-xs-5.error-message(ng-class = '{open: accountSettings.lastName.$error.required}')
             span.glyphicon.glyphicon-remove-circle.inline-lg
             | Last name cannot be empty.
             
@@ -37,15 +47,23 @@
         .row
           label.col-xs-2.text-right Current Password
           .input-group.input-group-lg.col-xs-5
-            input.form-control(type = 'password', ng-model = 'userInfo.currentPassword')
-          .col-xs-5.error-message
+            input.form-control(
+              type = 'password', 
+              name = 'currentPassword'
+              ng-model = 'userInfo.currentPassword'
+            )
+          .col-xs-5.error-message(ng-class = '{open: needPassword()}')
             span.glyphicon.glyphicon-lock.inline-lg
             | Please enter your current password.
       
         .row
           label.col-xs-2.text-right New Password
           .input-group.input-group-lg.col-xs-5
-            input.form-control(type = 'password', ng-model = 'userInfo.password')
+            input.form-control(
+              type = 'password',
+              name = 'password',
+              ng-model = 'userInfo.password'
+            )
           .col-xs-5.error-message
             span.glyphicon.glyphicon-remove-circle.inline-lg
             | Error message is here.
@@ -53,8 +71,12 @@
         .row
           label.col-xs-2.text-right Verify Password
           .input-group.input-group-lg.col-xs-5
-            input.form-control(type = 'password', ng-model = 'userInfo.passwordVerify')
-          .col-xs-5.error-message
+            input.form-control(
+              type = 'password', 
+              name = 'passwordVerify'
+              ng-model = 'userInfo.passwordVerify'
+            )
+          .col-xs-5.error-message(ng-class = '{open: needVerify()}')
             span.glyphicon.glyphicon-remove-circle.inline-lg
             | Error message is here.
 

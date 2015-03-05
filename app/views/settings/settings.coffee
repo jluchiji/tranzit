@@ -16,7 +16,19 @@ angular.module 'Tranzit.app.views.settings', []
     password: ''
 
 
+  # 'Private' functions
+  getChanges = ->
+    return _.diff original, $scope.userInfo, ['firstName', 'lastName', 'password']
 
+  # 'Public' functions
   $scope.hasChanges = ->
-    diff = _.diff original, $scope.userInfo, ['firstName', 'lastName', 'password']
+    diff = getChanges()
     return diff and _.keys(diff).length isnt 0
+
+  $scope.needPassword = ->
+    diff = getChanges()
+    return diff.password and not $scope.userInfo.currentPassword
+
+  $scope.needVerify = ->
+    diff = getChanges()
+    return diff.password and $scope.userInfo.password isnt $scope.userInfo.passwordVerify
