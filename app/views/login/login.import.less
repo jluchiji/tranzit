@@ -1,9 +1,70 @@
 .view#login {
 
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 
+  form#login-form {
+    .size(400px; 450px);
+    position: relative;
+    margin: 100px auto;
+
+
+    .logo {
+      margin: 30px;
+      max-width: 340px;
+      max-height: (340px / 922px) * 244px;
+      margin-bottom: 90px;
+    }
+
+    .input-group {
+      width: 100%;
+      .form-control {
+        position: relative;
+        z-index: 0;
+        height: 54px;
+        border-left: none;
+        border-right: none;
+        padding: 14px 20px;
+        &:focus { z-index: 1; }
+      }
+    }
+    .input-group + .input-group {
+      margin-top: -1px;
+    }
+
+    .card-button {
+      position: absolute;
+      width: 100%;
+      bottom: 0;
+      left: 0;
+
+      padding: 14px 24px;
+      border: none;
+      .hoverable(darken(#F1F1F1, 10%));
+
+      font-size: 16px;
+      letter-spacing: 2px;
+      font-weight: bold;
+      color: #555555;
+
+
+    }
+  }
 
 }
-.login-form {
-  .size(400px; 500px);
-  margin: 50px auto;
+
+@keyframes shake {
+  0% {transform: translateX(0);}
+  12.5% {transform: translateX(-6px) rotateY(-5deg);}
+  37.5% {transform: translateX(5px) rotateY(4deg);}
+  62.5% {transform: translateX(-3px) rotateY(-2deg);}
+  87.5% {transform: translateX(2px) rotateY(1deg);}
+  100% {transform: translateX(0);}
+}
+
+.shake {
+  animation: shake 400ms ease-in-out;
 }

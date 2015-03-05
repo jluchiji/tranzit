@@ -8,7 +8,7 @@
 angular.module 'Tranzit.api.session', []
 
 # Authentication session
-.service 'TranzitAuthSession', ($localStorage) ->
+.service 'TranzitAuthSession', ($localStorage, $q) ->
 
   # Initializes an authentication session
   @create = (user, remember) ->

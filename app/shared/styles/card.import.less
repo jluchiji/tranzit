@@ -1,0 +1,18 @@
+.card {
+
+  background: #F1F1F1;
+  border-radius: 2px;
+
+
+  .paper-shadow(1);
+
+  & > *:first-child { .border-top-radius(2px); }
+  & > *:last-child { .border-bottom-radius(2px); }
+
+  .card-section {
+    padding: 30px;
+  }
+  .card-section + .card-section {
+    border-top: 1px solid @gray-light-d;
+  }
+}
