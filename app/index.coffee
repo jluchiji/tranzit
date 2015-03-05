@@ -7,9 +7,6 @@
 # Copyright © 2015 Tranzit Development Team
 
 angular.module 'Tranzit.app.ctrl.root', []
-.controller 'RootController', ($scope, AppData, AppEvents, EventNames) ->
+.controller 'RootController', ($scope, AppSession, AppData, AppEvents, EventNames) ->
 
-#  AppEvents.on EventNames.LoginSuccess, (event, data) ->
-#    alert("Login success: #{data.firstName} #{data.lastName}")
-#  AppEvents.on EventNames.LoginFailure, (event, data) ->
-#    alert("Login failed: #{data}")
+  $scope.session = -> AppSession

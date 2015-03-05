@@ -8,13 +8,17 @@
 @import "shared/styles/variables.import.less";
 @import "shared/styles/webfonts.import.less";
 @import "shared/styles/util.import.less";
+@import "shared/styles/card.import.less";
 
 // Load view-specific styles
 @import "views/login/login.import.less";
+@import "views/home/home.import.less";
+@import "views/settings/settings.import.less";
 
 
 html, body {
-
+  background-image: url(assets/noise.png);
+  background-color: #C6CDD4;
 }
 
 // Root page layout
@@ -26,6 +30,8 @@ ui-view, [ui-view] {
   left: 0;
   width: 100%;
 
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
 }
+
+.form-control:focus { border-color: @brand-primary; }

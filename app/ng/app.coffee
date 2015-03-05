@@ -27,9 +27,13 @@ angular.module 'Tranzit.app', [
   'Tranzit.app.directives',
   'Tranzit.app.ctrl.root',
 
+  # Shared
+  'Tranzit.app.shared.navbar',
+
   # Views
   'Tranzit.app.views.login',
-  'Tranzit.app.views.home'
+  'Tranzit.app.views.home',
+  'Tranzit.app.views.settings'
 ]
 
 # Configure Underscore.js to recognize /:param style URL templates
@@ -96,6 +100,6 @@ angular.module 'Tranzit.app', [
 
     if to.name is 'login' then return
 
-    if not AppSession.user
+    if not AppSession.user()
       e.preventDefault()
       $state.go 'login'

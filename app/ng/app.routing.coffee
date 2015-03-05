@@ -16,3 +16,9 @@ angular.module 'Tranzit.app.routing', []
       templateUrl: 'views/home/home.html',
       controller: 'HomeController'
     )
+    .state(
+      'settings',
+      url: '/settings',
+      templateUrl: 'views/settings/settings.html',
+      controller: 'SettingsController'
+    )

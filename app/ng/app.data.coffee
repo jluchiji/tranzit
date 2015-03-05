@@ -6,7 +6,7 @@
 #
 # Copyright © 2015 Tranzit Development Team
 angular.module 'Tranzit.app.data', []
-.service 'AppData', ($state, AppSession, AppEvents, EventNames, TranzitAuth) ->
+.service 'AppData', ($state, AppSession, AppEvents, EventNames, TranzitAuth, TranzitAuthSession) ->
 
   # Keep these references just in case
   self = @
@@ -19,20 +19,21 @@ angular.module 'Tranzit.app.data', []
   # Authentication                                                            #
   # ------------------------------------------------------------------------- #
   @login = (credentials, remember) ->
-    if (credentials)
-      TranzitAuth.authenticate(credentials, remember)
-        .success (user) -> AppEvents.event EventNames.LoginSuccess, user
-        .error (error) -> AppEvents.event EventNames.LoginFailure, error
-    else
-      # TODO Detect token
+    promise =
+      if _.isString(credentials)
+        TranzitAuth.renew(credentials)
+      else
+        TranzitAuth.authenticate(credentials, remember)
+    promise
+      .success (user) -> AppEvents.event EventNames.LoginSuccess, user
+      .error (error) -> AppEvents.event EventNames.LoginFailure, error
 
   # ------------------------------------------------------------------------- #
   # Logout                                                                    #
   # ------------------------------------------------------------------------- #
   @logout = ->
-    TranzitAuth.destroy
-      .success (user) -> AppEvents.event EventNames.LogoutSuccess, user
-      .error (error) -> AppEvents.event EventNames.LogoutFailure, error
+    TranzitAuthSession.destroy()
+    AppEvents.event EventNames.LogoutSuccess
 
   # --------------------------------------------------------------------------#
   # Update User                                                               #
@@ -40,5 +41,15 @@ angular.module 'Tranzit.app.data', []
   @updateUser = (password, params) ->
     TranzitUser.updateUser(password, params)
       .error (error) -> AppEvents.event EventNames.RemoteCallError, error
+
+
+  # ------------------------------------------------------------------------- #
+  # Event handling                                                            #
+  # ------------------------------------------------------------------------- #
+  AppEvents.on EventNames.LogoutSuccess, (e, data) ->
+    $state.go 'login'
+
+  AppEvents.on EventNames.LoginSuccess, (e, data) ->
+    $state.go 'home'
 
   return @
