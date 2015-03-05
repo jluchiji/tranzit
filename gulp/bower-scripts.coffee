@@ -9,6 +9,7 @@ path       = require 'path'
 gulpif     = require 'gulp-if'
 uglify     = require 'gulp-uglify'
 concat     = require 'gulp-concat'
+cssmin     = require 'gulp-cssmin'
 sourcemap  = require 'gulp-sourcemaps'
 
 module.exports = (gulp, config) ->
@@ -37,3 +38,20 @@ module.exports = (gulp, config) ->
 
     gulp.src paths
       .pipe gulp.dest path.join config.paths.dest, 'app/fonts'
+
+
+  gulp.task 'bower:styles', ->
+
+    # Map bower paths to actual bower paths
+    paths = _.map config.bower.stylesheets, (i) ->
+      path.join 'bower_components', i
+
+    # Process bower scripts
+    gulp.src paths, base: './bower_components'
+
+      # Concat if needed
+      .pipe sourcemap.init()
+      .pipe gulpif config.concat, concat 'bower.css'
+      .pipe gulpif config.minify, cssmin()
+      .pipe gulpif config.sourcemaps, sourcemap.write './'
+      .pipe gulp.dest path.join config.paths.dest, 'app/lib'

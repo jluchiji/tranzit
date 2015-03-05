@@ -2,5 +2,36 @@
   .container
     
     .card
-      .card-section
-      .card-section
+      .card-section.clearfix
+        h2.col-xs-10.col-xs-offset-2 Account Settings
+      
+      .card-section.light.clearfix
+        h3.col-xs-10.col-xs-offset-2 Personal Information
+        
+        .row
+          label.col-xs-2.text-right First Name
+          .input-group.input-group-lg.col-xs-5
+            input.form-control(type = 'text', ng-model = 'userInfo.firstName')
+        
+        .row
+          label.col-xs-2.text-right Last Name
+          .input-group.input-group-lg.col-xs-5
+            input.form-control(type = 'text', ng-model = 'userInfo.lastName')
+              
+      .card-section.light.clearfix
+        h3.col-xs-10.col-xs-offset-2 Change Password
+        
+        .row
+          label.col-xs-2.text-right Current Password
+          .input-group.input-group-lg.col-xs-5
+            input.form-control(type = 'password', ng-model = 'userInfo.currentPassword')
+      
+        .row
+          label.col-xs-2.text-right New Password
+          .input-group.input-group-lg.col-xs-5
+            input.form-control(type = 'password', ng-model = 'userInfo.password')
+        
+        .row
+          label.col-xs-2.text-right Verify Password
+          .input-group.input-group-lg.col-xs-5
+            input.form-control(type = 'password', ng-model = 'userInfo.passwordVerify')

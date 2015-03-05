@@ -10,6 +10,10 @@ angular.module 'Tranzit.app.views.login', []
         $(@element).removeClass('shake').animate nothing:null, 1, ->
           $(@).addClass('shake')
 
+  $scope.loginButton =
+    'loading':
+      class: 'loading disabled'
+
   # Initialize empty credentials
   $scope.credentials =
     email: ''
@@ -25,6 +29,10 @@ angular.module 'Tranzit.app.views.login', []
     $scope.credentials.email = $localStorage.lastUser
 
   $scope.login = ->
+    $scope.loginButton.state 'loading'
     AppData.login($scope.credentials, $scope.credentials.remember)
-      .success (user) -> undefined
-      .error (err) -> $scope.loginForm.state 'shake'
+      .success (user) ->
+        $scope.loginButton.state()
+      .error (err) ->
+        $scope.loginButton.state()
+        $scope.loginForm.state 'shake'

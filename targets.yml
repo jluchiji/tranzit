@@ -25,9 +25,13 @@ default:
       - prefixfree/prefixfree.min.js
       - angular/angular.js
       - ngstorage/ngStorage.js
+      - angular-animate/angular-animate.js
       - angular-ui-router/release/angular-ui-router.js
+      - angular-ui-router-anim-in-out/anim-in-out.js
+      - angular-bootstrap/ui-bootstrap-tpls.js
+      - angular-bootstrap/ui-bootstrap.js
     stylesheets:
-
+      - angular-ui-router-anim-in-out/css/anim-in-out.css
     fonts:
       - bootstrap/fonts/*
     assets:

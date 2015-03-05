@@ -1,6 +1,26 @@
 .view#settings .container {
 
-  
+  .card {
+
+    label {
+      margin: 0;
+      line-height: 45px;
+      height: 45px;
+      font-weight: 300;
+      color: @gray-light;
+    }
+
+    margin: 30px 0;
+
+    .row + .row { margin-top: 15px; }
+
+
+
+    input:focus {
+      //border-color: #CCC;
+      .paper-shadow(1);
+    }
+  }
 
 
 }

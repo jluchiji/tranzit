@@ -12,7 +12,10 @@
 angular.module 'Tranzit.app', [
   # Third-party dependencies
   'ui.router',
+  'ui.bootstrap',
   'ngStorage',
+  #'ngAnimate',
+  #'anim-in-out',
 
   # First-party dependencies
   'Tranzit.config',
