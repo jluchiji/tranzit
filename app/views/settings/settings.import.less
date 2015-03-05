@@ -1,26 +1,81 @@
-.view#settings .container {
+.view#settings {
 
-  .card {
+  .notification {
+    position: fixed;
+    top: @navbar-height;
+    width: 100%;
+    .paper-shadow(1);
 
-    label {
-      margin: 0;
-      line-height: 45px;
-      height: 45px;
-      font-weight: 300;
-      color: @gray-light;
+    transform: translateY(-100%);
+    opacity: 0;
+    transition: all 0.3s ease-out;
+
+    &.open {
+      transform: translateY(0%);
+      opacity: 1;
     }
 
-    margin: 30px 0;
+    background: #FCF8E4;
+    padding: 15px 0;
 
-    .row + .row { margin-top: 15px; }
-
-
-
-    input:focus {
-      //border-color: #CCC;
-      .paper-shadow(1);
+    .glyphicon-info-sign {
+      position: relative;
+      top: 4px;
+      font-size: 1.4em;
+      margin-right: 10px;
     }
+
+    .btn { min-width: 60px; }
   }
 
+  .container {
+
+    .card {
+
+      label {
+        color: @gray-light;
+        margin: 0;
+        line-height: 45px;
+        height: 45px;
+        font-weight: 300;
+      }
+
+      margin: 30px 0;
+
+      .row + .row { margin-top: 15px; }
+
+      .error-message {
+        line-height: 45px;
+        color: lighten(@brand-primary, 10%);
+
+        transition: all 0.3s ease-out;
+        transform: translateX(-10px);
+        opacity: 0;
+
+        &.open {
+          transform: translateX(0);
+          opacity: 1;
+        }
+
+        .glyphicon {
+          margin-right: 10px;
+          color: @brand-primary;
+        }
+
+      }
+
+      .input-group[class*="col-"] { float: left; }
+      input:focus {
+        //border-color: #CCC;
+        .paper-shadow(1);
+      }
+      button.btn {
+        min-width: 85px;
+        margin: 0 5px;
+      }
+    }
+
+
+  }
 
 }

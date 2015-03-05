@@ -1,7 +1,14 @@
 .view#settings
+  
+  .notification(ng-class = '{open: hasChanges()}')
+    .container
+      span.glyphicon.glyphicon-info-sign
+      | You have unsaved changes to your settings.
+    
+  
   .container
     
-    .card
+    form.card(name = 'accountSettings')
       .card-section.clearfix
         h2.col-xs-10.col-xs-offset-2 Account Settings
       
@@ -10,14 +17,20 @@
         
         .row
           label.col-xs-2.text-right First Name
-          .input-group.input-group-lg.col-xs-5
-            input.form-control(type = 'text', ng-model = 'userInfo.firstName')
-        
+          .col-xs-5.input-group.input-group-lg
+            input.form-control(type = 'text', ng-model = 'userInfo.firstName', required)
+          .col-xs-5.error-message
+            span.glyphicon.glyphicon-remove-circle.inline-lg
+            | First name cannot be empty.
+              
         .row
           label.col-xs-2.text-right Last Name
           .input-group.input-group-lg.col-xs-5
-            input.form-control(type = 'text', ng-model = 'userInfo.lastName')
-              
+            input.form-control(type = 'text', ng-model = 'userInfo.lastName', required)
+          .col-xs-5.error-message
+            span.glyphicon.glyphicon-remove-circle.inline-lg
+            | Last name cannot be empty.
+            
       .card-section.light.clearfix
         h3.col-xs-10.col-xs-offset-2 Change Password
         
@@ -25,13 +38,26 @@
           label.col-xs-2.text-right Current Password
           .input-group.input-group-lg.col-xs-5
             input.form-control(type = 'password', ng-model = 'userInfo.currentPassword')
+          .col-xs-5.error-message
+            span.glyphicon.glyphicon-lock.inline-lg
+            | Please enter your current password.
       
         .row
           label.col-xs-2.text-right New Password
           .input-group.input-group-lg.col-xs-5
             input.form-control(type = 'password', ng-model = 'userInfo.password')
+          .col-xs-5.error-message
+            span.glyphicon.glyphicon-remove-circle.inline-lg
+            | Error message is here.
         
         .row
           label.col-xs-2.text-right Verify Password
           .input-group.input-group-lg.col-xs-5
             input.form-control(type = 'password', ng-model = 'userInfo.passwordVerify')
+          .col-xs-5.error-message
+            span.glyphicon.glyphicon-remove-circle.inline-lg
+            | Error message is here.
+
+      .card-section.light.thin-padding.clearfix
+        button.btn.btn-success.pull-right(type = 'submit') Save
+        button.btn.btn-default.pull-right Cancel

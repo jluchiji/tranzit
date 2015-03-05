@@ -14,8 +14,9 @@
     position: relative;
     padding: 30px;
   }
-  .card-section.light {
-    background: #FBFBFB;
+  .card-section {
+    &.light { background: #FBFBFB; }
+    &.thin-padding { padding: 15px; }
   }
   .card-section + .card-section {
     border-top: 1px solid @gray-light-d;
@@ -32,6 +33,7 @@
   h3 {
     margin-top: 0;
     margin-bottom: 30px;
+    color: @gray-dark;
   }
 
 }
