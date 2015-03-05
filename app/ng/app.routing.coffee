@@ -7,3 +7,5 @@ angular.module 'Tranzit.app.routing', []
       url: '/login',
       templateUrl: 'views/login/login.html'
     )
+
+# for future sprints, add more ".state"s

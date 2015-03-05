@@ -10,4 +10,4 @@ angular.module 'Tranzit.app.const', []
   LoginFailure : 'tranzit-login-failure'
   LogoutSuccess : 'tranzit-logout-success'
   LogoutFailure : 'tranzit-logout-failure'
-  RemoteCallError: 'tranzit-remote-error'
+  RemoteCallError: 'tranzit-remote-error' # no need for success event here
