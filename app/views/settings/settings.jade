@@ -4,12 +4,12 @@
     .container
       span.glyphicon.glyphicon-info-sign
       | You settings contain unsaved changes.
-    
+  
   
   .container
     
-    form.card(name = 'accountSettings')
-      .card-section.clearfix
+    form.card(name = 'accountSettings', ng-controller = 'AccountSettingsController', ng-submit = 'submit()')
+      .card-section.thin-padding.clearfix
         h2.col-xs-10.col-xs-offset-2 Account Settings
       
       .card-section.light.clearfix
@@ -43,7 +43,7 @@
             
       .card-section.light.clearfix
         h3.col-xs-10.col-xs-offset-2 Change Password
-        
+                
         .row
           label.col-xs-2.text-right Current Password
           .input-group.input-group-lg.col-xs-5
@@ -52,9 +52,10 @@
               name = 'currentPassword'
               ng-model = 'userInfo.currentPassword'
             )
-          .col-xs-5.error-message(ng-class = '{open: needPassword()}')
+          .col-xs-5.error-message(ng-class = '{open: needPassword() || badPassword}')
             span.glyphicon.glyphicon-lock.inline-lg
-            | Please enter your current password.
+            | {{ badPassword ? "The password you entered is incorrect." : "Please enter your current password." }}
+            
       
         .row
           label.col-xs-2.text-right New Password
@@ -81,5 +82,9 @@
             | Your verification does not match the password.
 
       .card-section.light.thin-padding.clearfix
-        button.btn.btn-success.pull-right(type = 'submit') Save
-        button.btn.btn-default.pull-right Cancel
+        button.btn.btn-success.btn-loading.pull-right(type = 'submit', ck-multistate = 'submitButton')
+          span.icon.ion-load-a.animate-spin.loading
+          span.icon.ion-close-round.error
+          span.icon.ion-checkmark-round.success
+          span.caption Save
+        button.btn.btn-link.pull-right(type = 'button', ng-click = 'reset()') Cancel

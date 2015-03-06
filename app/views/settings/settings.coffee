@@ -1,20 +1,33 @@
 angular.module 'Tranzit.app.views.settings', []
-.controller 'SettingsController', ($scope, AppSession)->
+.controller 'SettingsController', ($scope, AppSession) ->
+  undefined
 
-  # Get the user from session
-  user = AppSession.user()
+.controller 'AccountSettingsController', ($scope, TranzitAuthSession, AppSession, AppData) ->
+
   # Make a backup copy of the user info
   original =
-    firstName: user.firstName
-    lastName:  user.lastName
+    firstName: AppSession.user().firstName
+    lastName:  AppSession.user().lastName
     password: ''
 
   # Make a copy of the user info
   $scope.userInfo =
-    firstName: user.firstName
-    lastName:  user.lastName
+    firstName: AppSession.user().firstName
+    lastName:  AppSession.user().lastName
     password: ''
 
+  # Multistate: save account settings
+  $scope.submitButton =
+    'loading':
+      class: 'loading disabled'
+    'success':
+      class: 'success disabled'
+      callback: -> setTimeout((=> @state 'default'), 3000)
+    'error':
+      class: 'error disabled'
+      callback: -> setTimeout((=> @state 'default'), 3000)
+
+  $scope.badPassword = no
 
   # 'Private' functions
   getChanges = ->
@@ -33,5 +46,42 @@ angular.module 'Tranzit.app.views.settings', []
     diff = getChanges()
     return diff.password and $scope.userInfo.password isnt $scope.userInfo.passwordVerify
 
-  $scope.submitAccountSettings = ->
-    console.log 'submit accountSettings'
+  $scope.reset = ->
+    $scope.userInfo =
+      firstName: AppSession.user().firstName
+      lastName:  AppSession.user().lastName
+      password: ''
+      passwordVerofy: ''
+      currentPassword: ''
+
+  $scope.submit = ->
+
+    if not $scope.hasChanges()
+      $scope.submitButton.state 'success'
+      return
+
+    # Shorthand
+    u = $scope.userInfo
+
+    # Validity of first name & last name checked by HTML form
+
+    # Validity of password
+    if $scope.needPassword() and not u.currentPassword
+      $scope.submitButton.state 'error'
+      return
+    if $scope.needVerify() and u.password isnt u.passwordVerify
+      $scope.userInfo.passwordVerify = ''
+      $scope.submitButton.state 'error'
+      return
+
+    $scope.badPassword = no
+    $scope.submitButton.state 'loading'
+    AppData.updateUser(u.currentPassword, getChanges())
+      .success ->
+        $scope.submitButton.state 'success'
+        $scope.reset()
+      .error (error) ->
+        if (error.status is 401)
+          $scope.badPassword = yes
+          $scope.userInfo.currentPassword = ''
+        $scope.submitButton.state 'error'

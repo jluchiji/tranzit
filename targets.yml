@@ -22,7 +22,6 @@ default:
     scripts:
       - jquery/dist/jquery.js
       - underscore/underscore.js
-      - prefixfree/prefixfree.min.js
       - angular/angular.js
       - ngstorage/ngStorage.js
       - angular-animate/angular-animate.js
@@ -33,7 +32,7 @@ default:
     stylesheets:
       - angular-ui-router-anim-in-out/css/anim-in-out.css
     fonts:
-      - ionicons/fonts/*
+
     assets:
 
 
@@ -66,6 +65,8 @@ development:
 
   # Development-specific stylesheets
   stylesheets:
+    - //maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css
+    - //code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css
     - index.css
 
 # --------------------------------------------------------------------------- #
@@ -83,4 +84,6 @@ production:
 
   # Production-specific stylesheets to inject
   stylesheets:
+    - //maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css
+    - //code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css
     - index.css

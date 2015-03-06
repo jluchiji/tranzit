@@ -17,7 +17,7 @@
     }
 
     background: #FCF8E4;
-    padding: 15px 0;
+    .container { padding: 15px 30px; }
 
     .glyphicon-info-sign {
       position: relative;
@@ -33,7 +33,7 @@
 
     .card {
 
-      label {
+      .row > label {
         color: @gray-light;
         margin: 0;
         line-height: 45px;
@@ -76,6 +76,74 @@
       }
     }
 
+  }
+
+}
+
+button.btn-loading {
+
+  .icon.loading,
+  .icon.error,
+  .icon.success { display: none; }
+
+  &.loading .icon.loading { display: inline-block; }
+  &.error .icon.error   { display: inline-block; }
+  &.success .icon.success { display: inline-block; }
+
+  &.loading .caption,
+  &.error .caption,
+  &.success .caption { display: none; }
+
+
+}
+
+.input-group.float-label {
+
+  @padding-h: 5px;
+  @padding-top: 18px;
+  @padding-bot: 2px;
+
+  position: relative;
+
+  > input.form-control {
+
+    // Style Reset
+    &, &:focus {
+      border-radius: 0;
+      border-width: 0 0 1px 0;
+      background: none;
+      box-shadow: none;
+    }
+
+
+    padding: @padding-top @padding-h @padding-bot @padding-h;
+    border-color: @gray-light;
+
+    &:focus {
+      border-color: @brand-primary;
+    }
+
+
+    // Floating Label
+    & + label {
+      position: absolute;
+      left: @padding-h;
+      top: @padding-top;
+      margin: 0;
+      font-size: 18px;
+      font-weight: 300;
+      color: @gray-light;
+      transition: all 0.1s ease-in-out;
+    }
+    &:focus + label {
+      color: @brand-primary;
+    }
+    &:focus + label,
+    &.has-value + label {
+    //&:valid + label {
+      top: 0;
+      font-size: 12px;
+    }
 
   }
 
