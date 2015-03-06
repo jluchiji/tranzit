@@ -13,5 +13,6 @@
     
     .card-section
     
-    button.card-section.card-button(ng-click = 'login()', ck-multistate = 'loginButton')
-      | LOGIN
+    button.card-section.btn-loading.card-button(ng-click = 'login()', ck-multistate = 'loginButton')
+      span.icon.ion-load-a.animate-spin.loading
+      span.caption LOGIN
