@@ -1,6 +1,8 @@
 # Tranzit
 *CS 307 Project*
 
+**Michael Schoss's Branch**
+
 A package processing application.
 
 ## Directory Structure
