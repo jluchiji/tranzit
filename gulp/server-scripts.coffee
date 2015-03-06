@@ -29,7 +29,7 @@ module.exports = (gulp, config) ->
   gulp.task 'server:config', ['server:config:sql'], ->
     path = require 'path'
 
-    gulp.src ['config/**/*.{json,yml}'], base: './config',
+    gulp.src ['config/**/*.{json,yml}'], base: './config'
         .pipe gulp.dest path.join config.paths.dest, 'config'
 
   # This task uses a regex to remove comments from the .SQL files
