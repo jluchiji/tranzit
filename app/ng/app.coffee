@@ -12,7 +12,10 @@
 angular.module 'Tranzit.app', [
   # Third-party dependencies
   'ui.router',
+  'ui.bootstrap',
   'ngStorage',
+  #'ngAnimate',
+  #'anim-in-out',
 
   # First-party dependencies
   'Tranzit.config',
@@ -103,3 +106,15 @@ angular.module 'Tranzit.app', [
     if not AppSession.user()
       e.preventDefault()
       $state.go 'login'
+
+# Extend Underscore.js
+_.mixin
+  # Creates a diff object
+  diff: (ori, mod, proplist) ->
+    result = { }
+
+    for prop in proplist
+      if ori[prop] isnt mod[prop]
+        result[prop] = mod[prop]
+
+    return result

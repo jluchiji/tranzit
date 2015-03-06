@@ -8,11 +8,16 @@ nav.navbar.navbar-default.navbar-fixed-top(ng-controller = 'NavbarController')
         a(ui-sref = 'home', ui-sref-active = 'current')
           span.glyphicon.glyphicon-home
           | HOME
-      li
-        a(ui-sref = 'settings', ui-sref-active = 'current')
-          span.glyphicon.glyphicon-cog
-          | SETTINGS
-      li
-        a(ng-click = 'logout()')
-          span.glyphicon.glyphicon-log-out
-          | LOG OUT
+      li(dropdown, is-open = 'dropdown.isOpen')
+        a.dropdown-toggle(dropdown-toggle)
+          | {{ session().user().email }}
+          span.caret
+        ul.dropdown-menu
+          li
+            a(ui-sref = 'settings', ui-sref-active = 'current')
+              span.glyphicon.glyphicon-cog
+              | SETTINGS
+          li
+            a(ng-click = 'logout()')
+              span.glyphicon.glyphicon-log-out
+              | LOG OUT

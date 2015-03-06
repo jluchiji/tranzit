@@ -6,7 +6,8 @@
 #
 # Copyright © 2015 Tranzit Development Team
 angular.module 'Tranzit.app.data', []
-.service 'AppData', ($state, AppSession, AppEvents, EventNames, TranzitAuth, TranzitAuthSession) ->
+.service 'AppData', ($state, AppSession, AppEvents, EventNames,
+                     TranzitAuth, TranzitUser, TranzitAuthSession) ->
 
   # Keep these references just in case
   self = @
@@ -40,6 +41,7 @@ angular.module 'Tranzit.app.data', []
   # ------------------------------------------------------------------------- #
   @updateUser = (password, params) ->
     TranzitUser.updateUser(password, params)
+      .success (user) -> TranzitAuthSession.update(user)
       .error (error) -> AppEvents.event EventNames.RemoteCallError, error
 
 

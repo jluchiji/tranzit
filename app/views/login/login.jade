@@ -3,13 +3,16 @@
   
   form#login-form.card(ck-multistate = 'loginForm')
     
-    img.logo(src = 'assets/logo.svg')
-      
-    .input-group.input-group-lg
+    .card-section
+      img.logo(src = 'assets/logo.svg')
+    
+    .input-group.input-group-lg.no-padding
       input.form-control(type = 'text', placeholder = 'email address', ng-model = 'credentials.email')
-    .input-group.input-group-lg
+    .input-group.input-group-lg.no-padding
       input.form-control(type = 'password', placeholder = 'password', ng-model = 'credentials.password')
-        
-        
-    button.card-button(ng-click = 'login()')
-      | LOGIN
+    
+    .card-section
+    
+    button.card-section.btn-loading.card-button(ng-click = 'login()', ck-multistate = 'loginButton')
+      span.icon.ion-load-a.animate-spin.loading
+      span.caption LOGIN

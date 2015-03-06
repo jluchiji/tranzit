@@ -108,3 +108,17 @@ div.img-container {
   &.ng-enter { animation: fadeIn 1s; }
   &.ng-leave { animation: fadeOut 1s; }
 }
+
+
+.glyphicon.inline-lg {
+  font-size: 1.4em;
+  position: relative;
+  top: 4px;
+}
+
+.animate-spin { animation: spin 1s infinite linear; }
+
+@keyframes spin {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(359deg); }
+}
