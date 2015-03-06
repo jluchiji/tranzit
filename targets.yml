@@ -33,7 +33,7 @@ default:
     stylesheets:
       - angular-ui-router-anim-in-out/css/anim-in-out.css
     fonts:
-      - bootstrap/fonts/*
+      - ionicons/fonts/*
     assets:
 
 

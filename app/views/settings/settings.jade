@@ -3,7 +3,7 @@
   .notification(ng-class = '{open: hasChanges()}')
     .container
       span.glyphicon.glyphicon-info-sign
-      | You have unsaved changes to your settings.
+      | You settings contain unsaved changes.
     
   
   .container
@@ -78,7 +78,7 @@
             )
           .col-xs-5.error-message(ng-class = '{open: needVerify()}')
             span.glyphicon.glyphicon-remove-circle.inline-lg
-            | Error message is here.
+            | Your verification does not match the password.
 
       .card-section.light.thin-padding.clearfix
         button.btn.btn-success.pull-right(type = 'submit') Save

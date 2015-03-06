@@ -32,3 +32,6 @@ angular.module 'Tranzit.app.views.settings', []
   $scope.needVerify = ->
     diff = getChanges()
     return diff.password and $scope.userInfo.password isnt $scope.userInfo.passwordVerify
+
+  $scope.submitAccountSettings = ->
+    console.log 'submit accountSettings'
