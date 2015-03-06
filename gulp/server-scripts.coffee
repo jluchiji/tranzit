@@ -1,50 +1,43 @@
 # --------------------------------------------------------------------------- #
-# wyvernzora.ninja build script.                                              #
+# tranzit-server build script.                                                #
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
-# Copyright © 2015 Denis Luchkin-Zhou                                         #
+# Copyright © 2015 Michael Schloss                                            #
 # See LICENSE.md for terms of distribution.                                   #
 # --------------------------------------------------------------------------- #
+
 module.exports = (gulp, config) ->
 
-    gulp.task 'server:scripts', ->
+  # This task builds the main server scripts
+  gulp.task 'server:scripts', ->
 
-      lint       = require 'gulp-coffeelint'
-      coffee     = require 'gulp-coffee'
-      gulpif     = require 'gulp-if'
-      plumber    = require 'gulp-plumber'
-      sourcemaps = require 'gulp-sourcemaps'
+    coffee = require 'gulp-coffee'
+    coffeeLint = require 'gulp-coffeelint'
+    gulpIf = require 'gulp-if'
+    plumber = require 'gulp-plumber'
+    sourceMaps = require 'gulp-soucemaps'
 
-      gulp.src ['server/**/*.coffee'], base: './server'
-
-        # Prevent crashes
+    gulp.src ['server/**/*.coffee'], base: './server'
         .pipe plumber()
-
-        # Lint
-        .pipe lint()
-        .pipe lint.reporter()
-
-        # Start by compiling .coffee files
-        .pipe sourcemaps.init()
+        .pipe coffeeLint()
+        .pipe coffeeLint.reporter()
+        .pipe sourceMaps.init()
         .pipe coffee()
-
-        # Write out
-        .pipe gulpif config.sourcemaps, sourcemaps.write('./')
+        .pipe gulpIf config.sourceMaps, sourceMaps.write('./')
         .pipe gulp.dest config.paths.dest
 
-    gulp.task 'server:config', ['server:config:sql'], ->
+  # This task builds the configuration files for the server
+  gulp.task 'server:config', ['server:config:sql'], ->
+    path = require 'path'
 
-      path = require 'path'
-
-      gulp.src ['config/**/*.{json,yml}'], base: './config'
-
+    gulp.src ['config/**/*.{json,yml}'], base: './config',
         .pipe gulp.dest path.join config.paths.dest, 'config'
 
-    # Strips comments from .sql script files
-    gulp.task 'server:config:sql', ->
+  # This task uses a regex to remove comments from the .SQL files
+  gulp.task 'server:config:sql', ->
 
-      path    = require 'path'
-      replace = require 'gulp-replace'
+    path    = require 'path'
+    replace = require 'gulp-replace'
 
-      gulp.src ['config/**/*.sql'], base: './config'
-        .pipe replace /(?:#.+\n)|(?:\/\/.+\n)|(?:\-\-.+\n)|(?:\/\*[\s\S]*\*\/)/g, ''
-        .pipe gulp.dest path.join config.paths.dest, 'config'
+    gulp.src ['config/**/*.sql'], base: './config'
+      .pipe replace /(?:#.+\n)|(?:\/\/.+\n)|(?:\-\-.+\n)|(?:\/\*[\s\S]*\*\/)/g, ''
+      .pipe gulp.dest path.join config.paths.dest, 'config'
