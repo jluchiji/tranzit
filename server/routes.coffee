@@ -16,6 +16,7 @@ module.exports = (db) ->
   # api callbacks
   auth = require('./api/auth.js')(db)
   users = require('./api/users.js')(db)
+  locations = require('./api/locations.js')(db)
   # Root router; mount path = Tranzit root URL
   root = express.Router()
   # API router; takes care of API calls
@@ -47,6 +48,12 @@ module.exports = (db) ->
   api.route '/users/:email'
     # GET /api/users/:email
     .get users.find()
+
+  # /locations
+  api.route '/locations/:id/packages'
+    # POST /api/locations
+    .post authorize.user()
+    .post locations.createPackage()
 
   # Static router for content, which works for the Tranzit web app
   root.use st = express.Router()
