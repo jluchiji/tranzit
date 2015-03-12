@@ -41,9 +41,5 @@ angular.module 'Tranzit.app.data', []
     TranzitUser.updateUser(password, params)
       .error (error) -> AppEvents.event EventNames.RemoteCallError, error
 
-  # ------------------------------------------------------------------------- #
-  # TODO - Sprint 2                                                           #
-  # ------------------------------------------------------------------------- #
-  # ...
 
-  return @ # only need one per module!
+  return @
