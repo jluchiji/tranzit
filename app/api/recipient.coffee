@@ -13,7 +13,7 @@ angular.module 'Tranzit.api.recipient', ['Tranzit.config']
   # Keep a reference of @ in case we need it later in nested functions
   self = @
 
-  @getRecipient = (recipientID) ->
+  @getRecipient = (recipientID) -> # TODO
     url = ':host/api/recipients' # TODO: check on this
 
     # HTTP call details here
