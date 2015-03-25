@@ -45,6 +45,7 @@ development:
     - api/auth-session.js
     - api/auth.js
     - api/user.js
+    - api/recipient.js
     - ng/app.js
     - ng/app.config.js
     - ng/app.data.js

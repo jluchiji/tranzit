@@ -5,3 +5,4 @@
 #      \/_/   \/_/ /_/   \/_/\/_/   \/_/ \/_/   \/_____/   \/_/     \/_/
 #
 # Copyright © 2015 Tranzit Development Team
+angular.module 'Tranzit.api.recipient', ['Tranzit.config']

@@ -18,6 +18,7 @@ angular.module 'Tranzit.app', [
   'Tranzit.config',
   'Tranzit.api.auth',
   'Tranzit.api.user',
+  'Tranzit.api.recipient',
   'Tranzit.api.session',
   'Tranzit.app.events',
   'Tranzit.app.const',
