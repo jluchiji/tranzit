@@ -102,7 +102,9 @@ angular.module 'Tranzit.app.directives', []
         $(@).removeClass 'has-value'
 
 # --------------------------------------------------------------------------- #
-# Validation directives.                                                      #
+# Bootstrap Switch.                                                           #
 # --------------------------------------------------------------------------- #
-.directive 'verifyPassword', ->
-  undefined
+.directive 'bsSwitch', ->
+  restrict: 'A'
+  link: (scope, element) ->
+    $(element).bootstrapSwitch()
