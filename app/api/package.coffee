@@ -13,6 +13,52 @@ angular.module 'Tranzit.api.package', ['Tranzit.config']
   # Keep a reference of @ in case we need it later in nested functions
   self = @
 
-  # TODO - package server functions
+  @create = (package) -> # TODO
+    url = ':host/api/packages' # TODO: check on this
+
+    # HTTP call details here
+    config =
+      method:   'PUT'
+      url:      _.template(url)(host: ApiConfig.host)
+      data:     JSON.stringify _.extend({}, package) # TODO
+      headers:  
+        'Content-Type': 'application/json'
+        'X-Tranzit-Auth': TranzitAuthSession.user?.token
+
+    # Send request and generate a promise
+    return $http(config).then (data) ->
+      return data.data.result
+
+  @update = (package) -> # TODO
+    url = ':host/api/packages' # TODO: check on this
+
+    # HTTP call details here
+    config =
+      method:   'PUT'
+      url:      _.template(url)(host: ApiConfig.host)
+      data:     JSON.stringify _.extend({}, package) # TODO
+      headers:  
+        'Content-Type': 'application/json'
+        'X-Tranzit-Auth': TranzitAuthSession.user?.token
+
+    # Send request and generate a promise
+    return $http(config).then (data) ->
+      return data.data.result
+
+  @delete = (package) -> # TODO
+    url = ':host/api/packages' # TODO: check on this
+
+    # HTTP call details here
+    config =
+      method:   'PUT'
+      url:      _.template(url)(host: ApiConfig.host)
+      data:     JSON.stringify _.extend({}, package) # TODO
+      headers:  
+        'Content-Type': 'application/json'
+        'X-Tranzit-Auth': TranzitAuthSession.user?.token
+
+    # Send request and generate a promise
+    return $http(config).then (data) ->
+      return data.data.result
 
   return @
