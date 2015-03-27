@@ -5,3 +5,14 @@
 #      \/_/   \/_/ /_/   \/_/\/_/   \/_/ \/_/   \/_____/   \/_/     \/_/
 #
 # Copyright © 2015 Tranzit Development Team
+angular.module 'Tranzit.api.package', ['Tranzit.config']
+
+# Authentication API service
+.service 'TranzitPackage', ($http, $localStorage, $q, ApiConfig, TranzitAuthSession) ->
+
+  # Keep a reference of @ in case we need it later in nested functions
+  self = @
+
+  # TODO - package server functions
+
+  return @
