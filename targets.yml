@@ -47,6 +47,7 @@ development:
     - api/user.js
     - api/recipient.js
     - api/location.js
+    - api/package.js
     - ng/app.js
     - ng/app.config.js
     - ng/app.data.js
