@@ -6,11 +6,10 @@
 #
 # Copyright © 2015 Tranzit Development Team
 
-# This file contains route handlers for /locations subroute
+# This file contains route handlers for /locations subroute, specifically package addition
 
 # Here we load utilities from lib directory
 util     = require('../lib/util.js')          # Various utility methods
-crypto   = require('../lib/crypto.js')        # Cryptogtaphy
 Conveyor = require('../lib/conveyor.js')      # Promise-chaining
 uid      = require('shortid')                 # Unique ID generator
 
@@ -18,8 +17,6 @@ uid      = require('shortid')                 # Unique ID generator
 module.exports = (db) ->
 
   # Here we load APIs from data access module that are needed in this file
-  auth = require('../models/auth.js')(db)  # <-- Pass in the db object
-  users = require('../models/users.js')(db)
   packages = require('../models/packages.js')(db)
 
   # Object where we will attach our functions
@@ -31,7 +28,7 @@ module.exports = (db) ->
     # Schema for required parameters
       schema =
         tracking: String
-        received: String
+        received: Number
         recipient: String
 
       # Promise chain start
@@ -62,3 +59,5 @@ module.exports = (db) ->
 
         # Throw all unobserved exceptions
         .done()
+
+  return self
