@@ -66,6 +66,7 @@ module.exports = (db) ->
     # Schema for required parameters
       schema = 
         id: String
+        timeStamp: Number
 
       # Promise chain start
       (conveyor = new Conveyor req, res, user: req.authUser, params: req.body)
@@ -82,7 +83,7 @@ module.exports = (db) ->
           packages.findByUserID
 
         .then
-          input: ['package', 'yes'],
+          input: ['package', 'params.timeStamp'],
           packages.update
 
         # Send success or observe errors
