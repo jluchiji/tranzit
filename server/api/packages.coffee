@@ -60,4 +60,34 @@ module.exports = (db) ->
         # Throw all unobserved exceptions
         .done()
 
+  self.updatePackage = ->
+    return (req, res) ->
+
+    # Schema for required parameters
+      schema = 
+        id: String
+
+      # Promise chain start
+      (conveyor = new Conveyor req, res, user: req.authUser, params: req.body)
+
+      # Validate request parameters
+        .then
+          input: 'params',
+          schema: schema,
+          util.schema
+
+        .then
+          input: 'params.id',
+          output: 'package',
+          packages.findByUserID
+
+        .then
+          input: ['package', 'yes'],
+          packages.update
+
+        # Send success or observe errors
+        .then conveyor.success
+        .catch conveyor.error
+        .done()
+
   return self

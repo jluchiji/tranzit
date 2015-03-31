@@ -11,12 +11,13 @@
 # Here we load utilities from lib directory
 util     = require('../lib/util.js')          # Various utility methods
 Conveyor = require('../lib/conveyor.js')      # Promise-chaining
+uid      = require('shortid')                 # Unique ID generator
 
 # Here we export a high-order function, since we need called to supply db
 module.exports = (db) ->
 
   # Here we load APIs from data access module that are needed in this file
-  recipients = require('../models/recipients.js')(db)
+  recipients = require('../models/recipient.js')(db)
 
   # Object where we will attach our functions
   self = { }
@@ -38,11 +39,11 @@ module.exports = (db) ->
           util.schema
 
         .then
-          input: params.id
-          output: recipient
+          input: 'params.id',
+          output: recipient,
           recipients.findByID
 
-        # Make sure the user exists
+        # Make sure the recipient exists
         .then
           status: 404,
           message: 'Recipient not found.',
@@ -51,6 +52,44 @@ module.exports = (db) ->
         # Send success or observe errors
         .then conveyor.success
         .catch conveyor.error
+        .done()
+
+  self.createRecipient = ->
+    return (req, res) ->
+
+      schema = 
+        firstName: String
+        lastName: String
+        address: String
+        email: /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
+
+      # Promise chain start
+      (conveyor = new Conveyor req, res, params: req.body)
+
+        # Validate request body
+        .then
+          input: 'params',
+          schema: schema,
+          util.schema
+
+        # Generate unique ID
+        .then
+          output: 'uid',
+          uid.generate
+        
+        .then
+          input: ['uid', 'params'],
+          recipients.create
+
+        # Send success response
+        .then
+          status: 201,
+          conveyor.success
+
+        # Handle errors
+        .catch conveyor.error
+
+        # Throw all unobserved exceptions
         .done()
 
   return self
