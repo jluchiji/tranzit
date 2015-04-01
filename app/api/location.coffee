@@ -13,12 +13,44 @@ angular.module 'Tranzit.api.location', ['Tranzit.config']
   # Keep a reference of @ in case we need it later in nested functions
   self = @
 
-  @getLocation = (location) -> # TODO
+  @create = (location) ->
     url = ':host/api/locations' # TODO: check on this
 
     # HTTP call details here
     config =
-      method:   'GET'
+      method:   'PUT'
+      url:      _.template(url)(host: ApiConfig.host)
+      data:     JSON.stringify _.extend({}, location) # TODO
+      headers:  
+        'Content-Type': 'application/json'
+        'X-Tranzit-Auth': TranzitAuthSession.user?.token
+
+    # Send request and generate a promise
+    return $http(config).then (data) ->
+      return data.data.result
+
+  @update = (location) ->
+    url = ':host/api/locations' # TODO: check on this
+
+    # HTTP call details here
+    config =
+      method:   'PUT'
+      url:      _.template(url)(host: ApiConfig.host)
+      data:     JSON.stringify _.extend({}, location) # TODO
+      headers:  
+        'Content-Type': 'application/json'
+        'X-Tranzit-Auth': TranzitAuthSession.user?.token
+
+    # Send request and generate a promise
+    return $http(config).then (data) ->
+      return data.data.result
+
+  @delete = (location) ->
+    url = ':host/api/locations' # TODO: check on this
+
+    # HTTP call details here
+    config =
+      method:   'PUT'
       url:      _.template(url)(host: ApiConfig.host)
       data:     JSON.stringify _.extend({}, location) # TODO
       headers:  

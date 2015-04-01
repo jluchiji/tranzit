@@ -13,14 +13,46 @@ angular.module 'Tranzit.api.recipient', ['Tranzit.config']
   # Keep a reference of @ in case we need it later in nested functions
   self = @
 
-  @getRecipient = (recipientID) -> # TODO
+  @create = (recipient) ->
     url = ':host/api/recipients' # TODO: check on this
 
     # HTTP call details here
     config =
-      method:   'GET'
+      method:   'PUT'
       url:      _.template(url)(host: ApiConfig.host)
-      data:     JSON.stringify _.extend({}, recipientID) # TODO
+      data:     JSON.stringify _.extend({}, recipient) # TODO
+      headers:  
+        'Content-Type': 'application/json'
+        'X-Tranzit-Auth': TranzitAuthSession.user?.token
+
+    # Send request and generate a promise
+    return $http(config).then (data) ->
+      return data.data.result
+
+  @update = (recipient) ->
+    url = ':host/api/recipients' # TODO: check on this
+
+    # HTTP call details here
+    config =
+      method:   'PUT'
+      url:      _.template(url)(host: ApiConfig.host)
+      data:     JSON.stringify _.extend({}, recipient) # TODO
+      headers:  
+        'Content-Type': 'application/json'
+        'X-Tranzit-Auth': TranzitAuthSession.user?.token
+
+    # Send request and generate a promise
+    return $http(config).then (data) ->
+      return data.data.result
+
+  @delete = (recipient) ->
+    url = ':host/api/recipients' # TODO: check on this
+
+    # HTTP call details here
+    config =
+      method:   'PUT'
+      url:      _.template(url)(host: ApiConfig.host)
+      data:     JSON.stringify _.extend({}, recipient) # TODO
       headers:  
         'Content-Type': 'application/json'
         'X-Tranzit-Auth': TranzitAuthSession.user?.token

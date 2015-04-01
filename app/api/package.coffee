@@ -13,7 +13,7 @@ angular.module 'Tranzit.api.package', ['Tranzit.config']
   # Keep a reference of @ in case we need it later in nested functions
   self = @
 
-  @create = (package) -> # TODO
+  @create = (package) ->
     url = ':host/api/packages' # TODO: check on this
 
     # HTTP call details here
@@ -29,7 +29,7 @@ angular.module 'Tranzit.api.package', ['Tranzit.config']
     return $http(config).then (data) ->
       return data.data.result
 
-  @update = (package) -> # TODO
+  @update = (package) ->
     url = ':host/api/packages' # TODO: check on this
 
     # HTTP call details here
@@ -45,7 +45,7 @@ angular.module 'Tranzit.api.package', ['Tranzit.config']
     return $http(config).then (data) ->
       return data.data.result
 
-  @delete = (package) -> # TODO
+  @delete = (package) ->
     url = ':host/api/packages' # TODO: check on this
 
     # HTTP call details here
