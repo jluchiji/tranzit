@@ -53,19 +53,22 @@ angular.module 'Tranzit.app.data', []
   # Create Package                                                            #
   # ------------------------------------------------------------------------- #
   @create = (package) ->
-    # TODO
+    TranzitPackage.create(package)
+      .error (error) -> AppEvents.event EventNames.RemoteCallError, error
 
   # ------------------------------------------------------------------------- #
   # Update Package                                                            #
   # ------------------------------------------------------------------------- #
   @update = (package) ->
-    # TODO
+    TranzitPackage.update(package)
+      .error (error) -> AppEvents.event EventNames.RemoteCallError, error
 
   # ------------------------------------------------------------------------- #
   # Delete Package                                                            #
   # ------------------------------------------------------------------------- #
   @delete = (package) ->
-    # TODO
+    TranzitPackage.delete(package)
+      .error (error) -> AppEvents.event EventNames.RemoteCallError, error
 
 
   ## Location functions ##
@@ -74,19 +77,22 @@ angular.module 'Tranzit.app.data', []
   # Create Location                                                           #
   # ------------------------------------------------------------------------- #
   @create = (location) ->
-    # TODO
+    TranzitLocation.create(location)
+      .error (error) -> AppEvents.event EventNames.RemoteCallError, error
 
   # ------------------------------------------------------------------------- #
   # Update Location                                                           #
   # ------------------------------------------------------------------------- #
   @update = (location) ->
-    # TODO
+    TranzitLocation.update(location)
+      .error (error) -> AppEvents.event EventNames.RemoteCallError, error
 
   # ------------------------------------------------------------------------- #
   # Delete Location                                                           #
   # ------------------------------------------------------------------------- #
   @delete = (location) ->
-    # TODO
+    TranzitLocation.delete(location)
+      .error (error) -> AppEvents.event EventNames.RemoteCallError, error
 
 
   ## Recipient Functions ##
@@ -95,19 +101,22 @@ angular.module 'Tranzit.app.data', []
   # Create Recipient                                                          #
   # ------------------------------------------------------------------------- #
   @create = (recipient) ->
-    # TODO
+    TranzitRecipient.create(recipient)
+      .error (error) -> AppEvents.event EventNames.RemoteCallError, error
 
   # ------------------------------------------------------------------------- #
   # Update Recipient                                                          #
   # ------------------------------------------------------------------------- #
   @update = (recipient) ->
-    # TODO
+    TranzitRecipient.update(recipient)
+      .error (error) -> AppEvents.event EventNames.RemoteCallError, error
 
   # ------------------------------------------------------------------------- #
   # Delete Recipient                                                          #
   # ------------------------------------------------------------------------- #
   @delete = (recipient) ->
-    # TODO
+    TranzitRecipient.delete(recipient)
+      .error (error) -> AppEvents.event EventNames.RemoteCallError, error
 
 
   return @
