@@ -26,15 +26,15 @@ smtpTransport = nodemailer.createTransport('SMTP',
   auth:
     user: 'server.tranzit@gmail.com'
     pass: 'dev@tranzit')
+
 # function for sending out emails
 sendEmails = ->
-  console.log 'Sending Email'
   mailOptions =
-    from: 'Tranzit Server ✔ <server.tranzit@gmail.com>'
+    from: 'Tranzit Server'
     to: 'aottinge@purdue.edu'
-    subject: 'Server Test ✔'
-    text: 'Hello from Tranzit Server ✔'
-    html: '<b>Hello from Tranzit Server ✔</b>'
+    subject: 'Server Test'
+    text: 'Hello from Tranzit Server'
+    #html: '<b>Hello from Tranzit Server</b>'
   smtpTransport.sendMail mailOptions, (error, response) ->
     if error
       console.log error
