@@ -22,15 +22,18 @@ express = require 'express'
 module.exports = app = express()
 
 smtpTransport = nodemailer.createTransport('SMTP',
-  service: 'Gmail')
+  service: 'Gmail'
+  auth:
+    user: 'server.tranzit@gmail.com'
+    pass: 'dev@tranzit')
 
 # function for sending out emails
 sendEmails = ->
   mailOptions =
-    from: 'Tranzit Server'
+    from: 'Tranzit Server <server.tranzit@gmail.com>'
     to: 'aottinge@purdue.edu'
     subject: 'Package Pickup'
-    html: '<b>Come pick up your package you lazy asshole.</b>'
+    html: '<b>Come pick up your package(s) you lazy asshole</b>'
   smtpTransport.sendMail mailOptions, (error, response) ->
     if error
       console.log error
@@ -63,7 +66,7 @@ db.init fs.readFileSync schema, 'utf8'
   schedule.scheduleJob({
     hour: 9
     minute: 0
-  }, sendEmails)
+  }, sendEmails())
  
   # begin listening for connections
   app.listen 3000, ->
