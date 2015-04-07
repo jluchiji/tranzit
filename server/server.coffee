@@ -28,6 +28,7 @@ smtpTransport = nodemailer.createTransport('SMTP',
     pass: 'dev@tranzit')
 # function for sending out emails
 sendEmails = ->
+  console.log 'Sending Email'
   mailOptions =
     from: 'Tranzit Server ✔ <server.tranzit@gmail.com>'
     to: 'aottinge@purdue.edu'
@@ -61,9 +62,9 @@ db.init fs.readFileSync schema, 'utf8'
   app.use require('./routes.js')(db)
 
   # send email to those who need to pick up a package at server startup
-  sendEmails
+  sendEmails()
   # send email everyday to people who have a package pending their pickup
-  sch = schedule.scheduleJob({
+  schedule.scheduleJob({
     hour: 9
     minute: 0
   }, sendEmails)
