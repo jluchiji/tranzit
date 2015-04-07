@@ -15,9 +15,28 @@ fs = require 'fs'
 path = require 'path'
 chalk = require 'chalk'      # provides colored output
 winston = require 'winston'  # server log
+nodemailer = require 'nodemailer'
+schedule = require 'node-schedule'
 
 express = require 'express'
 module.exports = app = express()
+
+smtpTransport = nodemailer.createTransport('SMTP', 
+  service: 'Gmail'
+  auth:
+    user: 'server.tranzit@gmail.com'
+    pass: 'dev@tranzit')
+# function for sending out emails
+sendEmails = ->
+  mailOptions = 
+    from: 'Tranzit Server ✔ <server.tranzit@gmail.com>'
+    to: 'aottinge@purdue.edu'
+    subject: 'Server Test ✔'
+    text: 'Hello from Tranzit Server ✔'
+    html: '<b>Hello from Tranzit Server ✔</b>'
+  smtpTransport.sendMail mailOptions, (error, response) ->
+    if error
+      console.log error
 
 # Set up server log for CLI
 winston.cli()
@@ -36,9 +55,19 @@ db.init fs.readFileSync schema, 'utf8'
 # db initialization successful
 .then ->
   # parse JSON requests
-  app.use require('body-parser').json()
+  app.use require('body-parser').json() 
+
   # mount root router, defined in routes.coffee
   app.use require('./routes.js')(db)
+
+  # send email to those who need to pick up a package at server startup
+  sendEmails
+  # send email everyday to people who have a package pending their pickup
+  sch = schedule.scheduleJob({
+    hour: 9
+    minute: 0
+  }, sendEmails)
+ 
   # begin listening for connections
   app.listen 3000, ->
     console.log 'Server listening on port 3000'
