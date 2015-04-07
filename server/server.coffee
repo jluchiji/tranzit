@@ -22,19 +22,15 @@ express = require 'express'
 module.exports = app = express()
 
 smtpTransport = nodemailer.createTransport('SMTP',
-  service: 'Gmail'
-  auth:
-    user: 'server.tranzit@gmail.com'
-    pass: 'dev@tranzit')
+  service: 'Gmail')
 
 # function for sending out emails
 sendEmails = ->
   mailOptions =
     from: 'Tranzit Server'
     to: 'aottinge@purdue.edu'
-    subject: 'Server Test'
-    text: 'Hello from Tranzit Server'
-    #html: '<b>Hello from Tranzit Server</b>'
+    subject: 'Package Pickup'
+    html: '<b>Come pick up your package you lazy asshole.</b>'
   smtpTransport.sendMail mailOptions, (error, response) ->
     if error
       console.log error
