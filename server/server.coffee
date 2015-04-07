@@ -21,14 +21,14 @@ schedule = require 'node-schedule'
 express = require 'express'
 module.exports = app = express()
 
-smtpTransport = nodemailer.createTransport('SMTP', 
+smtpTransport = nodemailer.createTransport('SMTP',
   service: 'Gmail'
   auth:
     user: 'server.tranzit@gmail.com'
     pass: 'dev@tranzit')
 # function for sending out emails
 sendEmails = ->
-  mailOptions = 
+  mailOptions =
     from: 'Tranzit Server ✔ <server.tranzit@gmail.com>'
     to: 'aottinge@purdue.edu'
     subject: 'Server Test ✔'
@@ -55,7 +55,7 @@ db.init fs.readFileSync schema, 'utf8'
 # db initialization successful
 .then ->
   # parse JSON requests
-  app.use require('body-parser').json() 
+  app.use require('body-parser').json()
 
   # mount root router, defined in routes.coffee
   app.use require('./routes.js')(db)

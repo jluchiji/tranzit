@@ -57,7 +57,7 @@ module.exports = (db) ->
   self.createRecipient = ->
     return (req, res) ->
 
-      schema = 
+      schema =
         firstName: String
         lastName: String
         address: String

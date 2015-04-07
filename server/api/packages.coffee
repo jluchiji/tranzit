@@ -64,7 +64,7 @@ module.exports = (db) ->
     return (req, res) ->
 
     # Schema for required parameters
-      schema = 
+      schema =
         id: String
         timeStamp: Number
 
