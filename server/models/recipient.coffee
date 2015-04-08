@@ -40,6 +40,7 @@ module.exports = (db) ->
       .from('recipient')
       .field('email')
       .outer_join(squel.select().from('packages').where('released = \'\''), null, 'recipient.id = packages.recipient')
+    return db.query(query)
 
   #Create recipient
   self.create = (id, params) ->
