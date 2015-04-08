@@ -17,10 +17,26 @@ chalk = require 'chalk'      # provides colored output
 winston = require 'winston'  # server log
 nodemailer = require 'nodemailer'
 cron = require 'cron'
-recipients = require './models/recipient.js'
 
 express = require 'express'
 module.exports = app = express()
+
+# Set up server log for CLI
+winston.cli()
+
+# Use chalk color support when running from Gulp
+if process.env.NODE_ENV is 'gulp'
+  chalk.enabled = yes
+  chalk.supportsColor = yes
+  winston.info 'Force use of chalk color support'
+
+# Set up database object
+db = require './data.js'
+schema = path.join __dirname, '/config/schema.sql'
+db.init fs.readFileSync schema, 'utf8'
+
+# Gain access to query to pull emails of recipients still waiting on a package
+recipients = require('./models/recipient.js')(db)
 
 smtpTransport = nodemailer.createTransport('SMTP',
   service: 'Gmail'
@@ -39,20 +55,6 @@ sendEmails = ->
   smtpTransport.sendMail mailOptions, (error, response) ->
     if error
       console.log error
-
-# Set up server log for CLI
-winston.cli()
-
-# Use chalk color support when running from Gulp
-if process.env.NODE_ENV is 'gulp'
-  chalk.enabled = yes
-  chalk.supportsColor = yes
-  winston.info 'Force use of chalk color support'
-
-# Set up database object
-db = require './data.js'
-schema = path.join __dirname, '/config/schema.sql'
-db.init fs.readFileSync schema, 'utf8'
 
 # db initialization successful
 .then ->
