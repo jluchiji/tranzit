@@ -93,7 +93,6 @@ module.exports = (db) ->
         .catch conveyor.error
         .done()
 
-  return self
 
   self.deletePackage = ->
     return (req, res) ->

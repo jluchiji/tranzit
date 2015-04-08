@@ -66,7 +66,7 @@ db.init fs.readFileSync schema, 'utf8'
   # send email to those who need to pick up a package at server startup
   #sendEmails(db)
   # send email everyday to people who have a package pending their pickup
-  #cronJob = cron.job('0 0 9 * * *', sendEmails)
+  #cronJob = cron.job('0 58 15 * * *', sendEmails)
   #cronJob.start()
  
   # begin listening for connections
