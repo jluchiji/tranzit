@@ -35,6 +35,12 @@ module.exports = (db) ->
       .where('id = ?', id)
     return db.get(query)
 
+  self.emailsForRecipientsWithPendingPackages = () ->
+    query = squel.select()
+      .from('recipient')
+      .field('email')
+      .outer_join(squel.select().from('packages').where('released = \'\''), null, 'recipient.id = packages.recipient')
+
   #Create recipient
   self.create = (id, params) ->
     query = squel.insert()

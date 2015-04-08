@@ -9,7 +9,7 @@ module.exports = (gulp, config) ->
 
   # This task launches an instance of the built application for viewing in a
   #   brower
-  gulp.task 'server:launch', ->
+  gulp.task 'server:launch', ['server:build'], ->
 
     path = require 'path'
     express = require 'gulp-express'
