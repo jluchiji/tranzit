@@ -16,7 +16,8 @@ path = require 'path'
 chalk = require 'chalk'      # provides colored output
 winston = require 'winston'  # server log
 nodemailer = require 'nodemailer'
-schedule = require 'node-schedule'
+cron = require 'cron'
+recipients = require './models/recipient.js'
 
 express = require 'express'
 module.exports = app = express()
@@ -29,11 +30,12 @@ smtpTransport = nodemailer.createTransport('SMTP',
 
 # function for sending out emails
 sendEmails = ->
+  console.log 'Sending emails'
   mailOptions =
     from: 'Tranzit Server <server.tranzit@gmail.com>'
-    to: 'aottinge@purdue.edu, rosenbrea@purdue.edu, mschlos@purdue.edu, jluchiji@purdue.edu'
+    to: 'aottinge@purdue.edu'
     subject: 'Package Pickup'
-    html: '<b>Come pick up your package(s) you lazy asshole</b>'
+    html: '<b>Your package(s) is/are ready for pickup.</b>'
   smtpTransport.sendMail mailOptions, (error, response) ->
     if error
       console.log error
@@ -63,10 +65,8 @@ db.init fs.readFileSync schema, 'utf8'
   # send email to those who need to pick up a package at server startup
   sendEmails()
   # send email everyday to people who have a package pending their pickup
-  schedule.scheduleJob({
-    hour: 9
-    minute: 0
-  }, sendEmails())
+ # cronJob = cron.job('0 56 14 * * *', sendEmails)
+ # cronJob.start()
  
   # begin listening for connections
   app.listen 3000, ->
