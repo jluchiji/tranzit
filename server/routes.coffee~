@@ -66,8 +66,8 @@ module.exports = (db) ->
   # /packages
   api.route '/recipients/:id'
     .put packages.updatePackage()
-    .delete authorize.user()
-    .delete packages.deletePackage()
+    #.delete authorize.user()
+    #.delete packages.deletePackage()
 
   # Static router for content, which works for the Tranzit web app
   root.use st = express.Router()

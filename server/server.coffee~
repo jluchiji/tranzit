@@ -64,7 +64,7 @@ db.init fs.readFileSync schema, 'utf8'
   app.use require('./routes.js')(db)
 
   # send email to those who need to pick up a package at server startup
-  #sendEmails(db)
+  sendEmails(db)
   # send email everyday to people who have a package pending their pickup
   #cronJob = cron.job('0 0 9 * * *', sendEmails)
   #cronJob.start()
