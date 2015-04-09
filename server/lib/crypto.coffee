@@ -1,43 +1,35 @@
-# --------------------------------------------------------------------------- #
-#                                                                             #
-# Cryptographic utilities (Mostly bluebird.js wrappers)                       #
-#                                                                             #
-# --------------------------------------------------------------------------- #
-_       = require 'underscore'
-bcrypt  = require 'bcrypt-nodejs'
-crypto  = require 'crypto'
-moment  = require 'moment'
+﻿#   ______   ______     ______     __   __     ______     __     ______
+#  /\__  _\ /\  == \   /\  __ \   /\ "-.\ \   /\___  \   /\ \   /\__  _\
+#  \/_/\ \/ \ \  __<   \ \  __ \  \ \ \-.  \  \/_/  /__  \ \ \  \/_/\ \/
+#     \ \_\  \ \_\ \_\  \ \_\ \_\  \ \_\\"\_\   /\_____\  \ \_\    \ \_\
+#      \/_/   \/_/ /_/   \/_/\/_/   \/_/ \/_/   \/_____/   \/_/     \/_/
+#
+# Copyright © 2015 Tranzit Development Team
+
+_ = require 'underscore'
+bcrypt = require 'bcrypt-nodejs'
+crypto = require 'crypto'
+moment = require 'moment'
 Promise = require 'bluebird'
 msgpack = require 'msgpack'
 urlsafe = require 'urlsafe-base64'
 winston = require 'winston'
-
-config  = require('../config.js')('server.yml')
-
+config = require('../config.js')('server.yml')
 self = module.exports
 
-# ------------------------------------------------------------------------- #
-# Generates salt for bcrypt password hashing                                #
-# ------------------------------------------------------------------------- #
+# Generate salt for bcrypt password hashing
 self.genSalt = Promise.promisify bcrypt.genSalt
-
-# ------------------------------------------------------------------------- #
-# Hashes the data using bcrypt                                              #
-# ------------------------------------------------------------------------- #
+# Hash data with bcrypt
 self.hash = Promise.promisify bcrypt.hash
 
-# ------------------------------------------------------------------------- #
-# Compares hashed data with a pre-existing hash                             #
-# ------------------------------------------------------------------------- #
+# Compare already existing hash with hashed data
 self.compare = (plain, hash) ->
   return new Promise (resolve, reject) ->
     bcrypt.compare plain, hash, (error, result) ->
       if error then reject(error)
       else resolve(result)
 
-# ------------------------------------------------------------------------- #
-# Generates a bcrypt hash of the password                                   #
-# ------------------------------------------------------------------------- #
+# Generate bcrypt hash of password
 self.bcryptHash = (password) ->
   return new Promise (resolve, reject) ->
     bcrypt.genSalt config.security.saltRounds, (error, result) ->
@@ -46,40 +38,27 @@ self.bcryptHash = (password) ->
         if error then reject(error)
         else resolve(result)
 
-# ------------------------------------------------------------------------- #
-# Generates crypto. strong array of random bytes encoded in base64          #
-# ------------------------------------------------------------------------- #
+# Creates crypto, a strong array of random bytes encoded in base64
 self.generateAuth = ->
   Promise.promisify(crypto.randomBytes)(config.security.authSize)
     .then (buf) -> buf.toString('base64')
 
-# ------------------------------------------------------------------------- #
-# Generates a keyed hash of data in base64 format                           #
-# ------------------------------------------------------------------------- #
-self.hmacDigest = (data, key, short = yes, algorithm = 'SHA256') ->
+# Creates keyed hash of data in base64 format
+self.hmacDigest = (data, key, short=yes, algorithm='SHA256') ->
   return new Promise (resolve) ->
     hash = crypto.createHmac(algorithm, key).update(data).digest()
-    # With `short` set to true, discard right half of the hash output
+    # When short = yes, slice away right half of hash output
     if short then hash = hash.slice(0, hash.length / 2)
-    # Resolve with hash
     resolve hash.toString('base64')
 
-# ------------------------------------------------------------------------- #
-# Generates an authorization token for the specified user.                  #
-#                                                                           #
-# user   : User object as returned from database model.                     #
-# secure : If true, forces revocation of all previous tokens on use.        #
-# ------------------------------------------------------------------------- #
-self.createToken = (user, secure = no) ->
-  # Get timestamp and create the token metadata object
+# Creates authorization token for the passed in user
+# user parameter is the user object returned by the database module
+# If secure is true, the function revokes all the previous tokens
+self.createToken = (user, secure=no) ->
   time = Math.floor(new Date().getTime() / 1000)
-  meta = [ secure, user.id, time ]
-  # Pack meta into payload
+  meta = [secure, user.id, time]
   payload = msgpack.pack(meta)
-  # Calculate HMAC SHA-256 singature of the token
   self.hmacDigest(payload, user.auth)
     .then (hash) ->
-      # Pack singature into the token meta as well
       meta.push(hash)
-      # Output the resulting token
       urlsafe.encode(msgpack.pack meta)
