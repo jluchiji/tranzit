@@ -1,4 +1,4 @@
-#   ______   ______     ______     __   __     ______     __     ______
+﻿#   ______   ______     ______     __   __     ______     __     ______
 #  /\__  _\ /\  == \   /\  __ \   /\ "-.\ \   /\___  \   /\ \   /\__  _\
 #  \/_/\ \/ \ \  __<   \ \  __ \  \ \ \-.  \  \/_/  /__  \ \ \  \/_/\ \/
 #     \ \_\  \ \_\ \_\  \ \_\ \_\  \ \_\\"\_\   /\_____\  \ \_\    \ \_\
@@ -12,18 +12,32 @@
 angular.module 'Tranzit.app', [
   # Third-party dependencies
   'ui.router',
+  'ui.bootstrap',
   'ngStorage',
+  #'ngAnimate',
+  #'anim-in-out',
 
   # First-party dependencies
   'Tranzit.config',
   'Tranzit.api.auth',
+  'Tranzit.api.user',
   'Tranzit.api.session',
   'Tranzit.app.events',
   'Tranzit.app.const',
   'Tranzit.app.data',
   'Tranzit.app.routing',
   'Tranzit.app.session',
-  'Tranzit.app.ctrl.root'
+  'Tranzit.app.directives',
+  'Tranzit.app.ctrl.root',
+
+  # Shared
+  'Tranzit.app.shared.navbar',
+
+  # Views
+  'Tranzit.app.views.login',
+  'Tranzit.app.views.home',
+  'Tranzit.app.views.settings',
+  'Tranzit.app.views.packageScan'
 ]
 
 # Configure Underscore.js to recognize /:param style URL templates
@@ -81,3 +95,27 @@ angular.module 'Tranzit.app', [
 
     $delegate
   return
+
+.run ($state, AppSession, AppEvents) ->
+
+  $state.go 'login'
+
+  AppEvents.on '$stateChangeStart', (e, to) ->
+
+    if to.name is 'login' then return
+
+    if not AppSession.user()
+      e.preventDefault()
+      $state.go 'login'
+
+# Extend Underscore.js
+_.mixin
+  # Creates a diff object
+  diff: (ori, mod, proplist) ->
+    result = { }
+
+    for prop in proplist
+      if ori[prop] isnt mod[prop]
+        result[prop] = mod[prop]
+
+    return result

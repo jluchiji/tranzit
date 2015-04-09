@@ -27,6 +27,16 @@ module.exports = (gulp, config) ->
     else
       config.scripts = ['lib/bower.js'].concat config._scripts
 
+    # Backup the old stylesheets array
+    config._stylesheets ?= config.stylesheets
+    # Inject bower files depending on target
+    if not config.concat
+      bower = _.map config.bower.stylesheets, (i) ->
+        path.join 'lib', i
+      config.stylesheets = bower.concat config._stylesheets
+    else
+      config.stylesheets = ['lib/bower.css'].concat config._stylesheets
+
     # Process markup
     gulp.src ['app/**/*.jade', '!**/*.part.jade'], base: './'
       .pipe jade locals: config

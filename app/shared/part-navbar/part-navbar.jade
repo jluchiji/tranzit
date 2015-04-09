@@ -1,6 +1,27 @@
-nav.navbar.navbar-default.navbar-fixed-top
+nav.navbar.navbar-default.navbar-fixed-top(ng-controller = 'NavbarController')
   .container-fluid
     .navbar-header
       a.navbar-brand
         img(src = 'assets/logo-square.svg')
-        
+    ul.nav.navbar-nav.navbar-right(ng-show = 'session().user()')
+      li
+        a(ui-sref = 'home', ui-sref-active = 'current')
+          span.glyphicon.glyphicon-home
+          | HOME
+      li
+        a(ui-sref = 'packageScan')
+          span.glyphicon.glyphicon-plus
+          | NEW PACKAGE
+      li(dropdown, is-open = 'dropdown.isOpen')
+        a.dropdown-toggle(dropdown-toggle)
+          | {{ session().user().email }}
+          span.caret
+        ul.dropdown-menu
+          li
+            a(ui-sref = 'settings', ui-sref-active = 'current')
+              span.glyphicon.glyphicon-cog
+              | SETTINGS
+          li
+            a(ng-click = 'logout()')
+              span.glyphicon.glyphicon-log-out
+              | LOG OUT

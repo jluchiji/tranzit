@@ -1,7 +1,7 @@
 # Tranzit
 *CS 307 Project*
 
-**Michael Schoss's Branch**
+**Michael Schloss's Branch**
 
 A package processing application.
 

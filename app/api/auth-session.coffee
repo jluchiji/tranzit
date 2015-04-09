@@ -8,11 +8,12 @@
 angular.module 'Tranzit.api.session', []
 
 # Authentication session
-.service 'TranzitAuthSession', ($localStorage) ->
+.service 'TranzitAuthSession', ($localStorage, $q) ->
 
   # Initializes an authentication session
   @create = (user, remember) ->
     @user = user
+    @remember = remember
 
     # If remember is true, store credentials in local storage
     if remember
@@ -20,6 +21,12 @@ angular.module 'Tranzit.api.session', []
       $localStorage.lastUser = @user.email
 
     # Return @ for chaining
+    return @
+
+  @update = (user) ->
+    _.extend @user, user
+    if @remember
+      $localStorage.token = @user.token
     return @
 
   # Destroys the authentication session
