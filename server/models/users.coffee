@@ -72,6 +72,7 @@ module.exports = (db) ->
       query = query.set('hash', params.hash)
     if params.auth
       query = query.set('auth', params.auth)
+      
     # Execute the query
     db.query(query)
       .then ->

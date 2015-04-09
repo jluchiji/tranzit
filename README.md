@@ -1,6 +1,8 @@
 # Tranzit
 *CS 307 Project*
 
+**Michael Schloss's Branch**
+
 A package processing application.
 
 ## Directory Structure
@@ -26,4 +28,4 @@ $ npm i
 
 At this point, project does not have a build script. I will post build script documentation as soon as I set it up.
 
-Ottinger
+rosenbea - Linux
