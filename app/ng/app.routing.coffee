@@ -22,3 +22,9 @@ angular.module 'Tranzit.app.routing', []
       templateUrl: 'views/settings/settings.html',
       controller: 'SettingsController'
     )
+    .state(
+      'packageScan',
+      url: '/packageScan',
+      templateUrl: 'views/packageScan/packageScan.html',
+      controller: 'PackageScanController'
+    )

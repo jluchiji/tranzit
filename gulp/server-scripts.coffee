@@ -14,7 +14,7 @@ module.exports = (gulp, config) ->
     coffeeLint = require 'gulp-coffeelint'
     gulpIf = require 'gulp-if'
     plumber = require 'gulp-plumber'
-    sourceMaps = require 'gulp-soucemaps'
+    sourceMaps = require 'gulp-sourcemaps'
 
     gulp.src ['server/**/*.coffee'], base: './server'
         .pipe plumber()
