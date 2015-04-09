@@ -60,7 +60,6 @@ module.exports = (db) ->
         # Throw all unobserved exceptions
         .done()
 
-  return self
 
   self.updatePackage = ->
     return (req, res) ->
@@ -93,7 +92,6 @@ module.exports = (db) ->
         .catch conveyor.error
         .done()
 
-  return self
 
   self.deletePackage = ->
     return (req, res) ->

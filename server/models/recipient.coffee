@@ -37,10 +37,10 @@ module.exports = (db) ->
 
   self.emailsForRecipientsWithPendingPackages = ->
     query = squel.select()
-      .from('recipient')
+      .from('recipient','r')
       .field('email')
-      .outer_join(squel.select().from('packages').where('released = \'\''),
-      null, 'recipient.id = packages.recipient')
+      .join(squel.select().from('packages').where('released IS NULL'),
+      'p', 'r.id = p.recipient')
     return db.query(query)
 
   #Create recipient

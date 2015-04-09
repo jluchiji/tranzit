@@ -34,9 +34,9 @@ sendEmails = (db) ->
     to: 'aottinge@purdue.edu'
     subject: 'Package Pickup'
     html: '<b>Your package(s) is/are ready for pickup.</b>'
-  smtpTransport.sendMail mailOptions, (error, response) ->
-    if error
-      console.log error
+  #smtpTransport.sendMail mailOptions, (error, response) ->
+   # if error
+    #  console.log error
 
 express = require 'express'
 module.exports = app = express()

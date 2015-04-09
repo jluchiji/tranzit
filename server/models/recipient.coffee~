@@ -39,7 +39,8 @@ module.exports = (db) ->
     query = squel.select()
       .from('recipient')
       .field('email')
-      .outer_join(squel.select().from('packages').where('released = \'\''),null, 'recipient.id = packages.recipient')
+      .join(squel.select().from('packages').where('released IS NULL'),
+        null, 'recipient.id = packages.recipient')
     return db.query(query)
 
   #Create recipient
