@@ -61,6 +61,7 @@ development:
     - views/login/login.js
     - views/home/home.js
     - views/settings/settings.js
+    - views/packageScan/packageScan.js
     - index.js
 
   # Development-specific stylesheets

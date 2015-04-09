@@ -8,6 +8,10 @@ nav.navbar.navbar-default.navbar-fixed-top(ng-controller = 'NavbarController')
         a(ui-sref = 'home', ui-sref-active = 'current')
           span.glyphicon.glyphicon-home
           | HOME
+      li
+        a(ui-sref = 'packageScan')
+          span.glyphicon.glyphicon-plus
+          | NEW PACKAGE
       li(dropdown, is-open = 'dropdown.isOpen')
         a.dropdown-toggle(dropdown-toggle)
           | {{ session().user().email }}
