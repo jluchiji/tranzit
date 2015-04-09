@@ -6,7 +6,9 @@
 
 
       .card-section.thin-padding.clearfix
-        h2.col-xs-10.col-xs-offset-2 Please Scan Package Barcode
+        h2.col-xs-10.col-xs-offset-2 New Package
+        .row
+          h3.col-xs-10.col-xs-offset-3 Please Scan Package Barcode
 
 
       .card-section.light.clearfix
@@ -21,7 +23,7 @@
               ng-model = 'package.trackingNumber',
               required
             )
-          .col-xs-4.error-message(ng-class = '{open: package.trackingNumber.$error.required}')
+          .col-xs-4.error-message(ng-class = '{open: packageScan.trackingNumber.$error.required && hasPackageChanges()}')
             span.glyphicon.glyphicon-remove-circle.inline-lg
             | Tracking number cannot be empty.
 
@@ -39,7 +41,7 @@
               ng-model = 'recipient.firstName',
               required
             )
-          .col-xs-4.error-message(ng-class = '{open: recipient.firstName.$error.required}')
+          .col-xs-4.error-message(ng-class = '{open: packageScan.firstName.$error.required}')
             span.glyphicon.glyphicon-remove-circle.inline-lg
             | First name cannot be empty.
 
@@ -52,7 +54,7 @@
               ng-model = 'recipient.lastName',
               required
             )
-          .col-xs-4.error-message(ng-class = '{open: recipient.lastName.$error.required}')
+          .col-xs-4.error-message(ng-class = '{open: packageScan.lastName.$error.required}')
             span.glyphicon.glyphicon-remove-circle.inline-lg
             | Last name cannot be empty.
 
@@ -65,7 +67,7 @@
               ng-model = 'recipient.email',
               required
             )
-          .col-xs-4.error-message(ng-class = '{open: recipient.email.$error.required}')
+          .col-xs-4.error-message(ng-class = '{open: packageScan.email.$error.required}')
             span.glyphicon.glyphicon-remove-circle.inline-lg
             | The email field cannot be empty.
           button.btn.btn-success.btn-loading.pull-right(type = 'lookUpEmail', ck-multistate = 'lookUpEmailButton')
