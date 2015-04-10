@@ -146,8 +146,22 @@ module.exports = (db) ->
         # Update db records
         .then
           input: ['user', 'params'],
+          output: 'user'
           users.update
 
+      if req.body.password
+
+        conveyor
+          # Create an auth token
+          .then
+            output: 'user.token',
+            auth.createToken
+          # Remove sensitive data
+          .then
+            input: 'user',
+            users.sanitize
+
+      conveyor
         # Send success or observe errors
         .then users.sanitize
         .then conveyor.success

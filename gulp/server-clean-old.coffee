@@ -6,9 +6,10 @@
 # --------------------------------------------------------------------------- #
 module.exports = (gulp, config) ->
 
-  gulp.task 'client:assets', ->
+  gulp.task 'server:clean', ->
 
-    path = require 'path'
+    del     = require 'del'
+    vinyl   = require 'vinyl-paths'
 
-    gulp.src ['assets/**'], base: './assets'
-      .pipe gulp.dest path.join config.paths.dest, 'app/assets'
+    gulp.src ['./dist/*', '!./dist/app'], read: no
+      .pipe vinyl del

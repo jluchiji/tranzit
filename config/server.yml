@@ -30,10 +30,10 @@ security:
   # Default: 16 bytes
   authSize: 16,
 
-  # TTL (time-to-live) of general tokens (minutes).
+  # TTL (time-to-live) of general tokens (seconds).
   # Default: 24 hours / 1440 minutes
-  tokenTtl: 1440,
+  tokenTtl: 7200,
 
-  # TTL (time-ti-live) of secure tokens (minutes).
+  # TTL (time-ti-live) of secure tokens (seconds).
   # Default: 2 hours / 120 minutes
-  secureTokenTtl: 120
+  secureTokenTtl: 7200

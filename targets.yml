@@ -24,9 +24,13 @@ default:
       - underscore/underscore.js
       - angular/angular.js
       - ngstorage/ngStorage.js
+      - angular-animate/angular-animate.js
       - angular-ui-router/release/angular-ui-router.js
+      - angular-ui-router-anim-in-out/anim-in-out.js
+      - angular-bootstrap/ui-bootstrap-tpls.js
+      - angular-bootstrap/ui-bootstrap.js
     stylesheets:
-
+      - angular-ui-router-anim-in-out/css/anim-in-out.css
     fonts:
 
     assets:
@@ -55,10 +59,18 @@ development:
     - ng/app.session.js
     - ng/app.events.js
     - ng/app.const.js
+    - ng/app.directives.js
+    - shared/part-navbar/part-navbar.js
+    - views/login/login.js
+    - views/home/home.js
+    - views/settings/settings.js
+    - views/packageScan/packageScan.js
     - index.js
 
   # Development-specific stylesheets
   stylesheets:
+    - //maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css
+    - //code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css
     - index.css
 
 # --------------------------------------------------------------------------- #
@@ -76,4 +88,6 @@ production:
 
   # Production-specific stylesheets to inject
   stylesheets:
+    - //maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css
+    - //code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css
     - index.css
