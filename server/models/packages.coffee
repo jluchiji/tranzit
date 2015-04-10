@@ -67,4 +67,11 @@ module.exports = (db) ->
         packageObject.released = released
         return packageObject
 
+  #Deletes a package
+  self.delete = (packageID) ->
+    query = squel.delete()
+      .from('package')
+      .where('id = ?', packageID)
+    return db.query(query)
+
   return self

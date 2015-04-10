@@ -52,6 +52,9 @@ development:
     - api/auth-session.js
     - api/auth.js
     - api/user.js
+    - api/recipient.js
+    - api/location.js
+    - api/package.js
     - ng/app.js
     - ng/app.config.js
     - ng/app.data.js
@@ -64,6 +67,7 @@ development:
     - views/login/login.js
     - views/home/home.js
     - views/settings/settings.js
+    - views/packageScan/packageScan.js
     - index.js
 
   # Development-specific stylesheets
