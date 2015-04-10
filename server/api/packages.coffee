@@ -22,13 +22,33 @@ module.exports = (db) ->
   # Object where we will attach our functions
   self = { }
 
+  self.find = ->
+    return (req, res) ->
+      schema =
+        recipient: [String, null]
+
+      (conveyor = new Conveyor req, res, user: req.authUser, params: req.query)
+
+        .then
+          input: 'params',
+          schema: schema,
+          util.schema
+
+        .then
+          input: 'params',
+          output: 'packages',
+          packages.find
+
+        .then conveyor.success
+        .catch conveyor.error
+        .done()
+
   self.createPackage = ->
     return (req, res) ->
 
     # Schema for required parameters
       schema =
         tracking: String
-        received: Number
         recipient: String
 
       # Promise chain start
@@ -119,5 +139,3 @@ module.exports = (db) ->
         .done()
 
   return self
-
-

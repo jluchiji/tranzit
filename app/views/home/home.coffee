@@ -1,5 +1,5 @@
 angular.module 'Tranzit.app.views.home', []
-.controller 'HomeController', ($scope) ->
+.controller 'HomeController', ($scope, AppData) ->
 
   $('#scanner').focus()
 
@@ -29,6 +29,36 @@ angular.module 'Tranzit.app.views.home', []
   $scope.reset = ->
     $scope.scanner.input = ''
     $scope.viewState = null
+    $scope.recipient = null
 
   $scope.submit = ->
-    undefined
+    if $scope.viewState is 'tracking'
+      registerPackage()
+      return
+
+    if $scope.viewState is 'id'
+      findPackages()
+      return
+
+  registerPackage = ->
+    $scope.recipient.id = $scope.recipient.id.substr(16,10)
+    $scope.submitButton.state 'loading'
+    AppData.createRecipient($scope.recipient)
+      .then (recipient) ->
+        pkg =
+          tracking: $scope.scanner.input
+          recipient: recipient.id
+        console.log pkg
+        AppData.createPackage(pkg)
+      .then ->
+        $scope.submitButton.state 'success'
+        $scope.reset()
+      .error (e) ->
+        console.log e
+        $scope.submitButton.state 'error'
+
+  findPackages = ->
+    id = $scope.scanner.input.substr(16,10)
+    console.log id
+    AppData.findByRecipient(id)
+      .then (packages) -> $scope.pendingPackages = packages

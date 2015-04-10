@@ -50,24 +50,25 @@ module.exports = (db) ->
     # GET /api/users/:email
     .get users.find()
 
-  # /locations
-  api.route '/locations/:id/packages'
+  # /packages
+  api.route '/packages'
     # POST /api/packages
-    .post authorize.user()
+    .post authorize.user('any')
     .post packages.createPackage()
 
-  # /recipients
-  api.route '/recipients/'
-    .post recipients.createRecipient()
-  api.route '/recipients/:id'
-  # GET api/recipients/:id
-    .get recipients.findByID()
+    #GET /api/packages
+    .get authorize.user('any')
+    .get packages.find()
 
-  # /packages
+
+  # /recipients
+  api.route '/recipients'
+    .post authorize.user('any')
+    .post recipients.createRecipient()
+
   api.route '/recipients/:id'
-    .put packages.updatePackage()
-    .delete authorize.user()
-    .delete packages.deletePackage()
+    # GET api/recipients/:id
+    .get recipients.findByID()
 
   # Static router for content, which works for the Tranzit web app
   root.use st = express.Router()

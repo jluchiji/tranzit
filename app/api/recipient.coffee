@@ -18,9 +18,9 @@ angular.module 'Tranzit.api.recipient', ['Tranzit.config']
 
     # HTTP call details here
     config =
-      method:   'PUT'
+      method:   'POST'
       url:      _.template(url)(host: ApiConfig.host)
-      data:     JSON.stringify _.extend({}, recipient) # TODO
+      data:     JSON.stringify _.extend({}, recipient)
       headers:
         'Content-Type': 'application/json'
         'X-Tranzit-Auth': TranzitAuthSession.user?.token
@@ -30,13 +30,13 @@ angular.module 'Tranzit.api.recipient', ['Tranzit.config']
       return data.data.result
 
   @update = (recipient) ->
-    url = ':host/api/recipients' # TODO: check on this
+    url = ':host/api/recipients'
 
     # HTTP call details here
     config =
       method:   'PUT'
       url:      _.template(url)(host: ApiConfig.host)
-      data:     JSON.stringify _.extend({}, recipient) # TODO
+      data:     JSON.stringify _.extend({}, recipient)
       headers:
         'Content-Type': 'application/json'
         'X-Tranzit-Auth': TranzitAuthSession.user?.token
@@ -46,13 +46,13 @@ angular.module 'Tranzit.api.recipient', ['Tranzit.config']
       return data.data.result
 
   @delete = (recipient) ->
-    url = ':host/api/recipients' # TODO: check on this
+    url = ':host/api/recipients'
 
     # HTTP call details here
     config =
-      method:   'PUT'
+      method:   'DELETE'
       url:      _.template(url)(host: ApiConfig.host)
-      data:     JSON.stringify _.extend({}, recipient) # TODO
+      data:     JSON.stringify _.extend({}, recipient)
       headers:
         'Content-Type': 'application/json'
         'X-Tranzit-Auth': TranzitAuthSession.user?.token

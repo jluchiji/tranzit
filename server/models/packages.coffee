@@ -14,6 +14,7 @@
 _       = require('underscore')  # Underscore.js: Big bunch of handy functions
 uid     = require('shortid')     # shortid: Unique random string ID generator
 squel   = require('squel')       # squel.js: SQL query builder
+moment  = require('moment')      # moment.js: time handling library
 Promise = require('bluebird')    # bluebird: Fast Promise/A+ library
 
 module.exports = (db) ->
@@ -21,45 +22,56 @@ module.exports = (db) ->
   #Object where we'll attach all functions
   self = { }
 
+  self.find = (params) ->
+    query = squel.select()
+      .from('packages')
+
+    if params.recipient
+      query = query.where('recipient = ?', params.recipient)
+
+    return db.all(query)
+
   #Finds a package by tracking number
   self.findByTrackingNumber = (trackingNumber) ->
     query = squel.select()
-      .from('package')
+      .from('packages')
       .where('tracking = ?', trackingNumber)
     return db.get(query)
 
   #Finds packages belonging to a user
   self.findByUserID = (userID) ->
     query = squel.select()
-      .from('package')
+      .from('packages')
       .where('user = ?', userID)
-    return db.get(query)
+    return db.all(query)
 
   #Finds packages by received date
   self.findByReceivedDate = (receivedDate) ->
     query = squel.select()
-      .from('package')
+      .from('packages')
       .where('received = ?', receivedDate)
-    return db.get(query)
+    return db.all(query)
 
   #Creates a new package object
   self.create = (id, params, user) ->
+    now = moment().unix()
+
     query = squel.insert()
-      .into('package')
+      .into('packages')
       .set('id', id)
+      .set('received', now)
       .set('tracking', params.tracking)
-      .set('received', params.received)
       .set('recipient', params.recipient)
-      .set('user', user)
+      .set('user', user.id)
     db.query(query)
-      .then -> _.extend(params, id: id, user: user)
+      .then -> _.extend(params, id: id, user: user.id)
 
   #Updates a package object
   self.update = (packageObject, released) ->
     @config.output ?= 'package'
 
     query = squel.update()
-      .table('package')
+      .table('packages')
       .where('id = ?', packageObject.id)
       .set('released = ?', released)
     db.query(query)
@@ -70,7 +82,7 @@ module.exports = (db) ->
   #Deletes a package
   self.delete = (packageID) ->
     query = squel.delete()
-      .from('package')
+      .from('packages')
       .where('id = ?', packageID)
     return db.query(query)
 

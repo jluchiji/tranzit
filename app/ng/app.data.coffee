@@ -7,7 +7,8 @@
 # Copyright © 2015 Tranzit Development Team
 angular.module 'Tranzit.app.data', []
 .service 'AppData', ($state, AppSession, AppEvents, EventNames,
-                     TranzitAuth, TranzitUser, TranzitAuthSession) ->
+                     TranzitAuth, TranzitUser, TranzitAuthSession,
+                     TranzitRecipient, TranzitPackage) ->
 
   # Keep these references just in case
   self = @
@@ -51,6 +52,10 @@ angular.module 'Tranzit.app.data', []
   #### SPRINT 2 ####
 
   ## Package functions ##
+
+  @findPackageByRecipient = (id) ->
+    TranzitPackage.find(recipient: id)
+      .error (error) -> AppEvents.event EventNames.RemoteCallError, error
 
   # ------------------------------------------------------------------------- #
   # Create Package                                                            #
@@ -120,7 +125,7 @@ angular.module 'Tranzit.app.data', []
   @deleteRecipient = (recipient) ->
     TranzitRecipient.delete(recipient)
       .error (error) -> AppEvents.event EventNames.RemoteCallError, error
-  
+
   # ------------------------------------------------------------------------- #
   # Event handling                                                            #
   # ------------------------------------------------------------------------- #

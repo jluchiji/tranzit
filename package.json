@@ -60,7 +60,7 @@
     "debug": "^2.1.1",
     "express": "^4.11.0",
     "js-schema": "^0.7.2",
-    "moment": "^2.9.0",
+    "moment": "^2.10.2",
     "msgpack": "^0.2.4",
     "mysql-promise": "^1.3.0",
     "nodemailer": "^1.3.2",

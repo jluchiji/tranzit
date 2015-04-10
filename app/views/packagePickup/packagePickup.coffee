@@ -3,5 +3,4 @@ angular.module 'Tranzit.app.views.packagePickup', []
   undefined
 
 .controller 'PackagePackagePickupController', ($scope, TranzitAuthSession, AppSession, AppData) ->
-
-  
+  undefined

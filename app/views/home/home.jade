@@ -25,21 +25,21 @@
       .card-section.light.clearfix(ng-show = 'viewState == "tracking"')
         h3.col-xs-10.col-xs-offset-2 Recipient Information     
         .row
-          label.col-xs-2.text-right First Name
+          label.col-xs-2.text-right ID
           .col-xs-5.input-group.input-group-lg
             input.form-control(
               type = 'text', 
-              name = 'firstName', 
-              ng-model = 'recipient.first',
+              name = 'id', 
+              ng-model = 'recipient.id',
               required
             )
         .row
-          label.col-xs-2.text-right Last Name
+          label.col-xs-2.text-right Name
           .col-xs-5.input-group.input-group-lg
             input.form-control(
               type = 'text', 
-              name = 'lastName', 
-              ng-model = 'recipient.last',
+              name = 'name', 
+              ng-model = 'recipient.name',
               required
             )
         .row

@@ -13,12 +13,28 @@ angular.module 'Tranzit.api.package', ['Tranzit.config']
   # Keep a reference of @ in case we need it later in nested functions
   self = @
 
+  @find = (params) ->
+    url = ':host/api/packages' # TODO: check on this
+
+    # HTTP call details here
+    config =
+      method:   'GET'
+      url:      _.template(url)(host: ApiConfig.host)
+      params:   _.extend {}, params
+      headers:
+        'Content-Type': 'application/json'
+        'X-Tranzit-Auth': TranzitAuthSession.user?.token
+
+    # Send request and generate a promise
+    return $http(config).then (data) ->
+      return data.data.result
+
   @create = (pkg) ->
     url = ':host/api/packages' # TODO: check on this
 
     # HTTP call details here
     config =
-      method:   'PUT'
+      method:   'POST'
       url:      _.template(url)(host: ApiConfig.host)
       data:     JSON.stringify _.extend({}, pkg) # TODO
       headers:
@@ -50,7 +66,7 @@ angular.module 'Tranzit.api.package', ['Tranzit.config']
 
     # HTTP call details here
     config =
-      method:   'PUT'
+      method:   'DELETE'
       url:      _.template(url)(host: ApiConfig.host)
       data:     JSON.stringify _.extend({}, pkg) # TODO
       headers:

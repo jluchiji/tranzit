@@ -58,9 +58,8 @@ module.exports = (db) ->
     return (req, res) ->
 
       schema =
-        firstName: String
-        lastName: String
-        address: String
+        id: String
+        name: String
         email: /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
 
       # Promise chain start
@@ -72,13 +71,9 @@ module.exports = (db) ->
           schema: schema,
           util.schema
 
-        # Generate unique ID
         .then
-          output: 'uid',
-          uid.generate
-        
-        .then
-          input: ['uid', 'params'],
+          input: ['params.id', 'params'],
+          output: 'recipient',
           recipients.create
 
         # Send success response
