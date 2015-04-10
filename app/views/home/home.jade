@@ -1,5 +1,53 @@
 .view#home
   .container
+
+    form.card(ng-submit = 'submit()')
+      .card-section.clearfix
+        h2 Package Management
+      .card-section.light.clearfix
+        .row
+          label.col-xs-2.text-right Tracking or ID
+          .col-xs-5.input-group.input-group-lg
+            input.form-control(
+              type = 'text', 
+              name = 'tracking', 
+              ng-model = 'scanner.input',
+              ng-change = 'onScannerInput()',
+              required
+            )
+    
+      .card-section.light.clearfix(ng-show = 'viewState == "id"')
+        | pending packages here
+      
+      .card-section.light.clearfix(ng-show = 'viewState == "tracking"')
+        h3.col-xs-10.col-xs-offset-2 Recipient Information
+        .row
+          label.col-xs-2.text-right Email
+          .col-xs-5.input-group.input-group-lg
+            input.form-control(
+              type = 'text', 
+              name = 'email', 
+              ng-model = 'recipient.email',
+              required
+            )        
+        .row
+          label.col-xs-2.text-right Name
+          .col-xs-5.input-group.input-group-lg
+            input.form-control(
+              type = 'text', 
+              name = 'name', 
+              ng-model = 'recipient.name',
+              required
+            )
+            
+      .card-section.light.thin-padding.clearfix(ng-show = 'viewState')
+        button.btn.btn-success.btn-loading.pull-right(type = 'submit', ck-multistate = 'submitButton')
+          span.icon.ion-load-a.animate-spin.loading
+          span.icon.ion-close-round.error
+          span.icon.ion-checkmark-round.success
+          span.caption Save
+        button.btn.btn-link.pull-right(type = 'button', ng-click = 'reset()') Cancel
+
     .card.text-center
       .card-section.clearfix
         h2 Coming Soon&#0153;

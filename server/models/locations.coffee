@@ -6,7 +6,7 @@
 #                                                                             #
 # --------------------------------------------------------------------------- #
 
-# This is the data access file for package information.
+# This is the data access file for location information.
 # This is mostly a thin wrapper around SQL queries, however there is no secure
 # information to worry about.
 
@@ -21,57 +21,48 @@ module.exports = (db) ->
   #Object where we'll attach all functions
   self = { }
 
-  #Finds a package by tracking number
-  self.findByTrackingNumber = (trackingNumber) ->
+  #Finds a location by its address
+  self.findByAddress = (address) ->
     query = squel.select()
-      .from('package')
-      .where('tracking = ?', trackingNumber)
+      .from('location')
+      .where('address = ?', address)
     return db.get(query)
 
-  #Finds packages belonging to a user
-  self.findByUserID = (userID) ->
+  #Finds a location by its name
+  self.findByName = (name) ->
     query = squel.select()
-      .from('package')
-      .where('user = ?', userID)
+      .from('location')
+      .where('name = ?', name)
     return db.get(query)
 
-  #Finds packages by received date
-  self.findByReceivedDate = (receivedDate) ->
+  #Finds a location by its id
+  self.findByID = (locationID) ->
     query = squel.select()
-      .from('package')
-      .where('received = ?', receivedDate)
+      .from('location')
+      .where('id = ?', locationID)
     return db.get(query)
 
-  #Creates a new package object
-  self.create = (id, params, user) ->
+  #Creates a new location object
+  self.create = (id, params) ->
     query = squel.insert()
-      .into('package')
+      .into('location')
       .set('id', id)
-      .set('tracking', params.tracking)
-      .set('received', params.received)
-      .set('recipient', params.recipient)
-      .set('user', user)
+      .set('name', params.name)
+      .set('address', params.address)
     db.query(query)
-      .then -> _.extend(params, id: id, user: user)
+      .then -> _.extend(params, id: id)
 
-  #Updates a package object
-  self.update = (packageObject, released) ->
-    @config.output ?= 'package'
+  #Updates a location object
+  self.update = (locationObject, name) ->
+    @config.output ?= 'location'
 
     query = squel.update()
-      .table('package')
-      .where('id = ?', packageObject.id)
-      .set('released = ?', released)
+      .table('location')
+      .where('id = ?', locationObject.id)
+      .set('name = ?', name)
     db.query(query)
       .then ->
-        packageObject.released = released
-        return packageObject
-
-  #Deletes a package
-  self.delete = (packageID) ->
-    query = squel.delete()
-      .from('package')
-      .where('id = ?', packageID)
-    return db.query(query)
+        locationObject.name = name
+        return locationObject
 
   return self

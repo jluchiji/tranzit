@@ -4,6 +4,21 @@ nav.navbar.navbar-default.navbar-fixed-top(ng-controller = 'NavbarController')
       a.navbar-brand(ui-sref = 'home')
         img(ck-no-drag, src = 'assets/logo-square.svg')
     ul.nav.navbar-nav.navbar-right(ng-show = 'session().user()')
+<<<<<<< HEAD
+=======
+      li
+        a(ui-sref = 'home', ui-sref-active = 'current')
+          span.glyphicon.glyphicon-home
+          | HOME
+      li
+        a(ui-sref = 'packageScan', ui-sref-active = 'current')
+          span.glyphicon.glyphicon-plus
+          | NEW PACKAGE
+      li
+        a(ui-sref = 'packagePickup', ui-sref-active = 'current')
+          span.glyphicon.glyphicon-upload
+          | RELEASE PACKAGE
+>>>>>>> origin/Michael-UI
       li(dropdown, is-open = 'dropdown.isOpen')
         a.dropdown-toggle(dropdown-toggle)
           | {{ session().user().lastName }} {{ session().user().firstName | limitTo:1:0 }}.

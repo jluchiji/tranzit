@@ -120,10 +120,7 @@ angular.module 'Tranzit.app.data', []
   @deleteRecipient = (recipient) ->
     TranzitRecipient.delete(recipient)
       .error (error) -> AppEvents.event EventNames.RemoteCallError, error
-
-
-  return @
-
+  
   # ------------------------------------------------------------------------- #
   # Event handling                                                            #
   # ------------------------------------------------------------------------- #

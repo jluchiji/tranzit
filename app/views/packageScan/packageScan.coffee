@@ -57,6 +57,10 @@ angular.module 'Tranzit.app.views.packageScan', []
     diff = getRecipientChanges()
     return diff and _.keys(diff).length isnt 0
 
+  $scope.hasPackageChanges = ->
+    diff = getPackageChanges()
+    return diff and _.keys(diff).length isnt 0
+
   $scope.needEmail = ->
     diff = getRecipient()
     return diff.email and not $scope.recipient.email
