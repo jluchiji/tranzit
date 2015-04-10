@@ -48,30 +48,29 @@ angular.module 'Tranzit.app.data', []
       .error (error) -> AppEvents.event EventNames.RemoteCallError, error
 
 
-<<<<<<< HEAD
-  #### SPRINT 2 ####  
+  #### SPRINT 2 ####
 
   ## Package functions ##
 
   # ------------------------------------------------------------------------- #
   # Create Package                                                            #
   # ------------------------------------------------------------------------- #
-  @create = (package) ->
-    TranzitPackage.create(package)
+  @createPackage = (pkg) ->
+    TranzitPackage.create(pkg)
       .error (error) -> AppEvents.event EventNames.RemoteCallError, error
 
   # ------------------------------------------------------------------------- #
   # Update Package                                                            #
   # ------------------------------------------------------------------------- #
-  @update = (package) ->
-    TranzitPackage.update(package)
+  @updatePackage = (pkg) ->
+    TranzitPackage.update(pkg)
       .error (error) -> AppEvents.event EventNames.RemoteCallError, error
 
   # ------------------------------------------------------------------------- #
   # Delete Package                                                            #
   # ------------------------------------------------------------------------- #
-  @delete = (package) ->
-    TranzitPackage.delete(package)
+  @deletePackage = (pkg) ->
+    TranzitPackage.delete(pkg)
       .error (error) -> AppEvents.event EventNames.RemoteCallError, error
 
 
@@ -80,21 +79,21 @@ angular.module 'Tranzit.app.data', []
   # ------------------------------------------------------------------------- #
   # Create Location                                                           #
   # ------------------------------------------------------------------------- #
-  @create = (location) ->
+  @createLocation = (location) ->
     TranzitLocation.create(location)
       .error (error) -> AppEvents.event EventNames.RemoteCallError, error
 
   # ------------------------------------------------------------------------- #
   # Update Location                                                           #
   # ------------------------------------------------------------------------- #
-  @update = (location) ->
+  @updateLocation = (location) ->
     TranzitLocation.update(location)
       .error (error) -> AppEvents.event EventNames.RemoteCallError, error
 
   # ------------------------------------------------------------------------- #
   # Delete Location                                                           #
   # ------------------------------------------------------------------------- #
-  @delete = (location) ->
+  @deleteLocation = (location) ->
     TranzitLocation.delete(location)
       .error (error) -> AppEvents.event EventNames.RemoteCallError, error
 
@@ -104,27 +103,27 @@ angular.module 'Tranzit.app.data', []
   # ------------------------------------------------------------------------- #
   # Create Recipient                                                          #
   # ------------------------------------------------------------------------- #
-  @create = (recipient) ->
+  @createRecipient = (recipient) ->
     TranzitRecipient.create(recipient)
       .error (error) -> AppEvents.event EventNames.RemoteCallError, error
 
   # ------------------------------------------------------------------------- #
   # Update Recipient                                                          #
   # ------------------------------------------------------------------------- #
-  @update = (recipient) ->
+  @updateRecipient = (recipient) ->
     TranzitRecipient.update(recipient)
       .error (error) -> AppEvents.event EventNames.RemoteCallError, error
 
   # ------------------------------------------------------------------------- #
   # Delete Recipient                                                          #
   # ------------------------------------------------------------------------- #
-  @delete = (recipient) ->
+  @deleteRecipient = (recipient) ->
     TranzitRecipient.delete(recipient)
       .error (error) -> AppEvents.event EventNames.RemoteCallError, error
 
 
   return @
-=======
+
   # ------------------------------------------------------------------------- #
   # Event handling                                                            #
   # ------------------------------------------------------------------------- #
@@ -135,4 +134,3 @@ angular.module 'Tranzit.app.data', []
     $state.go 'home'
 
   return @
->>>>>>> master

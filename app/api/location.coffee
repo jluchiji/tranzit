@@ -4,7 +4,7 @@
 #     \ \_\  \ \_\ \_\  \ \_\ \_\  \ \_\\"\_\   /\_____\  \ \_\    \ \_\
 #      \/_/   \/_/ /_/   \/_/\/_/   \/_/ \/_/   \/_____/   \/_/     \/_/
 #
-# Copyright © 2015 Tranzit Development Team
+# Copyright ï¿½ 2015 Tranzit Development Team
 angular.module 'Tranzit.api.location', ['Tranzit.config']
 
 # Authentication API service
@@ -21,7 +21,7 @@ angular.module 'Tranzit.api.location', ['Tranzit.config']
       method:   'PUT'
       url:      _.template(url)(host: ApiConfig.host)
       data:     JSON.stringify _.extend({}, location) # TODO
-      headers:  
+      headers:
         'Content-Type': 'application/json'
         'X-Tranzit-Auth': TranzitAuthSession.user?.token
 
@@ -37,7 +37,7 @@ angular.module 'Tranzit.api.location', ['Tranzit.config']
       method:   'PUT'
       url:      _.template(url)(host: ApiConfig.host)
       data:     JSON.stringify _.extend({}, location) # TODO
-      headers:  
+      headers:
         'Content-Type': 'application/json'
         'X-Tranzit-Auth': TranzitAuthSession.user?.token
 
@@ -53,7 +53,7 @@ angular.module 'Tranzit.api.location', ['Tranzit.config']
       method:   'PUT'
       url:      _.template(url)(host: ApiConfig.host)
       data:     JSON.stringify _.extend({}, location) # TODO
-      headers:  
+      headers:
         'Content-Type': 'application/json'
         'X-Tranzit-Auth': TranzitAuthSession.user?.token
 

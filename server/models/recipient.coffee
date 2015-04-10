@@ -35,21 +35,12 @@ module.exports = (db) ->
       .where('id = ?', id)
     return db.get(query)
 
-<<<<<<< HEAD
   self.emailsForRecipientsWithPendingPackages = ->
-    query = squel.select()
-      .from('recipient','r')
-      .field('email')
-      .join(squel.select().from('packages').where('released IS NULL'),
-      'p', 'r.id = p.recipient')
-=======
-  self.emailsForRecipientsWithPendingPackages = () ->
     query = squel.select()
       .from('recipient')
       .field('email')
       .outer_join(squel.select().from('packages').where('released IS NULL'),
         null, 'recipient.id = packages.recipient')
->>>>>>> 9bb2ef54ce42b545fb6047f9b4b3a7e0ad1d37e4
     return db.query(query)
 
   #Create recipient

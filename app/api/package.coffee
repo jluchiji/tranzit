@@ -4,7 +4,7 @@
 #     \ \_\  \ \_\ \_\  \ \_\ \_\  \ \_\\"\_\   /\_____\  \ \_\    \ \_\
 #      \/_/   \/_/ /_/   \/_/\/_/   \/_/ \/_/   \/_____/   \/_/     \/_/
 #
-# Copyright © 2015 Tranzit Development Team
+# Copyright ï¿½ 2015 Tranzit Development Team
 angular.module 'Tranzit.api.package', ['Tranzit.config']
 
 # Authentication API service
@@ -13,15 +13,15 @@ angular.module 'Tranzit.api.package', ['Tranzit.config']
   # Keep a reference of @ in case we need it later in nested functions
   self = @
 
-  @create = (package) ->
+  @create = (pkg) ->
     url = ':host/api/packages' # TODO: check on this
 
     # HTTP call details here
     config =
       method:   'PUT'
       url:      _.template(url)(host: ApiConfig.host)
-      data:     JSON.stringify _.extend({}, package) # TODO
-      headers:  
+      data:     JSON.stringify _.extend({}, pkg) # TODO
+      headers:
         'Content-Type': 'application/json'
         'X-Tranzit-Auth': TranzitAuthSession.user?.token
 
@@ -29,15 +29,15 @@ angular.module 'Tranzit.api.package', ['Tranzit.config']
     return $http(config).then (data) ->
       return data.data.result
 
-  @update = (package) ->
+  @update = (pkg) ->
     url = ':host/api/packages' # TODO: check on this
 
     # HTTP call details here
     config =
       method:   'PUT'
       url:      _.template(url)(host: ApiConfig.host)
-      data:     JSON.stringify _.extend({}, package) # TODO
-      headers:  
+      data:     JSON.stringify _.extend({}, pkg) # TODO
+      headers:
         'Content-Type': 'application/json'
         'X-Tranzit-Auth': TranzitAuthSession.user?.token
 
@@ -45,15 +45,15 @@ angular.module 'Tranzit.api.package', ['Tranzit.config']
     return $http(config).then (data) ->
       return data.data.result
 
-  @delete = (package) ->
+  @delete = (pkg) ->
     url = ':host/api/packages' # TODO: check on this
 
     # HTTP call details here
     config =
       method:   'PUT'
       url:      _.template(url)(host: ApiConfig.host)
-      data:     JSON.stringify _.extend({}, package) # TODO
-      headers:  
+      data:     JSON.stringify _.extend({}, pkg) # TODO
+      headers:
         'Content-Type': 'application/json'
         'X-Tranzit-Auth': TranzitAuthSession.user?.token
 
