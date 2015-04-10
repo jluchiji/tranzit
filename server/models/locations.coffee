@@ -60,7 +60,7 @@ module.exports = (db) ->
       .table('location')
       .where('id = ?', locationObject.id)
       .set('name = ?', name)
-    db.qurey(query)
+    db.query(query)
       .then ->
         locationObject.name = name
         return locationObject

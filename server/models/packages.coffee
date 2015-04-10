@@ -62,7 +62,7 @@ module.exports = (db) ->
       .table('package')
       .where('id = ?', packageObject.id)
       .set('released = ?', released)
-    db.qurey(query)
+    db.query(query)
       .then ->
         packageObject.released = released
         return packageObject
