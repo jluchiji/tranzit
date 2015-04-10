@@ -6,9 +6,12 @@
         h2 Package Management
       .card-section.light.clearfix
         .row
-          label.col-xs-2.text-right Tracking or ID
+          p.col-xs-10.col-xs-offset-2.
+            Please scan package tracking number or recipient ID.
+        .row
+          label.col-xs-2.text-right
           .col-xs-5.input-group.input-group-lg
-            input.form-control(
+            input#scanner.form-control(
               type = 'text', 
               name = 'tracking', 
               ng-model = 'scanner.input',
@@ -20,7 +23,25 @@
         | pending packages here
       
       .card-section.light.clearfix(ng-show = 'viewState == "tracking"')
-        h3.col-xs-10.col-xs-offset-2 Recipient Information
+        h3.col-xs-10.col-xs-offset-2 Recipient Information     
+        .row
+          label.col-xs-2.text-right First Name
+          .col-xs-5.input-group.input-group-lg
+            input.form-control(
+              type = 'text', 
+              name = 'firstName', 
+              ng-model = 'recipient.first',
+              required
+            )
+        .row
+          label.col-xs-2.text-right Last Name
+          .col-xs-5.input-group.input-group-lg
+            input.form-control(
+              type = 'text', 
+              name = 'lastName', 
+              ng-model = 'recipient.last',
+              required
+            )
         .row
           label.col-xs-2.text-right Email
           .col-xs-5.input-group.input-group-lg
@@ -29,17 +50,8 @@
               name = 'email', 
               ng-model = 'recipient.email',
               required
-            )        
-        .row
-          label.col-xs-2.text-right Name
-          .col-xs-5.input-group.input-group-lg
-            input.form-control(
-              type = 'text', 
-              name = 'name', 
-              ng-model = 'recipient.name',
-              required
-            )
-            
+            )   
+        
       .card-section.light.thin-padding.clearfix(ng-show = 'viewState')
         button.btn.btn-success.btn-loading.pull-right(type = 'submit', ck-multistate = 'submitButton')
           span.icon.ion-load-a.animate-spin.loading
@@ -47,11 +59,3 @@
           span.icon.ion-checkmark-round.success
           span.caption Save
         button.btn.btn-link.pull-right(type = 'button', ng-click = 'reset()') Cancel
-
-    .card.text-center
-      .card-section.clearfix
-        h2 Coming Soon&#0153;
-      .card-section.light.clearfix
-        p
-          span.icon.ion-fireball
-        p.lead We are working day and night to bring you this page.

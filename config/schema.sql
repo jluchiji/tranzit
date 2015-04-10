@@ -19,6 +19,7 @@ CREATE TABLE recipient (
   id          VARCHAR(20) NOT NULL,
   firstName  VARCHAR(50)  NOT NULL,
   lastName   VARCHAR(50)  NOT NULL,
+  email      VARCHAR(100) NOT NULL,
   PRIMARY KEY (id),
   INDEX recipients_name (firstName, lastName)
 );
