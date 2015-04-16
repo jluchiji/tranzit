@@ -22,14 +22,20 @@ default:
     scripts:
       - jquery/dist/jquery.js
       - underscore/underscore.js
-      - prefixfree/prefixfree.min.js
       - angular/angular.js
       - ngstorage/ngStorage.js
+      - angular-animate/angular-animate.js
       - angular-ui-router/release/angular-ui-router.js
+      - angular-ui-router-anim-in-out/anim-in-out.js
+      - angular-bootstrap/ui-bootstrap-tpls.js
+      - angular-bootstrap/ui-bootstrap.js
+      #- bootstrap-switch/dist/js/bootstrap-switch.js
     stylesheets:
-
+      - angular-ui-router-anim-in-out/css/anim-in-out.css
+      - awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css
+      #- bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css
     fonts:
-      - bootstrap/fonts/*
+
     assets:
 
 
@@ -46,6 +52,9 @@ development:
     - api/auth-session.js
     - api/auth.js
     - api/user.js
+    - api/recipient.js
+    - api/location.js
+    - api/package.js
     - ng/app.js
     - ng/app.config.js
     - ng/app.data.js
@@ -58,10 +67,15 @@ development:
     - views/login/login.js
     - views/home/home.js
     - views/settings/settings.js
+    - views/packageScan/packageScan.js
+    - views/packagePickup/packagePickup.js
     - index.js
 
   # Development-specific stylesheets
   stylesheets:
+    - //maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css
+    - //maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css
+    - //code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css
     - index.css
 
 # --------------------------------------------------------------------------- #
@@ -79,4 +93,7 @@ production:
 
   # Production-specific stylesheets to inject
   stylesheets:
+    - //maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css
+    - //maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css
+    - //code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css
     - index.css

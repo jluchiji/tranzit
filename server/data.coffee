@@ -42,6 +42,9 @@ db.query  = (query) ->
 db.get = ->
   @query.apply(@, arguments).then (result) -> return result[0][0]
 
+db.all = ->
+  @query.apply(@, arguments).then (result) -> return result[0]
+
 
 # Initializes the database if it is empty.
 # Returns a promise that resolves with the db object.

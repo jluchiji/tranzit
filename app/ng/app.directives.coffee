@@ -88,3 +88,23 @@ angular.module 'Tranzit.app.directives', []
     model = $parse(attrs.ckAutoFocus)
     scope.$watch model, (value) ->
       if value then $timeout(-> element[0].focus())
+
+# --------------------------------------------------------------------------- #
+# Detect whether an input element has a value.                                #
+# --------------------------------------------------------------------------- #
+.directive 'ckDetectValue', ->
+  restrict: 'A'
+  link: (scope, element, attrs) ->
+    $(element).focusout ->
+      if $(@).val()
+        $(@).addClass 'has-value'
+      else
+        $(@).removeClass 'has-value'
+
+# --------------------------------------------------------------------------- #
+# Bootstrap Switch.                                                           #
+# --------------------------------------------------------------------------- #
+.directive 'bsSwitch', ->
+  restrict: 'A'
+  link: (scope, element) ->
+    $(element).bootstrapSwitch()

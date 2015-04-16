@@ -1,49 +1,74 @@
-# --------------------------------------------------------------------------- #
-#                                                                             #
-# Tranzit Server                                                              #
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
-# Copyright © 2015 Tranzit Development Team                                   #
-#                                                                             #
-# --------------------------------------------------------------------------- #
+﻿#   ______   ______     ______     __   __     ______     __     ______
+#  /\__  _\ /\  == \   /\  __ \   /\ "-.\ \   /\___  \   /\ \   /\__  _\
+#  \/_/\ \/ \ \  __<   \ \  __ \  \ \ \-.  \  \/_/  /__  \ \ \  \/_/\ \/
+#     \ \_\  \ \_\ \_\  \ \_\ \_\  \ \_\\"\_\   /\_____\  \ \_\    \ \_\
+#      \/_/   \/_/ /_/   \/_/\/_/   \/_/ \/_/   \/_____/   \/_/     \/_/
+#
+# Copyright © 2015 Tranzit Development Team
 
-# Support sourcemaps
+# Main Server File
+
+# Sourcemap support
 require('source-map-support').install()
 
-# This is the main server file.
-# Let's try to keep this file to bare minimum and put code into
-# small, atomic modules for easier testing (if needed).
+fs = require 'fs'
+path = require 'path'
+chalk = require 'chalk'      # provides colored output
+winston = require 'winston'  # server log
+nodemailer = require 'nodemailer'
+cron = require 'cron'
 
-fs      = require 'fs'                # Node.FS: file system access
-path    = require 'path'              # Node.Path: url and file path urilities
-chalk   = require 'chalk'             # Chalk: color CLI output
-winston = require 'winston'           # Winston: server log
+#smtpTransport = nodemailer.createTransport('SMTP',
+#  service: 'Gmail'
+#  auth:
+#    user: 'server.tranzit@gmail.com'
+#    pass: 'dev@tranzit')
 
-express = require 'express'           # Express: express.js namespace
+# function for sending out emails
+sendEmails = (db) ->
+  # Gain access to query to pull emails of recipients still waiting on a package
+  recipients = require('./models/recipient.js')(db)
+  console.log recipients.emailsForRecipientsWithPendingPackages()
+  mailOptions =
+    from: 'Tranzit Server <server.tranzit@gmail.com>'
+    to: 'aottinge@purdue.edu'
+    subject: 'Package Pickup'
+    html: '<b>Your package(s) is/are ready for pickup.</b>'
+  #smtpTransport.sendMail mailOptions, (error, response) ->
+   # if error
+    #  console.log error
+
+express = require 'express'
 module.exports = app = express()
 
-# Configure server log for CLI
+# Set up server log for CLI
 winston.cli()
 
-# If run from Gulp, force chalk color support
+# Use chalk color support when running from Gulp
 if process.env.NODE_ENV is 'gulp'
   chalk.enabled = yes
   chalk.supportsColor = yes
-  winston.info 'Forcing chalk color support.'
+  winston.info 'Force use of chalk color support'
 
-# Create the database object
-db       = require './data.js'
-schema   = path.join __dirname, '/config/schema.sql'
+# Set up database object
+db = require './data.js'
+schema = path.join __dirname, '/config/schema.sql'
 db.init fs.readFileSync schema, 'utf8'
 
-# Database initialization success
+# db initialization successful
 .then ->
-
-  # Parse JSON request bodies
+  # parse JSON requests
   app.use require('body-parser').json()
 
-  # Mount the root router from routes.coffee
+  # mount root router, defined in routes.coffee
   app.use require('./routes.js')(db)
 
-  # Listen for incoming connections
+  # send email to those who need to pick up a package at server startup
+  #sendEmails(db)
+  # send email everyday to people who have a package pending their pickup
+  #cronJob = cron.job('0 0 9 * * *', sendEmails)
+  #cronJob.start()
+ 
+  # begin listening for connections
   app.listen 3000, ->
     console.log 'Server listening on port 3000'

@@ -29,6 +29,7 @@ node_modules
 
 # OS X Junk
 .DS_Store
+*~
 
 # Build destination
 dist

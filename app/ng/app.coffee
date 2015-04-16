@@ -12,12 +12,18 @@
 angular.module 'Tranzit.app', [
   # Third-party dependencies
   'ui.router',
+  'ui.bootstrap',
   'ngStorage',
+  #'ngAnimate',
+  #'anim-in-out',
 
   # First-party dependencies
   'Tranzit.config',
   'Tranzit.api.auth',
   'Tranzit.api.user',
+  'Tranzit.api.recipient',
+  'Tranzit.api.location',
+  'Tranzit.api.package',
   'Tranzit.api.session',
   'Tranzit.app.events',
   'Tranzit.app.const',
@@ -33,7 +39,9 @@ angular.module 'Tranzit.app', [
   # Views
   'Tranzit.app.views.login',
   'Tranzit.app.views.home',
-  'Tranzit.app.views.settings'
+  'Tranzit.app.views.settings',
+  'Tranzit.app.views.packageScan',
+  'Tranzit.app.views.packagePickup'
 ]
 
 # Configure Underscore.js to recognize /:param style URL templates
@@ -103,3 +111,15 @@ angular.module 'Tranzit.app', [
     if not AppSession.user()
       e.preventDefault()
       $state.go 'login'
+
+# Extend Underscore.js
+_.mixin
+  # Creates a diff object
+  diff: (ori, mod, proplist) ->
+    result = { }
+
+    for prop in proplist
+      if ori[prop] isnt mod[prop]
+        result[prop] = mod[prop]
+
+    return result

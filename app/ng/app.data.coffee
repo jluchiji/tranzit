@@ -6,7 +6,9 @@
 #
 # Copyright © 2015 Tranzit Development Team
 angular.module 'Tranzit.app.data', []
-.service 'AppData', ($state, AppSession, AppEvents, EventNames, TranzitAuth, TranzitAuthSession) ->
+.service 'AppData', ($state, AppSession, AppEvents, EventNames,
+                     TranzitAuth, TranzitUser, TranzitAuthSession,
+                     TranzitRecipient, TranzitPackage) ->
 
   # Keep these references just in case
   self = @
@@ -14,6 +16,9 @@ angular.module 'Tranzit.app.data', []
 
   # Cache, not used at this point
   cache = { }
+
+
+  #### SPRINT 1 ####
 
   # ------------------------------------------------------------------------- #
   # Authentication                                                            #
@@ -35,13 +40,91 @@ angular.module 'Tranzit.app.data', []
     TranzitAuthSession.destroy()
     AppEvents.event EventNames.LogoutSuccess
 
-  # --------------------------------------------------------------------------#
+  # ------------------------------------------------------------------------- #
   # Update User                                                               #
   # ------------------------------------------------------------------------- #
   @updateUser = (password, params) ->
     TranzitUser.updateUser(password, params)
+      .success (user) -> TranzitAuthSession.update(user)
       .error (error) -> AppEvents.event EventNames.RemoteCallError, error
 
+
+  #### SPRINT 2 ####
+
+  ## Package functions ##
+
+  @findPackageByRecipient = (id) ->
+    TranzitPackage.find(recipient: id)
+      .error (error) -> AppEvents.event EventNames.RemoteCallError, error
+
+  # ------------------------------------------------------------------------- #
+  # Create Package                                                            #
+  # ------------------------------------------------------------------------- #
+  @createPackage = (pkg) ->
+    TranzitPackage.create(pkg)
+      .error (error) -> AppEvents.event EventNames.RemoteCallError, error
+
+  # ------------------------------------------------------------------------- #
+  # Update Package                                                            #
+  # ------------------------------------------------------------------------- #
+  @updatePackage = (pkg) ->
+    TranzitPackage.update(pkg)
+      .error (error) -> AppEvents.event EventNames.RemoteCallError, error
+
+  # ------------------------------------------------------------------------- #
+  # Delete Package                                                            #
+  # ------------------------------------------------------------------------- #
+  @deletePackage = (pkg) ->
+    TranzitPackage.delete(pkg)
+      .error (error) -> AppEvents.event EventNames.RemoteCallError, error
+
+
+  ## Location functions ##
+
+  # ------------------------------------------------------------------------- #
+  # Create Location                                                           #
+  # ------------------------------------------------------------------------- #
+  @createLocation = (location) ->
+    TranzitLocation.create(location)
+      .error (error) -> AppEvents.event EventNames.RemoteCallError, error
+
+  # ------------------------------------------------------------------------- #
+  # Update Location                                                           #
+  # ------------------------------------------------------------------------- #
+  @updateLocation = (location) ->
+    TranzitLocation.update(location)
+      .error (error) -> AppEvents.event EventNames.RemoteCallError, error
+
+  # ------------------------------------------------------------------------- #
+  # Delete Location                                                           #
+  # ------------------------------------------------------------------------- #
+  @deleteLocation = (location) ->
+    TranzitLocation.delete(location)
+      .error (error) -> AppEvents.event EventNames.RemoteCallError, error
+
+
+  ## Recipient Functions ##
+
+  # ------------------------------------------------------------------------- #
+  # Create Recipient                                                          #
+  # ------------------------------------------------------------------------- #
+  @createRecipient = (recipient) ->
+    TranzitRecipient.create(recipient)
+      .error (error) -> AppEvents.event EventNames.RemoteCallError, error
+
+  # ------------------------------------------------------------------------- #
+  # Update Recipient                                                          #
+  # ------------------------------------------------------------------------- #
+  @updateRecipient = (recipient) ->
+    TranzitRecipient.update(recipient)
+      .error (error) -> AppEvents.event EventNames.RemoteCallError, error
+
+  # ------------------------------------------------------------------------- #
+  # Delete Recipient                                                          #
+  # ------------------------------------------------------------------------- #
+  @deleteRecipient = (recipient) ->
+    TranzitRecipient.delete(recipient)
+      .error (error) -> AppEvents.event EventNames.RemoteCallError, error
 
   # ------------------------------------------------------------------------- #
   # Event handling                                                            #

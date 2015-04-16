@@ -7,16 +7,16 @@
   height: 100%;
 
   form#login-form {
-    .size(400px; 450px);
+    width: 400px;
     position: relative;
     margin: 100px auto;
 
 
     .logo {
-      margin: 30px;
       max-width: 340px;
       max-height: (340px / 922px) * 244px;
-      margin-bottom: 90px;
+      margin-top: 30px;
+      margin-bottom: 30px;
     }
 
     .input-group {
@@ -28,6 +28,7 @@
         border-left: none;
         border-right: none;
         padding: 14px 20px;
+        box-shadow: none;
         &:focus { z-index: 1; }
       }
     }
@@ -36,32 +37,33 @@
     }
 
     .card-button {
-      position: absolute;
       width: 100%;
-      bottom: 0;
-      left: 0;
-
       padding: 14px 24px;
       border: none;
-      .hoverable(darken(#F1F1F1, 10%));
+      .hoverable(@brand-primary);
 
+      color: white;
       font-size: 16px;
       letter-spacing: 2px;
-      font-weight: bold;
-      color: #555555;
+      border-radius: 0;
+    }
 
-
+    .checkbox > input + label {
+      padding-left: 5px;
+      color: @gray-light;
     }
   }
+
+
 
 }
 
 @keyframes shake {
   0% {transform: translateX(0);}
-  12.5% {transform: translateX(-6px) rotateY(-5deg);}
-  37.5% {transform: translateX(5px) rotateY(4deg);}
-  62.5% {transform: translateX(-3px) rotateY(-2deg);}
-  87.5% {transform: translateX(2px) rotateY(1deg);}
+  12.5% {transform: translateX(-12px) rotateY(-10deg);}
+  37.5% {transform: translateX(10px) rotateY(8deg);}
+  62.5% {transform: translateX(-6px) rotateY(-4deg);}
+  87.5% {transform: translateX(4px) rotateY(2deg);}
   100% {transform: translateX(0);}
 }
 

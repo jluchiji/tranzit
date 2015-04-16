@@ -6,7 +6,7 @@
 #                                                                             #
 # --------------------------------------------------------------------------- #
 
-# This is the data access file for recipient information.
+# This is the data access file for location information.
 # This is mostly a thin wrapper around SQL queries, however there is no secure
 # information to worry about.
 
@@ -21,61 +21,48 @@ module.exports = (db) ->
   #Object where we'll attach all functions
   self = { }
 
-  #Find recipient by their email
-  self.findByEmail = (email) ->
+  #Finds a location by its address
+  self.findByAddress = (address) ->
     query = squel.select()
-      .from('recipients')
-      .where('email = ?', email)
+      .from('location')
+      .where('address = ?', address)
     return db.get(query)
 
-  #Find recipient by their ID
-  self.findByID = (id) ->
+  #Finds a location by its name
+  self.findByName = (name) ->
     query = squel.select()
-      .from('recipients')
-      .where('id = ?', id)
+      .from('location')
+      .where('name = ?', name)
     return db.get(query)
 
-  self.emailsForRecipientsWithPendingPackages = ->
+  #Finds a location by its id
+  self.findByID = (locationID) ->
     query = squel.select()
-      .from('recipients')
-      .field('email')
-      .outer_join(squel.select().from('packages').where('released IS NULL'),
-        null, 'recipient.id = packages.recipient')
-    return db.query(query)
+      .from('location')
+      .where('id = ?', locationID)
+    return db.get(query)
 
-  #Create recipient
+  #Creates a new location object
   self.create = (id, params) ->
     query = squel.insert()
-      .into('recipients')
+      .into('location')
       .set('id', id)
-      .set('name', params.first)
-      .set('email', params.email)
+      .set('name', params.name)
+      .set('address', params.address)
     db.query(query)
       .then -> _.extend(params, id: id)
 
-  #Updates a recipient's info
-  self.update = (recipient, params) ->
-    @config.output ?= 'recipient'
+  #Updates a location object
+  self.update = (locationObject, name) ->
+    @config.output ?= 'location'
 
     query = squel.update()
-      .table('recipients')
-      .where('id = ?', recipient.id)
-
-    if params.firstName
-      query.set('firstName', params.firstName)
-    if params.lastName
-      query.set('lastName', params.lastName)
-    if params.email
-      query.set('email', params.email)
-
+      .table('location')
+      .where('id = ?', locationObject.id)
+      .set('name = ?', name)
     db.query(query)
       .then ->
-        if params.firstName
-          recipient.firstName = params.firstName
-        if params.lastName
-          recipient.lastName = params.lastName
-        if params.email
-          recipient.email = params.email
-        return recipient
+        locationObject.name = name
+        return locationObject
 
   return self

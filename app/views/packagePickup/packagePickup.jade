@@ -1,0 +1,52 @@
+.view#packagePickup
+
+  .container
+
+    form.card(name = 'packagePickup', ng-controller = 'PackagePackagePickupController', ng-submit = 'submit()')
+
+
+      .card-section.thin-padding.clearfix
+        h2.col-xs-10.col-xs-offset-2 Release Package
+        .row
+          h3.col-xs-10.col-xs-offset-3 Please Scan or Input Student ID
+
+
+      .card-section.light.clearfix
+        h3.col-xs-10.col-xs-offset-2 Student Information
+
+        .row
+          label.col-xs-3.text-right Student ID Number
+          .col-xs-5.input-group.input-group-lg
+            input.form-control(
+              type = 'text',
+              name = 'studentIDNumber',
+              ng-model = 'recipient.id',
+              required
+            )
+          .col-xs-4.error-message(ng-class = '{open: packagePickup.studentIDNumber.$error.required}')
+            span.glyphicon.glyphicon-remove-circle.inline-lg
+            | Student ID Number cannot be empty.
+          button.btn.btn-success.btn-loading.pull-right(type = 'findPackagesForStudentID', ck-multistate = 'studentIDLookupButton')
+            span.icon.ion-load-a.animate-spin.loading
+            span.icon.ion-close-round.error
+            span.icon.ion-checkmark-round.success
+            span.caption Retrieve All Packages
+
+
+      .card-section.light.clearfix
+        h3.col-xs-10.col-xs-offset-2 Packages
+        table.table(data-click-to-select='true')
+          thead
+            tr
+              th(data-field='state', data-checkbox='true')
+              th(data-field='trackingNumber') Package Tracking number
+              th(data-field='received') Date Received
+
+
+      .card-section.light.thin-padding.clearfix
+        button.btn.btn-success.btn-loading.pull-right(type = 'releasePackages', ck-multistate = 'releasePackagesButton')
+          span.icon.ion-load-a.animate-spin.loading
+          span.icon.ion-close-round.error
+          span.icon.ion-checkmark-round.success
+          span.caption Release Packages
+        button.btn.btn-link.pull-right(type = 'button', ng-click = 'reset()') Cancel

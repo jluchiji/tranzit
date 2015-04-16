@@ -10,3 +10,5 @@ angular.module 'Tranzit.app.ctrl.root', []
 .controller 'RootController', ($scope, AppSession, AppData, AppEvents, EventNames) ->
 
   $scope.session = -> AppSession
+
+  

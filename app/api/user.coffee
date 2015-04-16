@@ -20,7 +20,7 @@ angular.module 'Tranzit.api.user', ['Tranzit.config']
     config =
       method:   'PUT'
       url:      _.template(url)(host: ApiConfig.host)
-      data:     JSON.stringify _.extend({}, params, password: password)
+      data:     JSON.stringify _.extend({}, params, currentPassword: password)
       headers:
         'Content-Type': 'application/json'
         'X-Tranzit-Auth': TranzitAuthSession.user?.token
