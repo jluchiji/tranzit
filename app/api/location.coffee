@@ -1,4 +1,4 @@
-#   ______   ______     ______     __   __     ______     __     ______
+﻿#   ______   ______     ______     __   __     ______     __     ______
 #  /\__  _\ /\  == \   /\  __ \   /\ "-.\ \   /\___  \   /\ \   /\__  _\
 #  \/_/\ \/ \ \  __<   \ \  __ \  \ \ \-.  \  \/_/  /__  \ \ \  \/_/\ \/
 #     \ \_\  \ \_\ \_\  \ \_\ \_\  \ \_\\"\_\   /\_____\  \ \_\    \ \_\
@@ -14,13 +14,13 @@ angular.module 'Tranzit.api.location', ['Tranzit.config']
   self = @
 
   @create = (location) ->
-    url = ':host/api/locations' # TODO: check on this
+    url = ':host/api/locations'
 
     # HTTP call details here
     config =
       method:   'PUT'
       url:      _.template(url)(host: ApiConfig.host)
-      data:     JSON.stringify _.extend({}, location) # TODO
+      data:     JSON.stringify _.extend({}, location)
       headers:
         'Content-Type': 'application/json'
         'X-Tranzit-Auth': TranzitAuthSession.user?.token
@@ -30,13 +30,13 @@ angular.module 'Tranzit.api.location', ['Tranzit.config']
       return data.data.result
 
   @update = (location) ->
-    url = ':host/api/locations' # TODO: check on this
+    url = ':host/api/locations'
 
     # HTTP call details here
     config =
       method:   'PUT'
       url:      _.template(url)(host: ApiConfig.host)
-      data:     JSON.stringify _.extend({}, location) # TODO
+      data:     JSON.stringify _.extend({}, location)
       headers:
         'Content-Type': 'application/json'
         'X-Tranzit-Auth': TranzitAuthSession.user?.token
@@ -46,13 +46,13 @@ angular.module 'Tranzit.api.location', ['Tranzit.config']
       return data.data.result
 
   @delete = (location) ->
-    url = ':host/api/locations' # TODO: check on this
+    url = ':host/api/locations'
 
     # HTTP call details here
     config =
       method:   'PUT'
       url:      _.template(url)(host: ApiConfig.host)
-      data:     JSON.stringify _.extend({}, location) # TODO
+      data:     JSON.stringify _.extend({}, location)
       headers:
         'Content-Type': 'application/json'
         'X-Tranzit-Auth': TranzitAuthSession.user?.token
