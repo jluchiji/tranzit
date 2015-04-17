@@ -53,6 +53,9 @@ angular.module 'Tranzit.app.data', []
 
   ## Package functions ##
 
+  # ------------------------------------------------------------------------- #
+  # Find Package by Recipient                                                 #
+  # ------------------------------------------------------------------------- #
   @findPackageByRecipient = (id) ->
     TranzitPackage.find(recipient: id)
       .error (error) -> AppEvents.event EventNames.RemoteCallError, error
