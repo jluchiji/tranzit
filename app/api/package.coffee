@@ -1,4 +1,4 @@
-#   ______   ______     ______     __   __     ______     __     ______
+﻿#   ______   ______     ______     __   __     ______     __     ______
 #  /\__  _\ /\  == \   /\  __ \   /\ "-.\ \   /\___  \   /\ \   /\__  _\
 #  \/_/\ \/ \ \  __<   \ \  __ \  \ \ \-.  \  \/_/  /__  \ \ \  \/_/\ \/
 #     \ \_\  \ \_\ \_\  \ \_\ \_\  \ \_\\"\_\   /\_____\  \ \_\    \ \_\
@@ -14,7 +14,7 @@ angular.module 'Tranzit.api.package', ['Tranzit.config']
   self = @
 
   @find = (params) ->
-    url = ':host/api/packages' # TODO: check on this
+    url = ':host/api/packages'
 
     # HTTP call details here
     config =
@@ -30,13 +30,13 @@ angular.module 'Tranzit.api.package', ['Tranzit.config']
       return data.data.result
 
   @create = (pkg) ->
-    url = ':host/api/packages' # TODO: check on this
+    url = ':host/api/packages'
 
     # HTTP call details here
     config =
       method:   'POST'
       url:      _.template(url)(host: ApiConfig.host)
-      data:     JSON.stringify _.extend({}, pkg) # TODO
+      data:     JSON.stringify _.extend({}, pkg)
       headers:
         'Content-Type': 'application/json'
         'X-Tranzit-Auth': TranzitAuthSession.user?.token
@@ -46,13 +46,13 @@ angular.module 'Tranzit.api.package', ['Tranzit.config']
       return data.data.result
 
   @update = (pkg) ->
-    url = ':host/api/packages' # TODO: check on this
+    url = ':host/api/packages'
 
     # HTTP call details here
     config =
       method:   'PUT'
       url:      _.template(url)(host: ApiConfig.host)
-      data:     JSON.stringify _.extend({}, pkg) # TODO
+      data:     JSON.stringify _.extend({}, pkg)
       headers:
         'Content-Type': 'application/json'
         'X-Tranzit-Auth': TranzitAuthSession.user?.token
@@ -62,13 +62,13 @@ angular.module 'Tranzit.api.package', ['Tranzit.config']
       return data.data.result
 
   @delete = (pkg) ->
-    url = ':host/api/packages' # TODO: check on this
+    url = ':host/api/packages'
 
     # HTTP call details here
     config =
       method:   'DELETE'
       url:      _.template(url)(host: ApiConfig.host)
-      data:     JSON.stringify _.extend({}, pkg) # TODO
+      data:     JSON.stringify _.extend({}, pkg)
       headers:
         'Content-Type': 'application/json'
         'X-Tranzit-Auth': TranzitAuthSession.user?.token

@@ -1,4 +1,4 @@
-#   ______   ______     ______     __   __     ______     __     ______
+﻿#   ______   ______     ______     __   __     ______     __     ______
 #  /\__  _\ /\  == \   /\  __ \   /\ "-.\ \   /\___  \   /\ \   /\__  _\
 #  \/_/\ \/ \ \  __<   \ \  __ \  \ \ \-.  \  \/_/  /__  \ \ \  \/_/\ \/
 #     \ \_\  \ \_\ \_\  \ \_\ \_\  \ \_\\"\_\   /\_____\  \ \_\    \ \_\
@@ -14,7 +14,7 @@ angular.module 'Tranzit.api.recipient', ['Tranzit.config']
   self = @
 
   @create = (recipient) ->
-    url = ':host/api/recipients' # TODO: check on this
+    url = ':host/api/recipients'
 
     # HTTP call details here
     config =
