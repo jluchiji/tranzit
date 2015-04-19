@@ -50,10 +50,13 @@ module.exports = (db) ->
       .set('id', id)
       .set('name', params.first)
       .set('email', params.email)
+      .set('zip', params.zip)
+      .set('address', params.address)
     db.query(query)
       .then -> _.extend(params, id: id)
 
   #Updates a recipient's info
+  ## XXX Not supported by client
   self.update = (recipient, params) ->
     @config.output ?= 'recipient'
 

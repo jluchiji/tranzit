@@ -36,8 +36,7 @@ module.exports = (db) ->
       schema =
         email: /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
         password: String
-        firstName: String
-        lastName: String
+        name: String
 
       # Promise chain start
       (conveyor = new Conveyor req, res, params: req.body)
@@ -96,8 +95,7 @@ module.exports = (db) ->
     return (req, res) ->
       # Schema for required parameters
       schema =
-        firstName: [String, null]
-        lastName: [String, null]
+        name: [String, null]
         password: [String, null]
         currentPassword: [String, null]
 
