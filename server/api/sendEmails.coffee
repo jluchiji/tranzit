@@ -7,6 +7,7 @@
 # Copyright © 2015 Tranzit Development Team
 
 nodemailer = require 'nodemailer'
+util = require 'util'
 
 module.exports = (db) ->
 
@@ -24,7 +25,11 @@ module.exports = (db) ->
 # function for sending out emails
   self.sendEmails = ->
     
-    console.log recipients.emailsForRecipientsWithPendingPackages()
+    emails = recipients.emailsForRecipientsWithPendingPackages()
+
+    emails.then (data) ->
+      emailList = emails.toString
+      console.log emailList
 
     mailOptions =
       from: 'Tranzit Server <server.tranzit@gmail.com>'
@@ -32,7 +37,7 @@ module.exports = (db) ->
       subject: 'Package Pickup'
       html: '<b>Your package(s) is/are ready for pickup.</b>'
     smtpTransport.sendMail mailOptions, (error, response) ->
-    if error
-      console.log error
+      if error
+        console.log error
 
   return self
