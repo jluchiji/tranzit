@@ -4,10 +4,9 @@
 # Copyright © Contributors. See docs/charter.md for team roster.              #
 #                                                                             #
 # =========================================================================== #
-CREATE TABLE user (
+CREATE TABLE users (
   id          VARCHAR(20) NOT NULL,
-  firstName  VARCHAR(50)  NOT NULL,
-  lastName   VARCHAR(50)  NOT NULL,
+  name        VARCHAR(50)  NOT NULL,
   email       VARCHAR(50) NOT NULL  UNIQUE,
   hash        TEXT        NOT NULL,
   auth        TEXT        NOT NULL,
@@ -15,29 +14,24 @@ CREATE TABLE user (
   INDEX users_email (email)
 );
 
-CREATE TABLE recipient (
+CREATE TABLE recipients (
   id         VARCHAR(20)  NOT NULL,
   name       VARCHAR(100) NOT NULL,
   email      VARCHAR(100) NOT NULL,
+  zip        VARCHAR(20)  NOT NULL,
+  address    VARCHAR(200) NOT NULL,
   PRIMARY KEY (id),
-  INDEX recipients_name (firstName, lastName)
+  INDEX recipients_name (name)
 );
 
-CREATE TABLE package (
+CREATE TABLE packages (
   id          VARCHAR(20)  NOT NULL,
-  tracking    VARCHAR(100) NOT NULL,
-  received    DATETIME     NOT NULL,
-  recipient   VARCHAR(20)  NOT NULL,
-  released    DATETIME     DEFAULT NULL,
   user        VARCHAR(20)  NOT NULL,
+  recipient   VARCHAR(20)  NOT NULL,
+  tracking    VARCHAR(100) NOT NULL,
+  received    INTEGER      NOT NULL,
+  released    INTEGER      DEFAULT NULL,
+  status      INTEGER      DEFAULT 0,
   PRIMARY KEY (id),
   INDEX packages_tracking (tracking)
-);
-
-CREATE TABLE location (
-  id          VARCHAR(20) NOT NULL,
-  address     TEXT        NOT NULL,
-  name        TEXT        NOT NULL,
-  PRIMARY KEY (id),
-  INDEX locations_name (name)
 );
