@@ -15,28 +15,7 @@ fs = require 'fs'
 path = require 'path'
 chalk = require 'chalk'      # provides colored output
 winston = require 'winston'  # server log
-nodemailer = require 'nodemailer'
 cron = require 'cron'
-
-#smtpTransport = nodemailer.createTransport('SMTP',
-#  service: 'Gmail'
-#  auth:
-#    user: 'server.tranzit@gmail.com'
-#    pass: 'dev@tranzit')
-
-# function for sending out emails
-sendEmails = (db) ->
-  # Gain access to query to pull emails of recipients still waiting on a package
-  recipients = require('./models/recipient.js')(db)
-  console.log recipients.emailsForRecipientsWithPendingPackages()
-  mailOptions =
-    from: 'Tranzit Server <server.tranzit@gmail.com>'
-    to: 'aottinge@purdue.edu'
-    subject: 'Package Pickup'
-    html: '<b>Your package(s) is/are ready for pickup.</b>'
-  #smtpTransport.sendMail mailOptions, (error, response) ->
-   # if error
-    #  console.log error
 
 express = require 'express'
 module.exports = app = express()
@@ -63,10 +42,10 @@ db.init fs.readFileSync schema, 'utf8'
   # mount root router, defined in routes.coffee
   app.use require('./routes.js')(db)
 
-  # send email to those who need to pick up a package at server startup
-  #sendEmails(db)
+  emailer = require('./api/sendEmails.js')(db)
+  emailer.sendEmails()
   # send email everyday to people who have a package pending their pickup
-  #cronJob = cron.job('0 0 9 * * *', sendEmails)
+  #cronJob = cron.job('0 0 9 * * *', emailer.sendEmails)
   #cronJob.start()
  
   # begin listening for connections
