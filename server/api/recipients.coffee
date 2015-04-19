@@ -61,6 +61,8 @@ module.exports = (db) ->
         id: String
         name: String
         email: /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
+        zip: /^[0-9]+$/
+        address: String
 
       # Promise chain start
       (conveyor = new Conveyor req, res, params: req.body)
