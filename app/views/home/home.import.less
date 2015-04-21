@@ -1,5 +1,142 @@
 .view#home {
 
+  padding-top: @navbar-height;
+
+  .page-head {
+    background: url(assets/grey.png);
+  }
+
+  section {
+    padding: 30px 0;
+  }
+
+  section#stats {
+
+    padding-top: 50px;
+
+    .stat-panel {
+      text-align: center;
+      + .stat-panel { border-left: 1px solid #DDD;}
+    }
+
+    .stat-counter {
+      display: block;
+      font-size: 64px;
+      line-height: 64px;
+      font-weight: lighter;
+    }
+
+    .stat-caption {
+      font-size: 14px;
+      font-weight: bold;
+      color: #777;
+    }
+
+  }
+
+  section#reg-release {
+
+    margin-top: 30px;
+    border-bottom: 1px solid #DDD;
+
+    background-color: fadeout(#DDD, 75%);
+
+    .icon, h2 { color: #777; }
+
+    h2 {
+      font-size: 24px;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    #scanner {
+      position: relative;
+      max-width: 600px;
+      margin: 0 auto;
+
+      padding: 0 50px;
+
+      > input {
+        display: block;
+        font-family: monospace;
+      }
+
+      > input + button {
+        background: none;
+        border: none;
+        padding: none;
+
+        cursor: pointer;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 40px;
+        height: 40px;
+        font-size: 38px;
+
+        span {
+          position: relative;
+          top: -4px;
+        }
+      }
+
+      > input + button:hover span.caption { color: #4378a7; }
+    }
+
+
+    .sep {
+      position: relative;
+      text-align: center;
+
+      margin: 30px 30px ;
+
+      span {
+        color: #AAA;
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      &:before, &:after {
+        content: '';
+        position: absolute;
+        height: 1px;
+        top: 50%;
+        width: 40%;
+        //background: #AAA;
+      }
+      &:before {
+        left: 30px;
+        background-image: linear-gradient(to left, rgba(170,170,170,1) 0%,rgba(0,0,0,0) 100%);
+      }
+      &:after {
+        right: 30px;
+        background-image: linear-gradient(to right, rgba(170,170,170,1) 0%,rgba(0,0,0,0) 100%);
+      }
+
+    }
+
+  }
+
+  section#search-criteria {
+
+  }
+
+  section#search-list {
+    min-height: 100vh;
+  }
+
+  #package-mgmt .card-head {
+    text-align: center;
+    span.icon {
+      color: @brand-primary;
+      font-size: 96px;
+    }
+    h2 {
+      font-size: 36px;
+      margin-top: 0;
+    }
+  }
+
   .row label {
     line-height: 46px;
   }
@@ -7,6 +144,10 @@
   .ion-fireball {
     color: @brand-primary;
     font-size: 64px;
+  }
+
+  form.card-section ~ .card-section {
+    border-top: none;
   }
 
 }

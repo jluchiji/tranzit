@@ -14,8 +14,8 @@ angular.module 'Tranzit.app', [
   'ui.router',
   'ui.bootstrap',
   'ngStorage',
-  #'ngAnimate',
-  #'anim-in-out',
+  'ngAnimate',
+  'anim-in-out',
 
   # First-party dependencies
   'Tranzit.config',
@@ -25,6 +25,7 @@ angular.module 'Tranzit.app', [
   'Tranzit.api.location',
   'Tranzit.api.package',
   'Tranzit.api.session',
+  'Tranzit.api.stats',
   'Tranzit.app.events',
   'Tranzit.app.const',
   'Tranzit.app.data',
@@ -32,6 +33,7 @@ angular.module 'Tranzit.app', [
   'Tranzit.app.session',
   'Tranzit.app.directives',
   'Tranzit.app.ctrl.root',
+  'Tranzit.app.integration',
 
   # Shared
   'Tranzit.app.shared.navbar',

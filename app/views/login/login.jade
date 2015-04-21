@@ -1,25 +1,23 @@
 .view#login
   
   
-  form#login-form.card(ck-multistate = 'loginForm')
+  form#login-form.anim-zoom-out
     
-    .card-section
-      img.logo(ck-no-drag, src = 'assets/logo.svg')
+    img.logo(ck-no-drag, src = 'assets/logo.svg')
+    p.lead Package management. The way it meant to be.
     
-    .input-group.input-group-lg.no-padding
-      input.form-control(type = 'text', placeholder = 'email address', ng-model = 'credentials.email')
-    .input-group.input-group-lg.no-padding
-      input.form-control(type = 'password', placeholder = 'password', ng-model = 'credentials.password')
+    div(ck-multistate = 'loginForm')
+      
+      .input-group
+        input.form-control(type = 'text', placeholder = 'email address', ng-model = 'credentials.email')
+        input.form-control(type = 'password', placeholder = 'password', ng-model = 'credentials.password')
     
-    .card-section.thin-padding
       .clearfix
-        .checkbox.checkbox-circle.checkbox-danger.pull-left
+        label.fancy-checkbox.pull-left
           input(id = 'chk-remember-me', type = 'checkbox', ng-model = 'credentials.remember') 
-          label.text-muted(for = 'chk-remember-me') Remember Me
-        .card-action.pull-right.hidden
-          a.text-muted Reset Password
-        
-    
-    button.card-section.btn-loading.card-button(ng-click = 'login()', ck-multistate = 'loginButton')
-      span.icon.ion-load-a.animate-spin.loading
-      span.caption LOGIN
+          span Remember Me
+          
+      
+      button.btn.btn-lg.btn-loading(ng-click = 'login()', ck-multistate = 'loginButton')
+        span.icon.ion-load-a.animate-spin.loading
+        span.caption LOGIN

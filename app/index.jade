@@ -11,7 +11,7 @@ html
   body(ng-app = 'Tranzit.app', ng-controller = 'RootController')
     ng-include(src = '"shared/part-navbar/part-navbar.html"')
     
-    div(ui-view)
+    div.anim-in-out.anim-fade(ui-view, data-anim-speed = '300')
     
     each url in scripts
       script(src = url)

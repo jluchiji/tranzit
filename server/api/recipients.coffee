@@ -54,6 +54,45 @@ module.exports = (db) ->
         .catch conveyor.error
         .done()
 
+  self.findByName = ->
+    return (req, res) ->
+
+      # Convert string boolean value
+      if req.query.fuzzy is 'true'
+        req.query.fuzzy = yes
+      else if req.query.fuzzy is 'false'
+        req.query.fuzzy = no
+      
+      # Schema for query params
+      schema =
+        name: String
+        fuzzy: [Boolean, null]
+
+      # Launch the conveyor
+      (conveyor = new Conveyor req, res, params: req.query)
+
+        # Validate request parameters
+        .then
+          input: 'params',
+          schema: schema,
+          util.schema
+
+        # Perform search
+        .then
+          input: ['params.name', 'params.fuzzy'],
+          output: 'matches',
+          recipients.findByName
+
+        # Make sure we are returning something
+        .then
+          message: 'No matching recipient(s) found.',
+          util.exists
+
+        # Return to client
+        .then conveyor.success
+        .catch conveyor.error
+        .done()
+
   self.createRecipient = ->
     return (req, res) ->
 

@@ -17,16 +17,21 @@
 @import "views/settings/settings.import.less";
 
 
+@navbar-height: 60px;
+
 html, body {
-  background-image: url(assets/noise.png);
+  //background-image: url(assets/grey.png);
   background-color: #C6CDD4;
+  -webkit-font-smoothing: antialiased;
 }
+
+.view { padding-top: @navbar-height; }
 
 // Root page layout
 ui-view, [ui-view] {
   //padding-top: @navbar-height;
   position: absolute;
-  top: @navbar-height;
+  top: 0;
   bottom: 0;
   left: 0;
   width: 100%;

@@ -14,6 +14,7 @@ module.exports = (db) ->
   # Middleware
   authorize = require('./authorize.js')(db)
   # api callbacks
+  stats = require('./api/stats.js')(db)
   auth = require('./api/auth.js')(db)
   users = require('./api/users.js')(db)
   packages = require('./api/packages.js')(db)
@@ -63,12 +64,19 @@ module.exports = (db) ->
 
   # /recipients
   api.route '/recipients'
-    .post authorize.user('any')
+    .all authorize.user('any')
+
+    .get  recipients.findByName()
     .post recipients.createRecipient()
 
   api.route '/recipients/:id'
     # GET api/recipients/:id
     .get recipients.findByID()
+
+  # /stats
+  api.route '/stats'
+    .get authorize.user('any')
+    .get stats.get()
 
   # Static router for content, which works for the Tranzit web app
   root.use st = express.Router()

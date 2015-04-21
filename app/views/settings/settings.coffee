@@ -6,14 +6,12 @@ angular.module 'Tranzit.app.views.settings', []
 
   # Make a backup copy of the user info
   original =
-    firstName: AppSession.user().firstName
-    lastName:  AppSession.user().lastName
+    firstName: AppSession.user().name
     password: ''
 
   # Make a copy of the user info
   $scope.userInfo =
-    firstName: AppSession.user().firstName
-    lastName:  AppSession.user().lastName
+    firstName: AppSession.user().name
     password: ''
 
   # Multistate: save account settings
@@ -31,7 +29,7 @@ angular.module 'Tranzit.app.views.settings', []
 
   # 'Private' functions
   getChanges = ->
-    return _.diff original, $scope.userInfo, ['firstName', 'lastName', 'password']
+    return _.diff original, $scope.userInfo, ['name', 'password']
 
   # 'Public' functions
   $scope.hasChanges = ->
@@ -48,8 +46,7 @@ angular.module 'Tranzit.app.views.settings', []
 
   $scope.reset = ->
     $scope.userInfo =
-      firstName: AppSession.user().firstName
-      lastName:  AppSession.user().lastName
+      firstName: AppSession.user().name
       password: ''
       passwordVerofy: ''
       currentPassword: ''

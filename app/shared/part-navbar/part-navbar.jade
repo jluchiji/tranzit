@@ -1,23 +1,7 @@
-nav.navbar.navbar-default.navbar-fixed-top(ng-controller = 'NavbarController')
-  .container-fluid
-    .navbar-header
-      a.navbar-brand(ui-sref = 'home')
-        img(ck-no-drag, src = 'assets/logo-square.svg')
-    ul.nav.navbar-nav.navbar-right(ng-show = 'session().user()')
-      li(dropdown, is-open = 'dropdown.isOpen')
-        a.dropdown-toggle(dropdown-toggle)
-          | {{ session().user().lastName }} {{ session().user().firstName | limitTo:1:0 }}.
-          span.caret
-        ul.dropdown-menu
-          li
-            a(ui-sref = 'packageScan')
-              span.glyphicon.glyphicon-plus
-              | NEW PACKAGE
-          li
-            a(ui-sref = 'settings', ui-sref-active = 'current')
-              span.glyphicon.glyphicon-cog
-              | SETTINGS
-          li
-            a(ng-click = 'logout()')
-              span.glyphicon.glyphicon-log-out
-              | LOG OUT
+nav#navbar(ng-controller = 'NavbarController', ng-class = '{collapsed: !session().user()}')
+  a.navbar-brand(ui-sref = 'home')
+    img(ck-no-drag, src = 'assets/logo.svg')
+    
+  ul.navbar-menu(ng-show = 'session().user()')
+    a(ui-sref = 'settings', ui-sref-active = 'current') settings
+    a(ng-click = 'logout()') log out

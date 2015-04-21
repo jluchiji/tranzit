@@ -1,64 +1,67 @@
-nav.navbar {
+nav#navbar {
   .paper-shadow(1);
-  background: #ED2939;
+  //background: #ED2939;
+  background: white;
   border: none;
+  border-bottom: 3px solid @brand-primary;
+
+  position: fixed;
+  z-index: 65536;
+  height: @navbar-height;
+  left: 0;
+  right: 0;
+  top: 0;
+
+  transition: all 0.3s ease-out;
+
+  &.collapsed {
+    opacity: 0;
+    transform: translateY(-97%);
+  }
 
   .navbar-brand {
-    padding: 0;
+    @height: 30px;
+    @width: @height * (922 / 244);
+    @padding: 15px;
+
+    display: block;
+    padding: @padding;
+    height: 100%;
+
     img {
-      .square(50px);
-      margin: 0 5px;
+      margin: 0;
+      height: @height;
+      width: @width;
     }
-
-  }
-  .navbar-brand,
-  ul.navbar-nav > li > a {
-    position: relative;
-    cursor: pointer;
-    transition: all 0.1s ease;
-    .hoverable(@brand-primary);
-    &.current {
-      &:before {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 3px;
-        background: #FBFBFB;
-      }
-    }
-    &:hover{
-      color: #FBFBFB;
-      background: darken(@brand-primary, 10%);
-    }
-    &:active {
-      background: darken(@brand-primary, 15%);
-      color: #DDDDDD;
-    }
-    &, &:focus { color: #FBFBFB; }
-    font-weight: 300;
-    letter-spacing: 2px;
-    .glyphicon { margin-right: 10px; }
-    .caret { margin-left: 5px; }
   }
 
-  ul.navbar-nav .dropdown-menu {
+  .navbar-menu {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
 
-    > li a {
+    margin: 0 20px;
+    padding: 0;
+
+    > a {
+      position: relative;
+
+      color: #999;
+      font-size: 20px;
+      font-weight: 200;
+
+      padding: 0px 15px;
+    }
+
+    > a:hover,
+    > a:focus {
       cursor: pointer;
-
-      padding: 10px 25px;
-      padding-left: 0;
-
-      .glyphicon {
-        position: relative;
-        top: 4px;
-        font-size: 1.4em;
-        margin: 0 15px;
-      }
-
+      color: @brand-primary;
+      text-decoration: none;
     }
+
+   > a + a { border-left: 1px solid #AAA; }
 
   }
 }

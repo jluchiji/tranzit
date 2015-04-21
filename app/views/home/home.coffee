@@ -1,33 +1,36 @@
 angular.module 'Tranzit.app.views.home', []
-.controller 'HomeController', ($scope, AppData) ->
+.controller 'HomeController', ($scope, AppData, AppIntegration) ->
 
-  $('#scanner').focus()
+  $('#scanner > input').focus()
 
   $scope.viewState = null
 
   $scope.pendingPackages = null
 
   # Multistate: save account settings
-  $scope.submitButton =
+  $scope.scannerSubmitBtn =
     'loading':
       class: 'loading disabled'
-    'success':
-      class: 'success disabled'
-      callback: -> setTimeout((=> @state 'default'), 3000)
-    'error':
-      class: 'error disabled'
-      callback: -> setTimeout((=> @state 'default'), 3000)
 
-  $scope.onScannerInput = ->
-    if not $scope.scanner.input
+  $scope.scannerSubmit = ->
+    console.log $scope.scannerInput
+    $scope.scannerSubmitBtn.state 'loading'
+    if not $scope.scannerInput
       $scope.reset()
-    if /^\;.*\?/.test($scope.scanner.input)
+    if /^\;.*\?/.test($scope.scannerInput)
       $scope.viewState = 'id'
     else
       $scope.viewState = 'tracking'
+      AppIntegration.getInfo($scope.scannerInput)
+        .success (info) ->
+          $scope.recipient = info
+          $scope.scannerSubmitBtn.state ''
+          console.log info
+        .error (error) -> console.log error
+
 
   $scope.reset = ->
-    $scope.scanner.input = ''
+    $scope.scannerInput = ''
     $scope.viewState = null
     $scope.recipient = null
 

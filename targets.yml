@@ -31,11 +31,10 @@ default:
       - angular-bootstrap/ui-bootstrap.js
       #- bootstrap-switch/dist/js/bootstrap-switch.js
     stylesheets:
+      - skyblue/css/skyblue.min.css
       - angular-ui-router-anim-in-out/css/anim-in-out.css
-      - awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css
-      #- bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css
     fonts:
-
+      - skyblue/pe-icon/*.*
     assets:
 
 
@@ -52,6 +51,7 @@ development:
     - api/auth-session.js
     - api/auth.js
     - api/user.js
+    - api/stats.js
     - api/recipient.js
     - api/location.js
     - api/package.js
@@ -63,6 +63,7 @@ development:
     - ng/app.events.js
     - ng/app.const.js
     - ng/app.directives.js
+    - ng/app.integration.js
     - shared/part-navbar/part-navbar.js
     - views/login/login.js
     - views/home/home.js
@@ -74,7 +75,7 @@ development:
   # Development-specific stylesheets
   stylesheets:
     - //maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css
-    - //maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css
+    #- //maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css
     - //code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css
     - index.css
 

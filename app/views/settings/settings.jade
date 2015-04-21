@@ -20,26 +20,13 @@
           .col-xs-5.input-group.input-group-lg
             input.form-control(
               type = 'text', 
-              name = 'firstName', 
-              ng-model = 'userInfo.firstName', 
+              name = 'name', 
+              ng-model = 'userInfo.name', 
               required
             )
-          .col-xs-5.error-message(ng-class = '{open: accountSettings.firstName.$error.required}')
+          .col-xs-5.error-message(ng-class = '{open: accountSettings.name.$error.required}')
             span.glyphicon.glyphicon-remove-circle.inline-lg
-            | First name cannot be empty.
-              
-        .row
-          label.col-xs-2.text-right Last Name
-          .input-group.input-group-lg.col-xs-5
-            input.form-control(
-              type = 'text', 
-              name = 'lastName'
-              ng-model = 'userInfo.lastName', 
-              required
-            )
-          .col-xs-5.error-message(ng-class = '{open: accountSettings.lastName.$error.required}')
-            span.glyphicon.glyphicon-remove-circle.inline-lg
-            | Last name cannot be empty.
+            | Name cannot be empty.
             
       .card-section.light.clearfix
         h3.col-xs-10.col-xs-offset-2 Change Password

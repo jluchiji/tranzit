@@ -21,6 +21,18 @@ module.exports = (db) ->
   #Object where we'll attach all functions
   self = { }
 
+  self.findByName = (name, fuzzy) ->
+    if fuzzy
+      query = squel.select()
+        .from('recipients')
+        .where('SOUNDEX(name) = SOUNDEX(?)', name)
+      return db.query(query).then (result) -> result[0]
+    else
+      query = squel.select()
+        .from('recipients')
+        .where('name = ?', name)
+      return db.get(query)
+
   #Find recipient by their email
   self.findByEmail = (email) ->
     query = squel.select()
