@@ -83,7 +83,6 @@
       > input + button:hover span.caption { color: #4378a7; }
     }
 
-
     .sep {
       position: relative;
       text-align: center;
@@ -102,6 +101,10 @@
         height: 1px;
         top: 50%;
         width: 40%;
+        @media (min-width: @screen-sm-min) { width: 35%; }
+        @media (min-width: @screen-md-min) { width: 40%; }
+        @media (min-width: @screen-lg-min) { width: 45%; }
+
         //background: #AAA;
       }
       &:before {
@@ -115,39 +118,17 @@
 
     }
 
-  }
-
-  section#search-criteria {
+    .input-group > label {
+      font-size: 12px;
+      font-weight: bold;
+      color: #777;
+      margin: 0 0 3px 10px;
+    }
 
   }
 
   section#search-list {
     min-height: 100vh;
-  }
-
-  #package-mgmt .card-head {
-    text-align: center;
-    span.icon {
-      color: @brand-primary;
-      font-size: 96px;
-    }
-    h2 {
-      font-size: 36px;
-      margin-top: 0;
-    }
-  }
-
-  .row label {
-    line-height: 46px;
-  }
-
-  .ion-fireball {
-    color: @brand-primary;
-    font-size: 64px;
-  }
-
-  form.card-section ~ .card-section {
-    border-top: none;
   }
 
 }
