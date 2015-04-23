@@ -1,0 +1,150 @@
+.view#packagePickup {
+
+  .notification {
+    position: fixed;
+    top: @navbar-height;
+    width: 100%;
+    z-index: 9;
+    .paper-shadow(1);
+
+    transform: translateY(-100%);
+    opacity: 0;
+    transition: all 0.3s ease-out;
+
+    &.open {
+      transform: translateY(0%);
+      opacity: 1;
+    }
+
+    background: #FCF8E4;
+    .container { padding: 15px 30px; }
+
+    .glyphicon-info-sign {
+      position: relative;
+      top: 4px;
+      font-size: 1.4em;
+      margin-right: 10px;
+    }
+
+    .btn { min-width: 60px; }
+  }
+
+  .container {
+
+    .card {
+
+      .row > label {
+        color: @gray-light;
+        margin: 0;
+        line-height: 45px;
+        height: 45px;
+        font-weight: 300;
+      }
+
+      margin: 30px 0;
+
+      .row + .row { margin-top: 15px; }
+
+      .error-message {
+        line-height: 45px;
+        color: lighten(@brand-primary, 10%);
+
+        transition: all 0.3s ease-out;
+        transform: translateX(-10px);
+        opacity: 0;
+
+        &.open {
+          transform: translateX(0);
+          opacity: 1;
+        }
+
+        .glyphicon {
+          margin-right: 10px;
+          color: @brand-primary;
+        }
+
+      }
+
+      .input-group[class*="col-"] { float: left; }
+      input:focus {
+        //border-color: #CCC;
+        .paper-shadow(1);
+      }
+      button.btn {
+        min-width: 85px;
+        margin: 0 5px;
+      }
+    }
+
+  }
+
+}
+
+button.btn-loading {
+
+  .icon.loading,
+  .icon.error,
+  .icon.success { display: none; }
+
+  &.loading .icon.loading { display: inline-block; }
+  &.error .icon.error   { display: inline-block; }
+  &.success .icon.success { display: inline-block; }
+
+  &.loading .caption,
+  &.error .caption,
+  &.success .caption { display: none; }
+
+
+}
+
+.input-group.float-label {
+
+  @padding-h: 5px;
+  @padding-top: 18px;
+  @padding-bot: 2px;
+
+  position: relative;
+
+  > input.form-control {
+
+    // Style Reset
+    &, &:focus {
+      border-radius: 0;
+      border-width: 0 0 1px 0;
+      background: none;
+      box-shadow: none;
+    }
+
+
+    padding: @padding-top @padding-h @padding-bot @padding-h;
+    border-color: @gray-light;
+
+    &:focus {
+      border-color: @brand-primary;
+    }
+
+
+    // Floating Label
+    & + label {
+      position: absolute;
+      left: @padding-h;
+      top: @padding-top;
+      margin: 0;
+      font-size: 18px;
+      font-weight: 300;
+      color: @gray-light;
+      transition: all 0.1s ease-in-out;
+    }
+    &:focus + label {
+      color: @brand-primary;
+    }
+    &:focus + label,
+    &.has-value + label {
+    //&:valid + label {
+      top: 0;
+      font-size: 12px;
+    }
+
+  }
+
+}

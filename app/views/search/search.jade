@@ -1,0 +1,24 @@
+.view#search
+  .container
+
+    form.card(ng-submit = 'submit()')
+      .card-section.clearfix
+        h2 Package Search
+      .card-section.light.clearfix
+        .row
+          p.col-xs-10.col-xs-offset-2.
+            Please choose whether to search by Date or Location
+        .row
+          .btn-group(role='group', aria-label='Test').col-xs-2.col-xs-offset-5
+            button.btn.btn-default(type='button') Date
+            button.btn.btn-default(type='button') Location
+
+      .card-section.light.clearfix(ng-show = 'viewState == "date"')
+        h3.col-xs-10.col-xs-offset-2 Date
+        .row
+          h2.col-xs-10.col-xs-offset-2 Date Picker will go here
+
+      .card-section.light.clearfix(ng-show = 'viewState == "location"')
+        h3.col-xs-10.col-xs-offset-2 Location
+        .row
+          h2.col-xs-10.col-xs-offset-2 Location Picker will go here

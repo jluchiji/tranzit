@@ -69,6 +69,7 @@ development:
     - views/settings/settings.js
     - views/packageScan/packageScan.js
     - views/packagePickup/packagePickup.js
+    - views/search/search.js
     - index.js
 
   # Development-specific stylesheets

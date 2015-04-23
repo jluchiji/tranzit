@@ -41,7 +41,8 @@ angular.module 'Tranzit.app', [
   'Tranzit.app.views.home',
   'Tranzit.app.views.settings',
   'Tranzit.app.views.packageScan',
-  'Tranzit.app.views.packagePickup'
+  'Tranzit.app.views.packagePickup',
+  'Tranzit.app.views.search'
 ]
 
 # Configure Underscore.js to recognize /:param style URL templates
