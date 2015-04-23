@@ -13,7 +13,39 @@ angular.module 'Tranzit.api.package', ['Tranzit.config']
   # Keep a reference of @ in case we need it later in nested functions
   self = @
 
-  @find = (params) ->
+  @findByRecipient = (params) ->
+    url = ':host/api/packages'
+
+    # HTTP call details here
+    config =
+      method:   'GET'
+      url:      _.template(url)(host: ApiConfig.host)
+      params:   _.extend {}, params
+      headers:
+        'Content-Type': 'application/json'
+        'X-Tranzit-Auth': TranzitAuthSession.user?.token
+
+    # Send request and generate a promise
+    return $http(config).then (data) ->
+      return data.data.result
+
+  @findByLocation = (params) ->
+    url = ':host/api/packages'
+
+    # HTTP call details here
+    config =
+      method:   'GET'
+      url:      _.template(url)(host: ApiConfig.host)
+      params:   _.extend {}, params
+      headers:
+        'Content-Type': 'application/json'
+        'X-Tranzit-Auth': TranzitAuthSession.user?.token
+
+    # Send request and generate a promise
+    return $http(config).then (data) ->
+      return data.data.result
+
+  @findByDate = (params) ->
     url = ':host/api/packages'
 
     # HTTP call details here

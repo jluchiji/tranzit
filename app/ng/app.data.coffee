@@ -49,7 +49,7 @@ angular.module 'Tranzit.app.data', []
       .error (error) -> AppEvents.event EventNames.RemoteCallError, error
 
 
-  #### SPRINT 2 ####
+  #### SPRINTS 2 AND 3 ####
 
   ## Package functions ##
 
@@ -57,7 +57,21 @@ angular.module 'Tranzit.app.data', []
   # Find Package by Recipient                                                 #
   # ------------------------------------------------------------------------- #
   @findPackageByRecipient = (id) ->
-    TranzitPackage.find(recipient: id)
+    TranzitPackage.findByRecipient(recipient: id)
+      .error (error) -> AppEvents.event EventNames.RemoteCallError, error
+
+  # ------------------------------------------------------------------------- #
+  # Find Package by Location                                                  #
+  # ------------------------------------------------------------------------- #
+  @findPackageByLocation = (params) ->
+    TranzitPackage.findByLocation(params)
+      .error (error) -> AppEvents.event EventNames.RemoteCallError, error
+
+  # ------------------------------------------------------------------------- #
+  # Find Package by Date                                                      #
+  # ------------------------------------------------------------------------- #
+  @findPackageByDate = (params) ->
+    TranzitPackage.findByDate(params)
       .error (error) -> AppEvents.event EventNames.RemoteCallError, error
 
   # ------------------------------------------------------------------------- #
@@ -107,6 +121,13 @@ angular.module 'Tranzit.app.data', []
 
 
   ## Recipient Functions ##
+
+  # ------------------------------------------------------------------------- #
+  # Find Recipients                                                           #
+  # ------------------------------------------------------------------------- #
+  @findRecipients = (params) ->
+    TranzitRecipient.find(params)
+      .error (error) -> AppEvents.event EventNames.RemoteCallError, error
 
   # ------------------------------------------------------------------------- #
   # Create Recipient                                                          #
