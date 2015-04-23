@@ -3,15 +3,12 @@
   div.page-head
     section#stats
       .container
-        .stat-panel.col.xs-4
+        .stat-panel.col.xs-6
           .stat-counter.color-success {{ session().stats.last24.count }}
           .stat-caption last 24 hours
-        .stat-panel.col.xs-4
+        .stat-panel.col.xs-6
           .stat-counter.color-warning {{ session().stats.unclaimed.count }}
           .stat-caption unclaimed
-        .stat-panel.col.xs-4
-          .stat-counter.color-error {{ session().stats.haveErrors.count }}
-          .stat-caption have errors
     
     section#reg-release
       .container
@@ -25,35 +22,13 @@
             span.success.icon.ion-android-done
             span.error.icon.ion-android-close
         
-        div.situational-form(ng-show = 'packageInfo.error')
-          .error-message
-            span.icon.ion-alert-circled
-            p
-              | Shipping providers did not recognize the tracking number you entered.
-              br
-              |  Please type the name of the recipient into the text field below.
-          form.input-group#manual-search(ng-submit = 'packageInfo.submit()')
-            input.form-control(type = 'text', ng-model = 'packageInfo.value')
-            button.link-button.btn-loading(type = 'submit', ck-multistate = 'packageInfo')
-              span.caption.icon.ion-android-arrow-forward
-              span.loading.icon.ion-load-d.animate-spin
-              span.success.icon.ion-android-done
-              span.error.icon.ion-android-close
-            
-        
-        form.hidden(ng-submit = 'registerSubmit()', ng-show = 'recipient')
-          .sep
-            span recipient
-          .input-group.col.xs-6
-            label name
-            input.form-control(type = 'text', ng-model = 'recipient.name')
-          .input-group.col.xs-6
-            label email address
-            input.form-control(type = 'text', ng-model = 'recipient.email')
-          .input-group.col.xs-12
-            label address
-            input.form-control(type = 'text', ng-model = 'recipient.address')
-          
+        div.error-message(ng-show = 'error')
+          span.icon.ion-alert-circled
+          | {{ error }}
+          br
+          | Please return the package to the shipping provider.
         
   section#search-list
+    
+    div.criteria-bar
       

@@ -16,12 +16,12 @@ angular.module 'Tranzit.app.integration', []
 
   options =
     lag:
-      min: 300
-      max: 3000
+      min: 100
+      max: 1000
 
   data =
     '1Z6089649053538738':
-      name: 'AAA'
+      name: 'Greg Clark'
       address: '1885 Hummingbird Way, Winchester, MA'
 
   self = { }
@@ -29,10 +29,11 @@ angular.module 'Tranzit.app.integration', []
   self.getInfo = (tracking) ->
     deferred = $q.defer()
     setTimeout (->
+      console.log data[tracking]
       if data[tracking]
         deferred.resolve(data[tracking])
       else
-        deferred.reject(status: 404, message: 'Package not found.')
+        deferred.reject(src: 'tranzit.app.integration',status: 404, message: 'Package not found.')
       ), random(options.lag.min, options.lag.max)
     return deferred.promise
 
