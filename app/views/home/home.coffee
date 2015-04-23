@@ -1,7 +1,17 @@
 angular.module 'Tranzit.app.views.home', []
-.controller 'HomeController', ($scope, AppData, AppIntegration, TranzitRecipient) ->
+.controller 'HomeController', ($scope, AppData, AppIntegration,
+  TranzitRecipient, TranzitPackage) ->
 
   $('#scanner > input').focus()
+
+  $scope.packages = [
+    {
+      tracking: "1Z6089649053538738"
+      recipient: "4yocgPPOf6W"
+      id: "mJs4kWo3"
+      user: "QyvFzJE3"
+    }
+  ]
 
   $scope.scanner =
     value: ''
@@ -23,18 +33,32 @@ angular.module 'Tranzit.app.views.home', []
 
     $scope.scanner.state 'loading'
 
-    if /^\;.*\?/.test($scope.scanner.value)
-
+    if /^\;(.*)\?/.test($scope.scanner.value)
+      # TODO Fix
+      recvId = $scope.scanner.value.substr(1, $scope.scanner.value.length - 2)
+      console.log recvId
+      TranzitPackage.find(recipient: recvId, released: no)
+      .success (info) ->
+        console.log info
+        $scope.scanner.state()
+        $scope.packages = info
+      .error (error) ->
+        $scope.scanner.state 'error'
+        console.log error
     else
+      recipient = null
       AppIntegration.getInfo($scope.scanner.value)
       .then (info) ->
         TranzitRecipient.find(info.name, no)
       .then (recv) ->
+        recipient = recv
         pkg =
           tracking: $scope.scanner.value,
           recipient: recv.id
         AppData.createPackage(pkg)
-      .success ->
+      .success (entry) ->
+        $scope.packages.unshift _.extend entry, recipientName: recipient.name
+        $scope.session().stats.unclaimed.count++
         $scope.scanner.value = ''
         $scope.scanner.state 'success'
       .error (error) ->

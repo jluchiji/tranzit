@@ -124,9 +124,9 @@
         height: 1px;
         top: 50%;
         width: 40%;
-        @media (min-width: @screen-sm-min) { width: 35%; }
-        @media (min-width: @screen-md-min) { width: 40%; }
-        @media (min-width: @screen-lg-min) { width: 45%; }
+        @media (min-width: @screen-sm-min) { width: 32%; }
+        @media (min-width: @screen-md-min) { width: 38%; }
+        @media (min-width: @screen-lg-min) { width: 42%; }
 
         //background: #AAA;
       }
@@ -151,7 +151,42 @@
   }
 
   section#search-list {
-    min-height: 100vh;
+
+    padding-top: 0;
+
+    .criteria-bar {
+      .paper-shadow(1);
+      background-color: #FBFBFB;
+      border-bottom: 1px solid #DDD;
+
+      > .container {
+        padding-top: 14px;
+        padding-bottom: 14px;
+
+      }
+      label {
+        font-weight: bold;
+        margin-bottom: 0;
+      }
+    }
+
+    #result-list {
+      background: #FFF;
+
+      .package-entry {
+        padding: 14px 0;
+        border-bottom: 1px solid #DDD;
+        &:hover {
+          background: #F1F1F1;
+        }
+
+      }
+      label {
+        font-family: monospace;
+        margin-bottom: 0;
+      }
+    }
+    
   }
 
 }

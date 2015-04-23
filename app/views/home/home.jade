@@ -26,9 +26,28 @@
           span.icon.ion-alert-circled
           | {{ error }}
           br
-          | Please return the package to the shipping provider.
+          | Please return this package to the shipping provider.
+          
+        .sep
+          span or
         
+        h2 Specify search terms
+      
   section#search-list
     
     div.criteria-bar
-      
+      .container
+        label.col.xs-1 
+        label.col.xs-3 tracking
+        label.col.xs-3 recipient
+        label.col.xs-5 status
+        
+    
+    #result-list
+      .package-entry.clearfix(ng-repeat = 'package in packages')
+        .container
+          label.col.xs-1.label 
+          label.col.xs-3.tracking {{ package.tracking }}
+          label.col.xs-3.recipient {{ package.recipientName }}
+          label.col.xs-5.status(ng-class = '{"color-success": package.released, "color-error": !package.released}')
+            | {{ package.released ? 'Released to recipient.' : 'Waiting for pickup.'}}

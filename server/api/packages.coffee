@@ -25,6 +25,8 @@ module.exports = (db) ->
   self.find = ->
     return (req, res) ->
       schema =
+        user: [String, null]
+        tracking: [String, null]
         recipient: [String, null]
 
       (conveyor = new Conveyor req, res, user: req.authUser, params: req.query)

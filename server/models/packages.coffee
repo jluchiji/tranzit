@@ -22,34 +22,32 @@ module.exports = (db) ->
   #Object where we'll attach all functions
   self = { }
 
+  # Query Parameters:
+  # user - userID
+  # recipient - recipientID
+  # released - true | false
+
   self.find = (params) ->
     query = squel.select()
       .from('packages')
+      .field('packages.*')
+      .field('recipients.name', 'recipientName')
+      .left_join('recipients', null, 'recipients.id = packages.recipient')
 
     if params.recipient
       query = query.where('recipient = ?', params.recipient)
 
-    return db.all(query)
+    if params.tracking
+      query = query.where('tracking = ?', params.tracking)
 
-  #Finds a package by tracking number
-  self.findByTrackingNumber = (trackingNumber) ->
-    query = squel.select()
-      .from('packages')
-      .where('tracking = ?', trackingNumber)
-    return db.get(query)
+    if params.user
+      query = query.where('user = ?', params.user)
 
-  #Finds packages belonging to a user
-  self.findByUserID = (userID) ->
-    query = squel.select()
-      .from('packages')
-      .where('user = ?', userID)
-    return db.all(query)
+    if params.released
+      query = query.where('released IS NOT NULL')
+    else
+      query = query.where('released IS NULL')
 
-  #Finds packages by received date
-  self.findByReceivedDate = (receivedDate) ->
-    query = squel.select()
-      .from('packages')
-      .where('received = ?', receivedDate)
     return db.all(query)
 
   #Creates a new package object

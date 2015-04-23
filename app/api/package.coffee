@@ -61,7 +61,6 @@ angular.module 'Tranzit.api.package', ['Tranzit.config']
     return $http(config).then (data) ->
       return data.data.result
 
-  @delete = (pkg) ->
     url = ':host/api/packages' # TODO: check on this
 
     # HTTP call details here
