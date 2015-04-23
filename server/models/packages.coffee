@@ -59,6 +59,13 @@ module.exports = (db) ->
         .where('location = ?', location)
       return db.all(query)
 
+  #Finds packages belonging to a user
+  self.packagesPastMaxDate = (maxDate) ->
+    query = squel.select()
+      .from('packages')
+      .where('receivedDate <= ? AND releasedDate = NULL', maxDate)
+    return db.all(query)
+
   #Creates a new package object
   self.create = (id, params, user) ->
     now = moment().unix()
