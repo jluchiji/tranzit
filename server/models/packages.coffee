@@ -52,6 +52,13 @@ module.exports = (db) ->
       .where('received = ?', receivedDate)
     return db.all(query)
 
+    #Finds packages by its location
+    self.findByLocation = (location) ->
+      query = squel.select()
+        .from('packages')
+        .where('location = ?', location)
+      return db.all(query)
+
   #Creates a new package object
   self.create = (id, params, user) ->
     now = moment().unix()
