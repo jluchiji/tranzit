@@ -1,4 +1,4 @@
-﻿#   ______   ______     ______     __   __     ______     __     ______
+#   ______   ______     ______     __   __     ______     __     ______
 #  /\__  _\ /\  == \   /\  __ \   /\ "-.\ \   /\___  \   /\ \   /\__  _\
 #  \/_/\ \/ \ \  __<   \ \  __ \  \ \ \-.  \  \/_/  /__  \ \ \  \/_/\ \/
 #     \ \_\  \ \_\ \_\  \ \_\ \_\  \ \_\\"\_\   /\_____\  \ \_\    \ \_\
@@ -61,6 +61,9 @@ module.exports = (db) ->
     .get authorize.user('any')
     .get packages.find()
 
+  api.route '/packages/:dateRange'
+    #.get
+
 
   # /recipients
   api.route '/recipients'
@@ -77,6 +80,8 @@ module.exports = (db) ->
   api.route '/stats'
     .get authorize.user('any')
     .get stats.get()
+
+  #api.route 'locations/:id/packages'
 
   # Static router for content, which works for the Tranzit web app
   root.use st = express.Router()
