@@ -138,4 +138,63 @@ module.exports = (db) ->
         .catch conveyor.error
         .done()
 
+
+  self.listPackagesAtLocation = ->
+    return (req, res) ->
+
+      schema =
+        location: String
+
+      # Promise chain start
+      (conveyor = new Conveyor req, res, user: req.authUser, params: req.body)
+
+      # Validate request parameters
+        .then
+          input: 'params',
+          schema: schema,
+          util.schema
+
+        .then
+          input: 'params.location'
+          packages.findByLocation
+
+        # Send success or observe errors
+        .then conveyor.success
+        .catch conveyor.error
+        .done()
+
+
+  self.findByDate = ->
+    return (req, res) ->
+
+      schema =
+        date: String
+
+      # Promise chain start
+      (conveyor = new Conveyor req, res, user: req.authUser, params: req.body)
+
+      # Validate request parameters
+        .then
+          input: 'params',
+          schema: schema,
+          util.schema
+
+        .then
+          input: 'params.date'
+          packages.findByReceivedDate
+
+        # Send success or observe errors
+        .then conveyor.success
+        .catch conveyor.error
+        .done()
+
+
   return self
+
+
+
+
+
+
+
+

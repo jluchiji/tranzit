@@ -61,8 +61,8 @@ module.exports = (db) ->
     .get authorize.user('any')
     .get packages.find()
 
-  api.route '/packages/:dateRange'
-    #.get
+  api.route '/packages/:date'
+    .get packages.findByDate()
 
 
   # /recipients
@@ -81,7 +81,8 @@ module.exports = (db) ->
     .get authorize.user('any')
     .get stats.get()
 
-  #api.route 'locations/:id/packages'
+  api.route 'locations/:id/packages'
+    .get packages.listPackagesAtLocation()
 
   # Static router for content, which works for the Tranzit web app
   root.use st = express.Router()
