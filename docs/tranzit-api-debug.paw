@@ -501,6 +501,6 @@
         <attribute name="name" type="string">Fuzzy Search</attribute>
         <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM" idrefs="z128"></relationship>
         <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
-        <relationship name="headers" type="0/0" destination="LMKEYVALUE" idrefs="z140 z141"></relationship>
+        <relationship name="headers" type="0/0" destination="LMKEYVALUE" idrefs="z141 z140"></relationship>
     </object>
 </database>

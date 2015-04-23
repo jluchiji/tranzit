@@ -62,7 +62,7 @@ module.exports = (db) ->
         req.query.fuzzy = yes
       else if req.query.fuzzy is 'false'
         req.query.fuzzy = no
-      
+
       # Schema for query params
       schema =
         name: String
@@ -85,6 +85,7 @@ module.exports = (db) ->
 
         # Make sure we are returning something
         .then
+          status: 404,
           message: 'No matching recipient(s) found.',
           util.exists
 

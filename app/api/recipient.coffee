@@ -13,6 +13,21 @@ angular.module 'Tranzit.api.recipient', ['Tranzit.config']
   # Keep a reference of @ in case we need it later in nested functions
   self = @
 
+  @find = (name, fuzzy) ->
+    url = ':host/api/recipients'
+
+    # HTTP call details here
+    config =
+      method:   'GET'
+      url:      _.template(url)(host: ApiConfig.host)
+      params:   name: name, fuzzy: fuzzy
+      headers:
+        'X-Tranzit-Auth': TranzitAuthSession.user?.token
+
+    # Send request and generate a promise
+    return $http(config).then (data) ->
+      return data.data.result
+
   @create = (recipient) ->
     url = ':host/api/recipients' # TODO: check on this
 

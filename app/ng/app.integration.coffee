@@ -21,7 +21,7 @@ angular.module 'Tranzit.app.integration', []
 
   data =
     '1Z6089649053538738':
-      name: 'Greg Clark'
+      name: 'AAA'
       address: '1885 Hummingbird Way, Winchester, MA'
 
   self = { }
@@ -32,7 +32,7 @@ angular.module 'Tranzit.app.integration', []
       if data[tracking]
         deferred.resolve(data[tracking])
       else
-        deferred.reject('Package not found.')
+        deferred.reject(status: 404, message: 'Package not found.')
       ), random(options.lag.min, options.lag.max)
     return deferred.promise
 
