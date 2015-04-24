@@ -52,6 +52,13 @@ module.exports = (db) ->
       .where('received = ?', receivedDate)
     return db.all(query)
 
+  #Finds packages in a date range
+  self.findInDateRange = (minDate, maxDate) ->
+    query = squel.select()
+      .from('packages')
+      .where('received >= ? AND received <= ?', minDate, maxDate)
+    return db.all(query)
+
     #Finds packages by its location
     self.findByLocation = (location) ->
       query = squel.select()
