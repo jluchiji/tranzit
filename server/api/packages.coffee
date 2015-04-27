@@ -12,6 +12,7 @@
 util     = require('../lib/util.js')          # Various utility methods
 Conveyor = require('../lib/conveyor.js')      # Promise-chaining
 uid      = require('shortid')                 # Unique ID generator
+emailer  = require('./sendEmails.js')
 
 # Here we export a high-order function, since we need called to supply db
 module.exports = (db) ->
@@ -50,6 +51,7 @@ module.exports = (db) ->
       schema =
         tracking: String
         recipient: String
+        email: String
 
       # Promise chain start
       (conveyor = new Conveyor req, res, user: req.authUser, params: req.body)
@@ -70,6 +72,10 @@ module.exports = (db) ->
           input: ['uid', 'params', 'user'],
           output: 'package',
           packages.create
+
+        .then
+          input: 'params.email'
+          emailer.sendEmails
 
         .then
           status: 201,
