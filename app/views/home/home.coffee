@@ -13,6 +13,11 @@ angular.module 'Tranzit.app.views.home', []
     }
   ]
 
+  $scope.currentRecvId = null
+
+  TranzitPackage.find(limit: 20).then (data) ->
+    $scope.packages = data
+
   $scope.scanner =
     value: ''
     'loading':
@@ -36,12 +41,17 @@ angular.module 'Tranzit.app.views.home', []
     if /^\;(.*)\?/.test($scope.scanner.value)
       # TODO Fix
       recvId = $scope.scanner.value.substr(1, $scope.scanner.value.length - 2)
+      if recvId.indexOf('=') isnt -1
+        recvId = recvId.split('=')[2]
+      $scope.scanner.value = ";#{recvId}?"
       console.log recvId
-      TranzitPackage.find(recipient: recvId, released: no)
+      TranzitPackage.find(recipient: recvId)
       .success (info) ->
         console.log info
+        info = _.filter(info, (i) -> i.released is null)
         $scope.scanner.state()
         $scope.packages = info
+        $scope.currentRecvId = recvId
       .error (error) ->
         $scope.scanner.state 'error'
         console.log error
@@ -57,7 +67,7 @@ angular.module 'Tranzit.app.views.home', []
           recipient: recv.id
         AppData.createPackage(pkg)
       .success (entry) ->
-        $scope.packages.unshift _.extend entry, recipientName: recipient.name
+        $scope.packages.unshift _.extend entry, recipientName: recipient.name, recipientAddress: recipient.address
         $scope.session().stats.unclaimed.count++
         $scope.scanner.value = ''
         $scope.scanner.state 'success'
@@ -65,6 +75,33 @@ angular.module 'Tranzit.app.views.home', []
         $scope.scanner.value = ''
         recoverRegErrors(error)
         $scope.scanner.state 'error'
+
+  $scope.release =
+    'loading':
+      class: 'loading disabled'
+    'success':
+      class: 'success disabled'
+      callback: -> setTimeout((=> @state 'default'), 1500)
+    'error':
+      class: 'error disabled'
+      callback: -> setTimeout((=> @state 'default'), 1500)
+
+  $scope.releasePackages = ->
+    $scope.release.state 'loading'
+    TranzitPackage.release($scope.currentRecvId)
+    .success ->
+      for pkg in $scope.packages
+        pkg.released = new Date().getTime() / 1000
+      $scope.release.state 'success'
+      $scope.currentRecvId = null
+      $scope.scanner.value = ''
+
+      $scope.session().stats.unclaimed.count--
+      $scope.session().stats.last24.count++
+
+    .error ->
+      $scope.release.state 'error'
+
 
   # Attempt to recover from registration errors
   recoverRegErrors = (error) ->

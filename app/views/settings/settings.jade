@@ -10,61 +10,61 @@
     
     form.card(name = 'accountSettings', ng-controller = 'AccountSettingsController', ng-submit = 'submit()')
       .card-section.thin-padding.clearfix
-        h2.col-xs-10.col-xs-offset-2 Account Settings
+        h2.col.xs-10.xs-offset-2 Account Settings
       
       .card-section.light.clearfix
-        h3.col-xs-10.col-xs-offset-2 Personal Information
+        h3.col.xs-10.xs-offset-2 Personal Information
         
         .row
-          label.col-xs-2.text-right First Name
-          .col-xs-5.input-group.input-group-lg
+          label.col.xs-2.text-right First Name
+          .col.xs-5.input-group.input-group-lg
             input.form-control(
               type = 'text', 
               name = 'name', 
               ng-model = 'userInfo.name', 
               required
             )
-          .col-xs-5.error-message(ng-class = '{open: accountSettings.name.$error.required}')
+          .col.xs-5.error-message(ng-class = '{open: accountSettings.name.$error.required}')
             span.glyphicon.glyphicon-remove-circle.inline-lg
             | Name cannot be empty.
             
       .card-section.light.clearfix
-        h3.col-xs-10.col-xs-offset-2 Change Password
+        h3.col.xs-10.xs-offset-2 Change Password
                 
         .row
-          label.col-xs-2.text-right Current Password
-          .input-group.input-group-lg.col-xs-5
+          label.col.xs-2.text-right Current Password
+          .input-group.input-group-lg.col.xs-5
             input.form-control(
               type = 'password', 
               name = 'currentPassword'
               ng-model = 'userInfo.currentPassword'
             )
-          .col-xs-5.error-message(ng-class = '{open: needPassword() || badPassword}')
+          .col.xs-5.error-message(ng-class = '{open: needPassword() || badPassword}')
             span.glyphicon.glyphicon-lock.inline-lg
             | {{ badPassword ? "The password you entered is incorrect." : "Please enter your current password." }}
             
       
         .row
-          label.col-xs-2.text-right New Password
-          .input-group.input-group-lg.col-xs-5
+          label.col.xs-2.text-right New Password
+          .input-group.input-group-lg.col.xs-5
             input.form-control(
               type = 'password',
               name = 'password',
               ng-model = 'userInfo.password'
             )
-          .col-xs-5.error-message
+          .col.xs-5.error-message
             span.glyphicon.glyphicon-remove-circle.inline-lg
             | Error message is here.
         
         .row
-          label.col-xs-2.text-right Verify Password
-          .input-group.input-group-lg.col-xs-5
+          label.col.xs-2.text-right Verify Password
+          .input-group.input-group-lg.col.xs-5
             input.form-control(
               type = 'password', 
               name = 'passwordVerify'
               ng-model = 'userInfo.passwordVerify'
             )
-          .col-xs-5.error-message(ng-class = '{open: needVerify()}')
+          .col.xs-5.error-message(ng-class = '{open: needVerify()}')
             span.glyphicon.glyphicon-remove-circle.inline-lg
             | Your verification does not match the password.
 

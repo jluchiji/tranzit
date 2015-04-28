@@ -61,13 +61,14 @@ angular.module 'Tranzit.api.package', ['Tranzit.config']
     return $http(config).then (data) ->
       return data.data.result
 
+  @release = (recv) ->
     url = ':host/api/packages' # TODO: check on this
 
     # HTTP call details here
     config =
-      method:   'DELETE'
+      method:   'PUT'
       url:      _.template(url)(host: ApiConfig.host)
-      data:     JSON.stringify _.extend({}, pkg) # TODO
+      data:     JSON.stringify recipient: recv
       headers:
         'Content-Type': 'application/json'
         'X-Tranzit-Auth': TranzitAuthSession.user?.token

@@ -34,7 +34,7 @@ module.exports = (db) ->
       last24: db.get(squel.select()
         .from('packages')
         .field('COUNT(*)', 'count')
-        .where('received >= ?', moment().unix()))
+        .where('released IS NOT NULL'))
       # Get the total number of unclaimed packages
       unclaimed: db.get(squel.select()
         .from('packages')

@@ -5,10 +5,10 @@
       .container
         .stat-panel.col.xs-6
           .stat-counter.color-success {{ session().stats.last24.count }}
-          .stat-caption last 24 hours
+          .stat-caption claimed
         .stat-panel.col.xs-6
           .stat-counter.color-warning {{ session().stats.unclaimed.count }}
-          .stat-caption unclaimed
+          .stat-caption pending
     
     section#reg-release
       .container
@@ -28,26 +28,32 @@
           br
           | Please return this package to the shipping provider.
           
-        .sep
+        .sep.hidden
           span or
         
-        h2 Specify search terms
-      
+        h2.hidden Specify search terms
+        
+        button.btn.btn-loading(type = 'button', ng-click = 'releasePackages()', ck-multistate = 'release', ng-show = 'currentRecvId')
+          span.caption Release All Packages
+          span.loading.icon.ion-load-d.animate-spin
+          span.success.icon.ion-android-done
+          span.error.icon.ion-android-close
+        
   section#search-list
     
     div.criteria-bar
       .container
-        label.col.xs-1 
+        label.col.xs-2 
         label.col.xs-3 tracking
         label.col.xs-3 recipient
-        label.col.xs-5 status
+        label.col.xs-4 status
         
     
     #result-list
       .package-entry.clearfix(ng-repeat = 'package in packages')
         .container
-          label.col.xs-1.label 
+          label.col.xs-2.label.color-success(ng-if = 'package.released') released
+          label.col.xs-2.label.color-error(ng-if = '!package.released') pending
           label.col.xs-3.tracking {{ package.tracking }}
           label.col.xs-3.recipient {{ package.recipientName }}
-          label.col.xs-5.status(ng-class = '{"color-success": package.released, "color-error": !package.released}')
-            | {{ package.released ? 'Released to recipient.' : 'Waiting for pickup.'}}
+          label.col.xs-4.address {{ package.recipientAddress }}

@@ -25,7 +25,12 @@ module.exports = (db) ->
 
   self.find = ->
     return (req, res) ->
+
+      if /^\d+$/.test(req.query.limit)
+        req.query.limit = Number(req.query.limit)
+
       schema =
+        limit: [Number, null]
         user: [String, null]
         tracking: [String, null]
         recipient: [String, null]
@@ -53,7 +58,6 @@ module.exports = (db) ->
       schema =
         tracking: String
         recipient: String
-        email: String
 
       # Promise chain start
       (conveyor = new Conveyor req, res, user: req.authUser, params: req.body)
@@ -75,9 +79,9 @@ module.exports = (db) ->
           output: 'package',
           packages.create
 
-        .then
-          input: 'params.email'
-          emailer.sendEmails
+        #.then
+        #  input: 'params.email',
+        #  emailer.sendEmails
 
         .then
           status: 201,
@@ -146,6 +150,28 @@ module.exports = (db) ->
         .catch conveyor.error
         .done()
 
+  self.release = ->
+    return (req, res) ->
+
+      schema =
+        recipient: String
+
+      # Promise chain start
+      (conveyor = new Conveyor req, res, user: req.authUser, params: req.body)
+
+        .then
+          input: 'params',
+          schema: schema,
+          util.schema
+
+        .then
+          input: 'params.recipient',
+          packages.release
+
+        # Send success or observe errors
+        .then conveyor.success
+        .catch conveyor.error
+        .done()
 
   self.listPackagesAtLocation = ->
     return (req, res) ->
@@ -198,11 +224,3 @@ module.exports = (db) ->
 
 
   return self
-
-
-
-
-
-
-
-

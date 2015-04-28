@@ -32,7 +32,9 @@ module.exports = (db) ->
       .from('packages')
       .field('packages.*')
       .field('recipients.name', 'recipientName')
+      .field('recipients.address', 'recipientAddress')
       .left_join('recipients', null, 'recipients.id = packages.recipient')
+      .order('received', no)
 
     if params.recipient
       query = query.where('recipient = ?', params.recipient)
@@ -43,10 +45,14 @@ module.exports = (db) ->
     if params.user
       query = query.where('user = ?', params.user)
 
-    if params.released
-      query = query.where('released IS NOT NULL')
-    else
-      query = query.where('released IS NULL')
+    if !_.isNull(params.released) and !_.isUndefined(params.released)
+      if params.released
+        query = query.where('released IS NOT NULL')
+      else
+        query = query.where('released IS NULL')
+
+    if params.limit
+      query = query.limit(params.limit)
 
     return db.all(query)
 
@@ -71,11 +77,19 @@ module.exports = (db) ->
     query = squel.update()
       .table('packages')
       .where('id = ?', packageObject.id)
-      .set('released = ?', released)
+      .set('released', released)
     db.query(query)
       .then ->
         packageObject.released = released
         return packageObject
+
+  self.release = (recipient) ->
+    query = squel.update()
+      .table('packages')
+      .set('released', moment().unix())
+      .where('recipient = ?', recipient)
+    console.log query.toString()
+    db.query(query).then -> yes
 
   #Deletes a package
   self.delete = (packageID) ->

@@ -61,6 +61,10 @@ module.exports = (db) ->
     .get authorize.user('any')
     .get packages.find()
 
+    # PUT
+    .put authorize.user('any')
+    .put packages.release()
+
   api.route '/packages/:date'
     .get packages.findByDate()
 
