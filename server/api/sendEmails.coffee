@@ -23,21 +23,41 @@ module.exports = (db) ->
     pass: 'dev@tranzit')
 
 # function for sending out emails
-  self.sendEmails = ->
-    
-    emails = recipients.emailsForRecipientsWithPendingPackages()
+  self.sendEmails = (email = '') ->
+   
+    # Handles sending emails to all recipients with
+    # pending packages
+    if !email
+      emails = recipients.emailsForRecipientsWithPendingPackages()
 
-    emails.then (data) ->
-      emailList = emails.toString
-      console.log emailList
+    # The idea below is to send an email to every email
+    # returned in the query above.  The issue is that
+    # I don't know how to extract each email from the
+    # returned query.  Below x should be each email
+    # in the email list if emails was simply a list
+    # of emails as strings.
 
-    mailOptions =
-      from: 'Tranzit Server <server.tranzit@gmail.com>'
-      to: 'aottinge@purdue.edu'
-      subject: 'Package Pickup'
-      html: '<b>Your package(s) is/are ready for pickup.</b>'
-    smtpTransport.sendMail mailOptions, (error, response) ->
-      if error
-        console.log error
+      for x of emails
+        mailOptions =
+          from: 'Tranzit Server <server.tranzit@gmail.com>'
+          to: x
+          subject: 'Package Pickup'
+          html: '<b>Your package(s) is/are ready for pickup.</b>'
+
+        smtpTransport.sendMail mailOptions, (error, response) ->
+          if error
+            console.log error
+    # Handles the simple case of sending an email
+    # when a new package is entered into the system
+    else
+      mailOptions =
+        from: 'Tranzit Server <server.tranzit@gmail.com>'
+        to: email
+        subject: 'Package Pickup'
+        html: '<b>Your package(s) is/are ready for pickup.</b>'
+
+      smtpTransport.sendMail mailOptions, (error, response) ->
+        if error
+          console.log error
 
   return self

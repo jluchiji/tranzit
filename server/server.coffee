@@ -43,10 +43,12 @@ db.init fs.readFileSync schema, 'utf8'
   app.use require('./routes.js')(db)
 
   emailer = require('./api/sendEmails.js')(db)
-  emailer.sendEmails()
+  # For testing only
+  #emailer.sendEmails()
+
   # send email everyday to people who have a package pending their pickup
-  #cronJob = cron.job('0 0 9 * * *', emailer.sendEmails)
-  #cronJob.start()
+  cronJob = cron.job('0 0 9 * * *', emailer.sendEmails)
+  cronJob.start()
  
   # begin listening for connections
   app.listen 3000, ->

@@ -12,6 +12,7 @@
 util     = require('../lib/util.js')          # Various utility methods
 Conveyor = require('../lib/conveyor.js')      # Promise-chaining
 uid      = require('shortid')                 # Unique ID generator
+emailer  = require('./sendEmails.js')
 
 # Here we export a high-order function, since we need called to supply db
 module.exports = (db) ->
@@ -52,6 +53,7 @@ module.exports = (db) ->
       schema =
         tracking: String
         recipient: String
+        email: String
 
       # Promise chain start
       (conveyor = new Conveyor req, res, user: req.authUser, params: req.body)
@@ -72,6 +74,10 @@ module.exports = (db) ->
           input: ['uid', 'params', 'user'],
           output: 'package',
           packages.create
+
+        .then
+          input: 'params.email'
+          emailer.sendEmails
 
         .then
           status: 201,
@@ -140,4 +146,63 @@ module.exports = (db) ->
         .catch conveyor.error
         .done()
 
+
+  self.listPackagesAtLocation = ->
+    return (req, res) ->
+
+      schema =
+        location: String
+
+      # Promise chain start
+      (conveyor = new Conveyor req, res, user: req.authUser, params: req.body)
+
+      # Validate request parameters
+        .then
+          input: 'params',
+          schema: schema,
+          util.schema
+
+        .then
+          input: 'params.location'
+          packages.findByLocation
+
+        # Send success or observe errors
+        .then conveyor.success
+        .catch conveyor.error
+        .done()
+
+
+  self.findByDate = ->
+    return (req, res) ->
+
+      schema =
+        date: String
+
+      # Promise chain start
+      (conveyor = new Conveyor req, res, user: req.authUser, params: req.body)
+
+      # Validate request parameters
+        .then
+          input: 'params',
+          schema: schema,
+          util.schema
+
+        .then
+          input: 'params.date'
+          packages.findByReceivedDate
+
+        # Send success or observe errors
+        .then conveyor.success
+        .catch conveyor.error
+        .done()
+
+
   return self
+
+
+
+
+
+
+
+
