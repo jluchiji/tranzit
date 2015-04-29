@@ -13,7 +13,7 @@ angular.module 'Tranzit.api.recipient', ['Tranzit.config']
   # Keep a reference of @ in case we need it later in nested functions
   self = @
 
-  @find = (params) ->
+  @find = (params) -> # generalized to find based on any parameters
     url = ':host/api/recipients'
 
     # HTTP call details here

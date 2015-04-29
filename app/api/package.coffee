@@ -13,7 +13,7 @@ angular.module 'Tranzit.api.package', ['Tranzit.config']
   # Keep a reference of @ in case we need it later in nested functions
   self = @
 
-  @findByRecipient = (params) ->
+  @findByRecipient = (params) -> # specifically meant for recipient id as param
     url = ':host/api/packages'
 
     # HTTP call details here
@@ -45,7 +45,7 @@ angular.module 'Tranzit.api.package', ['Tranzit.config']
     return $http(config).then (data) ->
       return data.data.result
 
-  @findByDate = (params) ->
+  @findByDate = (params) -> # unix timestamp as param
     url = ':host/api/packages'
 
     # HTTP call details here
