@@ -43,11 +43,12 @@
     
     div.criteria-bar
       .container
-        label.col.xs-2 
+        label.col.xs-2 status
         label.col.xs-3 tracking
         label.col.xs-3 recipient
-        label.col.xs-4 status
-        
+        label.col.xs-4 address
+    
+    .no-packages(ng-if = '!packages.length') no mathing packages found
     
     #result-list
       .package-entry.clearfix(ng-repeat = 'package in packages')

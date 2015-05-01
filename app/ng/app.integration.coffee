@@ -21,7 +21,7 @@ angular.module 'Tranzit.app.integration', []
 
   data =
     '1Z6089649053538738':
-      name: 'Greg Clark'
+      name: 'Grag Clerk'
       address: '1885 Hummingbird Way, Winchester, MA'
 
   self = { }

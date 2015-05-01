@@ -3,5 +3,4 @@ nav#navbar(ng-controller = 'NavbarController', ng-class = '{collapsed: !session(
     img(ck-no-drag, src = 'assets/logo.svg')
     
   ul.navbar-menu(ng-show = 'session().user()')
-    a(ui-sref = 'settings', ui-sref-active = 'current') settings
     a(ng-click = 'logout()') log out

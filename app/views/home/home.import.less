@@ -78,6 +78,12 @@
         height: 40px;
         font-size: 34px;
 
+        &:focus {
+          outline: 0;
+          outline: none;
+          box-shadow: none;
+        }
+
         span {
           position: relative;
           top: -4px;
@@ -157,6 +163,15 @@
   section#search-list {
 
     padding-top: 0;
+
+    .no-packages {
+      display: block;
+      text-align: center;
+      font-size: 24px;
+      margin: 40px;
+      font-weight: bold;
+      color: #FFF;
+    }
 
     .criteria-bar {
       .paper-shadow(1);

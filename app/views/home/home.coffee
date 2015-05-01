@@ -4,14 +4,7 @@ angular.module 'Tranzit.app.views.home', []
 
   $('#scanner > input').focus()
 
-  $scope.packages = [
-    {
-      tracking: "1Z6089649053538738"
-      recipient: "4yocgPPOf6W"
-      id: "mJs4kWo3"
-      user: "QyvFzJE3"
-    }
-  ]
+  $scope.packages = []
 
   $scope.currentRecvId = null
 
@@ -59,12 +52,12 @@ angular.module 'Tranzit.app.views.home', []
       recipient = null
       AppIntegration.getInfo($scope.scanner.value)
       .then (info) ->
-        TranzitRecipient.find(info.name, no)
+        TranzitRecipient.find(info.name, yes)
       .then (recv) ->
-        recipient = recv
+        recipient = _.map(Object.keys(recv), (i) -> recv[i])[0]s
         pkg =
           tracking: $scope.scanner.value,
-          recipient: recv.id
+          recipient: recipient.id
         AppData.createPackage(pkg)
       .success (entry) ->
         $scope.packages.unshift _.extend entry, recipientName: recipient.name, recipientAddress: recipient.address
