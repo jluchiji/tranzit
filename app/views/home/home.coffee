@@ -54,7 +54,7 @@ angular.module 'Tranzit.app.views.home', []
       .then (info) ->
         TranzitRecipient.find(info.name, yes)
       .then (recv) ->
-        recipient = _.map(Object.keys(recv), (i) -> recv[i])[0]s
+        recipient = _.map(Object.keys(recv), (i) -> recv[i])[0]
         pkg =
           tracking: $scope.scanner.value,
           recipient: recipient.id
